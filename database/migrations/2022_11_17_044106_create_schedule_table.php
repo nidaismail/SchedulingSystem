@@ -26,6 +26,7 @@ return new class () extends Migration
             $table->string('class_id');
             $table->string('location_id');
             $table->string('remarks');
+            $table->boolean('admissible')->default(false);
             $table->timestamps();
         });
         // Schema::rename('schedule', 'insertion');

@@ -27,4 +27,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home');
+Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->name('save');
+
+Auth::routes();
+
+Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
+Route::get('/admissible', [App\Http\Controllers\UserdashboardController::class, 'toggle'])->name('admissible');

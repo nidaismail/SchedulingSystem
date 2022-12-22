@@ -25,4 +25,8 @@ class Schedule extends Model
     {
         return $this->belongsTo(Grade::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

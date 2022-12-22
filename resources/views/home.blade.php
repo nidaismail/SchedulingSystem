@@ -19,7 +19,7 @@
             {{ session('status') }}
         </div>
     @endif
-    <form action="{{url('/')}}/home" method="post">
+    <form  method="POST" action="{{ route('save') }}">
         @csrf
         <div class="container px-lg-5">
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
@@ -184,23 +184,25 @@
                                                             <label for="remarks">Remarks</label>
                                                             <input type="text" name="remarks" id="" class="form-control">
                                                         </div>
-                    
+                                                        {{-- {{url('/')}}/data --}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-7 col-md-">
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <input type="submit" class="btn btn-success rounded-3 justify-content-center " name="Save">
+                                                    <div class="col-md-4 col-sm-12">
+                                                        <a href="{{ route('save') }}"> <button type="submit" class="btn btn-success rounded-3 justify-content-center">Submit
+                                                        </button></a>
+                                                        
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div  style="padding-top: 10px" class="col-md-4 col-sm-12">
                                                         <input type="reset" class="btn btn-success rounded-3 justify-content-center " name="Reset">
                                                     </div>
-                                                    {{-- <div class="col-md-4">
-                                                        <a href="{{route('preview')}}"> <button type="button" class="btn btn-success rounded-3 justify-content-center">Preview</button></a>
-                                                    </div> --}}
+                                                    <div  style="padding-top: 10px" class="col-md-4 col-sm-12">
+                                                        <a href="{{ route('viewdata') }}"> <button type="button" class="btn btn-success rounded-3 justify-content-center">Preview</button></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>                                       
@@ -209,7 +211,7 @@
                             </div>
                         </div>
     </form>
-    {{ __('You are logged in!') }}
+   
     
 </div>
 {{-- <div class="container">
