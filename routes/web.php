@@ -32,4 +32,4 @@ Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->nam
 Auth::routes();
 
 Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
-Route::get('/admissible', [App\Http\Controllers\UserdashboardController::class, 'toggle'])->name('admissible');
+Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');

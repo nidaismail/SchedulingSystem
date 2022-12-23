@@ -16,7 +16,8 @@ class UserdashboardController extends Controller
     }
     public function admissible(Request $request){
         $data = new Schedule();
-        $data->admissible = $request['toggle'];
+
+        $data->admissible = $request['schedule_id'];
     }
     //admin
     // public function preview()
@@ -27,4 +28,9 @@ class UserdashboardController extends Controller
 
     //     return view('userDashboard')->with(compact('persondata'));
     // }
+
+    // $checked_array = $request->schedule_id;
+    //foreach($persondata->id as $key){
+        //if(in-array($request->persondata[$key], $checked_array))
+    
 }

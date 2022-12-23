@@ -58,6 +58,7 @@
                             <i class="fas fa-table me-1"></i>
                             Employees Data
                         </div>
+                      
                         <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
@@ -77,6 +78,7 @@
                                 <tbody>
                                     @foreach ($persondata as $data)
                                     <tr>
+                                        
                                         <td>{{$data->date}}</td>
                                         <td>{{$data->day}}</td>
                                         <td>{{$data->time_from}}</td>
@@ -89,9 +91,10 @@
                                         <td>
                                             <!-- Default switch -->
 <div class="form-check form-switch">
- <input class="form-check-input" name="toggle" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="dotoggle(this)"/>
+ <input class="form-check-input" name="toggle" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
 </div>
+
                                           </td> 
                                     </tr>
                                     @endforeach
@@ -99,7 +102,7 @@
                             </table>
                         </div>
                     </div>
-                    <a href="{{ route('save') }}" class=" right-align"> <button  type="submit" class="btn btn-success rounded-3 justify-content-center" >Save
+                    <a href="{{ route('admissible') }}" class=" right-align"> <button  type="submit" class="btn btn-success rounded-3 justify-content-center" id="btn-save">Save
                     </button></a>
                 </div>
             </main>
@@ -117,14 +120,33 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     <script>
-         function dotoggle(checkboxElem) {
-            if(checkboxElem.checked){
-                $togglebutton = true;
-            }
-            else {
-                $togglebutton = false;
-            }
-         }
+         $(document).ready(function() {
+            $('#btn-save').on('click', function(e) {
+                e.preventDefault();
+                const schedule_id = []
+                
+                $('#flexSwitchCheckDefault').each(function() {
+                    if($(this).is(":checked")){
+                        schedule_id.push($(this).val();)
+                        alert('schedule_id');
+                    }
+                })
+
+
+                $.ajax({
+                    url: '{{ route('admissible') }}',
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        schedule_id: schedule_id
+
+                    },
+                    success:function(reponse) {
+
+                    }
+                })
+            });
+         })
 
             
     </script>
