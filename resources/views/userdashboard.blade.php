@@ -123,12 +123,13 @@
          $(document).ready(function() {
             $('#btn-save').on('click', function(e) {
                 e.preventDefault();
-                const schedule_id = []
+                const schedule_id = [];
+                const persondata_id = [];
                 
                 $('#flexSwitchCheckDefault').each(function() {
                     if($(this).is(":checked")){
                         schedule_id.push($(this).val();)
-                        alert('schedule_id');
+                        persondata_id.push($persondata->id);
                     }
                 })
 
@@ -138,7 +139,8 @@
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        schedule_id: schedule_id
+                        schedule_id: schedule_id,
+                        persondata_id: persondata_id
 
                     },
                     success:function(reponse) {

@@ -33,3 +33,4 @@ Auth::routes();
 
 Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
 Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');
+Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'admindata']);
