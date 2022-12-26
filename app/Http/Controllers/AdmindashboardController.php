@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Schedule;
+
 
 use Illuminate\Http\Request;
 
 class AdmindashboardController extends Controller
 {
-    public function admindata(){
+    public function admindata()
+    {
+        $admindata = Schedule::where('id', '>=', 1)->with(['person','activity','location'])->get();
 
-        $data['emp']=Person::all();
-       return view('admindashboard', $data);
+        // $activitydata = Schedule::where('id', '>=', 1)->with(['activity'])->get();
+
+        return view('admindashboard')->with(compact('admindata'));
     }
+
+  
 }

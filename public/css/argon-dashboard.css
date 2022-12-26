@@ -20427,7 +20427,10 @@ pre>code.highlight {
   font-size: .875rem;
 }
 .filterable {
-  margin-top: 15px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem
 }
 .filterable .panel-heading .pull-right {
   margin-top: -20px;

@@ -46,29 +46,36 @@ class HomeController extends Controller
         $end = new DateTime($request->end_date);
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
-        foreach ($period as $dt) {
-            if (in_array($dt->format('l'), $request->day)) {
-                $data = new Schedule();
-                $dt->format("Y-m-d H:i:s");
-               // $data->employee_id = $request['id'];
-                $data->date = Carbon::parse($dt);
-                $data->time_from = $request->start_time;
-                $data->time_to = $request->end_time;
-                $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
-                // this will show if the day we are looping in is selected by user or not
-                
-                $data->person_id = $request['person'];
-                $data->class_id = $request['class'];
-                $data->activity_id = $request['activity'];
-                $data->location_id = $request['location'];
-                $data->remarks = $request['remarks'];
-                // $data->created_by = $request['created_by'];
-                $data->save();
+        // if(!$request->day){
+        //     $days=[];
+        //     return redirect()->back()->with($days);
+        // }
+        // else {
+            foreach ($period as $dt) {
+                if (in_array($dt->format('l'), $request->day)) {
+                    $data = new Schedule();
+                    $dt->format("Y-m-d H:i:s");
+                   // $data->employee_id = $request['id'];
+                    $data->date = Carbon::parse($dt);
+                    $data->time_from = $request->start_time;
+                    $data->time_to = $request->end_time;
+                    $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
+                    // this will show if the day we are looping in is selected by user or not
+                    
+                    $data->person_id = $request['person'];
+                    $data->class_id = $request['class'];
+                    $data->activity_id = $request['activity'];
+                    $data->location_id = $request['location'];
+                    $data->remarks = $request['remarks'];
+                    // $data->created_by = $request['created_by'];
+                    $data->save();
+                }
             }
+           
+            return redirect()->back();
         }
-        return redirect()->back();
+        
        
-    }
     public function displayActivity(Request $request)
     {
         $data =  Schedule::where('id', '>=', 1)->with(['person'])->get()->toArray();
