@@ -17,14 +17,21 @@ class LocationSeeder extends Seeder
     {
         DB::table('location')->insert(
             [
-            ['location' => " "],
+            ['location' => "None"],
             ['location' => "Lecture Hall-1"],
             ['location' => "Lecture Hall-2"],
             ['location' => "Lecture Hall-3"],
             ['location' => "Lecture Hall-4"],
             ['location' => "Tutorial Room-1"],
             ['location' => "Tutorial Room-2"],
-            ['location' => "Tutorial Room-3"]],
+            ['location' => "Tutorial Room-3"],
+            ['location' => "General Medicine Clinic"],
+            ['location' => "Cardiology Clinic"],
+            ['location' => "Pulmonology Clinic"],
+            ['location' => "Room # 110"],
+            ['location' => "Room # 111"],
+            ['location' => "Room # 117"],
+            ],
         );
     }
 }

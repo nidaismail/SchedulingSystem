@@ -267,7 +267,9 @@ body {
   margin: 0 55px; }
 
 .form-title {
-  margin-bottom: 33px; }
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-left: 0.5rem; }
 
 .signup-image {
   margin-top: 45px; }

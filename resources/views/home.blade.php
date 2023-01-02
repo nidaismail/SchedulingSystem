@@ -40,6 +40,7 @@
                                                     <div class="col-md-6 removed" id="displayPerson">
                                                         <div class="form-group">
                                                             <select name="person" id="" class="form-control">
+                                                                <option value="" disabled selected>Select Person</option>
                                                                 @foreach($person as $per)
                                                                 <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
                                                                 @endforeach
@@ -49,6 +50,7 @@
                                                     <div class="col-md-6 removed" id="displayClass">
                                                         <div class="form-group">
                                                             <select name="class" id="" class="form-control">
+                                                                <option value="" disabled selected>Select Class</option>
                                                                 @foreach($clas as $cl)
                                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                                 @endforeach

@@ -57,6 +57,7 @@ class HomeController extends Controller
                     $dt->format("Y-m-d H:i:s");
                    // $data->employee_id = $request['id'];
                     $data->date = Carbon::parse($dt);
+                
                     $data->time_from = $request->start_time;
                     $data->time_to = $request->end_time;
                     $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user

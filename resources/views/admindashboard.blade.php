@@ -66,6 +66,7 @@ $(document).ready(function(){
         }
     });
 });
+
 </script>
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -95,8 +96,7 @@ $(document).ready(function(){
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="./images/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="./images/theme/team-1-800x800.jpg">
               </span>
             </div>
           </a>
@@ -180,7 +180,7 @@ $(document).ready(function(){
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{url('/admin')}}">Dashboard</a>
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        {{-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
@@ -189,7 +189,7 @@ $(document).ready(function(){
               <input class="form-control" placeholder="Search" type="text">
             </div>
           </div>
-        </form>
+        </form> --}}
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
@@ -309,7 +309,7 @@ $(document).ready(function(){
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
+                      <span class="h2 font-weight-bold mb-0">49%</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -336,7 +336,12 @@ $(document).ready(function(){
               <div class="row align-items-center">
                 <div class="col-md-12 text-center">
                   <h3 class="mb-0">Employee Dashboard</h3>
+                   @php
+                     $current = Today();
+                   @endphp
+                  <div class="divs"> <h3> <i class="arrow left mars"></i> {{ $current }}<i class="arrow right mars"></i> </h3> </div>
                 </div>
+                
                
                 {{-- <div class="col text-right">
                   <a href="#!" class="btn btn-sm btn-primary">See all</a>
@@ -396,15 +401,24 @@ $(document).ready(function(){
                       <tbody>
                          @foreach ($admindata as $data)
                         <tr>
-                          <td>{{$data->date}}</td>
-                          <td>{{$data->day}}</td>
-                          <td>{{$data->time_from}}</td>
-                          <td>{{$data->time_to}}</td>
-                          <td>{{$data->person->Employee_name}} </td>
-                          <td>{{$data->activity->activity_name}} </td>
-                          <td>{{$data->class->class_name}} </td>
-                          <td>{{$data->location->location}} </td>
-                          <td>{{$data->remarks}}</td>
+                          @php
+                          dd($admindata)
+                          //   $dabdate = $data->date;
+                          //  $va = $dabdate.' 00:00:00.0 UTC (+00:00)';
+                            // // $current = Today();
+                            // dd($current);
+                          @endphp
+                          @if ($va === $current)
+                            <td>{{$data->date}}</td>
+                            <td>{{$data->day}}</td>
+                            <td>{{$data->time_from}}</td>
+                            <td>{{$data->time_to}}</td>
+                            <td>{{$data->person->Employee_name}} </td>
+                            <td>{{$data->activity->activity_name}} </td>
+                            <td>{{$data->class->class_name}} </td>
+                            <td>{{$data->location->location}} </td>
+                            <td>{{$data->remarks}}</td>
+                          @endif
 
                         </tr>
                           
