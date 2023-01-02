@@ -10,7 +10,24 @@
 
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function checkBoxCheck(e) {
+                if ($('input[name="day[]"]:checked').length) {
+                    console.log("at least one checked");
+                    return true;
+                } else {
+                    
+                    $("div.showed").show();
+                    console.error("no checkbox checked");
+                    return false;
+                }   
+           }
+           $('#myform').on('submit', checkBoxCheck);
+
+</script>
 @endpush
+
 
 @section('content')
 <div class="">
@@ -19,7 +36,7 @@
             {{ session('status') }}
         </div>
     @endif
-    <form  method="POST" action="{{ route('save') }}">
+    <form id="myform" method="POST" action="{{ route('save') }}">
         @csrf
         <div class="container px-lg-5">
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
@@ -95,6 +112,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="showed">Days Not Selected</div>
                                         <div class="row justify-content-center given-mar">
                                             <div class="col-lg-7">
                                                 <div action="#" class="row">
@@ -103,7 +121,7 @@
                                                             <label for="input_from">Date From</label>
                                                             <input type="date" name="start_date" class="form-control" id="input_from"
                                                                 placeholder="Start Date">
-
+ 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -247,6 +265,7 @@
         $(document).ready(function() {
             $("div.hidden").hide();
             $("div.removed").hide();
+            $("div.showed").hide();
             $('input:radio[name="category"]').on('change', function() {
                 var divalue = $(this).val();
                 if (divalue == "") {
@@ -264,6 +283,8 @@
                     $("div.hidden").not($("#show" + divalue)).show();
                 }
             });
+            
         });
+        
     </script>
 @endprepend

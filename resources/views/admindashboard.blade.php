@@ -401,14 +401,14 @@ $(document).ready(function(){
                       <tbody>
                          @foreach ($admindata as $data)
                         <tr>
-                          @php
-                          dd($admindata)
-                          //   $dabdate = $data->date;
-                          //  $va = $dabdate.' 00:00:00.0 UTC (+00:00)';
-                            // // $current = Today();
-                            // dd($current);
-                          @endphp
-                          @if ($va === $current)
+                          {{-- @php --}}
+                          {{-- // dd($admindata)
+                          // //   $dabdate = $data->date;
+                          // //  $va = $dabdate.' 00:00:00.0 UTC (+00:00)';
+                          //   // // $current = Today(); --}}
+                          {{-- //   // dd($current);
+                          // @endphp
+                          // @if ($va === $current) --}}
                             <td>{{$data->date}}</td>
                             <td>{{$data->day}}</td>
                             <td>{{$data->time_from}}</td>
@@ -418,7 +418,7 @@ $(document).ready(function(){
                             <td>{{$data->class->class_name}} </td>
                             <td>{{$data->location->location}} </td>
                             <td>{{$data->remarks}}</td>
-                          @endif
+                          {{-- // @endif --}}
 
                         </tr>
                           
