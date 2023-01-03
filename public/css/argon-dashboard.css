@@ -13209,9 +13209,9 @@ a.text-darker:focus {
   visibility: visible !important;
 }
 
-.invisible {
+/* .invisible {
   visibility: hidden !important;
-}
+} */
 
 @media print {
 
@@ -18805,7 +18805,7 @@ article h5+figure {
 
 .datepicker .prev.disabled,
 .datepicker .next.disabled {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .datepicker .cw {

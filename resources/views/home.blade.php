@@ -12,16 +12,37 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function(){
-    var checkboxes = $('.checkboxes');
-    checkboxes.change(function(){
-        if($('.checkboxes:checked').length>0) {
-            checkboxes.removeAttr('required');
-        } else {
-            checkboxes.attr('required', 'required');
-        }
-    });
-});
+  function validate(){
+    var valid = false;
+    if(document.getElementById("dow1").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow2").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow3").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow4").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow5").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow6").checked){
+        valid = true;
+    }
+    else if(document.getElementById("dow7").checked){
+        valid = true;
+    }
+    if(valid){
+        console.log("done");
+    }
+    else{
+        alert("Please Select a Day");
+        return false;
+    }
+  }
 
 </script>
 @endpush
@@ -34,7 +55,7 @@
             {{ session('status') }}
         </div>
     @endif
-    <form id="myform" method="POST" action="{{ route('save') }}">
+    <form class="myform" method="POST" action="{{ route('save') }}" onsubmit="return validate()">
         @csrf
         <div class="container px-lg-5">
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
@@ -46,15 +67,15 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input_from">Select</label>
-                                                            <input type="radio" value="Class" name="category" class="pad">
+                                                            <input type="radio" id="id" value="Class" name="category" class="pad">
                                                             <label for="" class="cat">Class</label>
-                                                            <input type="radio" value="Person" name="category">
+                                                            <input type="radio"  id="ids" value="Person" name="category">
                                                             <label for="" class="cat">Person</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 removed" id="displayPerson">
                                                         <div class="form-group">
-                                                            <select name="person" id="" class="form-control">
+                                                            <select name="person" id="pers" class="form-control">
                                                                 <option value="" disabled selected>Select Person</option>
                                                                 @foreach($person as $per)
                                                                 <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
@@ -64,7 +85,7 @@
                                                     </div>
                                                     <div class="col-md-6 removed" id="displayClass">
                                                         <div class="form-group">
-                                                            <select name="class" id="" class="form-control">
+                                                            <select name="class" id="cls" class="form-control">
                                                                 <option value="" disabled selected>Select Class</option>
                                                                 @foreach($clas as $cl)
                                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
@@ -80,37 +101,37 @@
                                             <div class="form-group">
                                                 <div class="dowPicker">
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow1" name="day[]" value="Sunday" required>
+                                                        <input type="checkbox" id="dow1" name="day[]" value="Sunday">
                                                         <label for="dow1">Sun</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow2" name="day[]" value="Monday" required>
+                                                        <input type="checkbox" id="dow2" name="day[]" value="Monday">
                                                         <label for="dow2">Mon</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow3" name="day[]" value="Tuesday" required>
+                                                        <input type="checkbox" id="dow3" name="day[]" value="Tuesday">
                                                         <label for="dow3">Tue</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow4" name="day[]" value="Wednesday" required>
+                                                        <input type="checkbox" id="dow4" name="day[]" value="Wednesday">
                                                         <label for="dow4">Wed</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow5" name="day[]" value="Thursday" required>
+                                                        <input type="checkbox" id="dow5" name="day[]" value="Thursday">
                                                         <label for="dow5">Thur</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow6" name="day[]" value="Friday" required>
+                                                        <input type="checkbox" id="dow6" name="day[]" value="Friday">
                                                         <label for="dow6">Fri</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow7" name="day[]" value="Saturday" required>
+                                                        <input type="checkbox" id="dow7" name="day[]" value="Saturday">
                                                         <label for="dow7">Sat</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="showed">Days Not Selected</div>
+                                        
                                         <div class="row justify-content-center given-mar">
                                             <div class="col-lg-7">
                                                 <div action="#" class="row">
@@ -179,6 +200,7 @@
                                                         <div class="form-group">
                                                             <label for="person">Person</label>
                                                             <select name="person" id="" class="form-control" required>
+                                                               
                                                                 @foreach($person as $per)
                                                                 <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
                                                                 @endforeach
@@ -189,6 +211,7 @@
                                                         <div class="form-group">
                                                             <label for="class">Class</label>
                                                             <select name="class" id="" class="form-control">
+
                                                                 @foreach($clas as $cl)
                                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                                 @endforeach
@@ -208,7 +231,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-lg-7 col-md-">
                                                 <div class="row">
-                                                    <div class="col-md-4 col-sm-12">
+                                                    <div  style="padding-top: 10px" class="col-md-4 col-sm-12">
                                                         <a href="{{ route('save') }}"> <button type="submit" class="btn btn-success rounded-3 justify-content-center">Submit
                                                         </button></a>
                                                         
@@ -268,26 +291,35 @@
         $(document).ready(function() {
             $("div.hidden").hide();
             $("div.removed").hide();
-            $("div.showed").hide();
+           
             $('input:radio[name="category"]').on('change', function() {
                 var divalue = $(this).val();
                 if (divalue == "") {
                     $("div.hidden").hide();
                     $("div.removed").hide();
                 } else if (divalue == "Person") {
+                    $('#pers').prop('disabled', false);
+                    $('#cls').prop('disabled', false);
                     $("#display" + divalue).show();
-                    $("div.removed").not($("#display" + divalue)).remove();
-                    $("#show" + divalue).remove();
+                    // $("#ids").prop( "checked", false );
+                    $('#cls').prop('disabled', 'disabled');
+                    $("div.removed").not($("#display" + divalue)).hide();
+                    $("#show" + divalue).hide();
+                    $("#show" + divalue).prop('disabled', 'disabled');
                     $("div.hidden").not($("#show" + divalue)).show();
                 } else if (divalue == "Class") {
+                    $('#pers').prop('disabled', false);
+                    $('#cls').prop('disabled', false);
                     $("#display" + divalue).show();
-                    $("div.removed").not($("#display" + divalue)).remove();
-                    $("#show" + divalue).remove();
+                    // $("#id").prop( "checked", false );
+                    $('#pers').prop('disabled', 'disabled');
+                    $("div.removed").not($("#display" + divalue)).hide();
+                    $("#show" + divalue).hide();
                     $("div.hidden").not($("#show" + divalue)).show();
                 }
             });
             
         });
-        
+       
     </script>
 @endprepend

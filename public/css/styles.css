@@ -488,10 +488,10 @@ summary {
 progress {
   vertical-align: baseline;
 }
-
+/* 
 [hidden] {
   display: none !important;
-}
+} */
 
 .lead {
   font-size: 1.25rem;
@@ -8131,10 +8131,10 @@ textarea.form-control-lg {
 .visible {
   visibility: visible !important;
 }
-
+/* 
 .invisible {
   visibility: hidden !important;
-}
+} */
 
 @media (min-width: 576px) {
   .float-sm-start {
