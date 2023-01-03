@@ -339,7 +339,7 @@ $(document).ready(function(){
                    @php
                      $current = Today();
                    @endphp
-                  <div class="divs"> <h3> <i class="arrow left mars"></i> {{ $current }}<i class="arrow right mars"></i> </h3> </div>
+                  <div class="divs"> <h3> <i class="arrow left mars"></i>{{ \Carbon\Carbon::parse($current)->format('d F, Y') }}<i class="arrow right mars"></i> </h3> </div>
                 </div>
                 
                
@@ -409,7 +409,7 @@ $(document).ready(function(){
                           {{-- //   // dd($current);
                           // @endphp
                           // @if ($va === $current) --}}
-                            <td>{{$data->date}}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
                             <td>{{$data->day}}</td>
                             <td>{{$data->time_from}}</td>
                             <td>{{$data->time_to}}</td>
