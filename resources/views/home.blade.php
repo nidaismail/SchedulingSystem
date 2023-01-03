@@ -12,18 +12,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-    function checkBoxCheck(e) {
-                if ($('input[name="day[]"]:checked').length) {
-                    console.log("at least one checked");
-                    return true;
-                } else {
-                    
-                    $("div.showed").show();
-                    console.error("no checkbox checked");
-                    return false;
-                }   
-           }
-           $('#myform').on('submit', checkBoxCheck);
+    $(document).ready(function(){
+    var checkboxes = $('.checkboxes');
+    checkboxes.change(function(){
+        if($('.checkboxes:checked').length>0) {
+            checkboxes.removeAttr('required');
+        } else {
+            checkboxes.attr('required', 'required');
+        }
+    });
+});
 
 </script>
 @endpush
@@ -82,31 +80,31 @@
                                             <div class="form-group">
                                                 <div class="dowPicker">
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow1" name="day[]" value="Sunday">
+                                                        <input type="checkbox" id="dow1" name="day[]" value="Sunday" required>
                                                         <label for="dow1">Sun</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow2" name="day[]" value="Monday">
+                                                        <input type="checkbox" id="dow2" name="day[]" value="Monday" required>
                                                         <label for="dow2">Mon</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow3" name="day[]" value="Tuesday">
+                                                        <input type="checkbox" id="dow3" name="day[]" value="Tuesday" required>
                                                         <label for="dow3">Tue</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow4" name="day[]" value="Wednesday">
+                                                        <input type="checkbox" id="dow4" name="day[]" value="Wednesday" required>
                                                         <label for="dow4">Wed</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow5" name="day[]" value="Thursday">
+                                                        <input type="checkbox" id="dow5" name="day[]" value="Thursday" required>
                                                         <label for="dow5">Thur</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow6" name="day[]" value="Friday">
+                                                        <input type="checkbox" id="dow6" name="day[]" value="Friday" required>
                                                         <label for="dow6">Fri</label>
                                                     </div>
                                                     <div class="dowPickerOption">
-                                                        <input type="checkbox" id="dow7" name="day[]" value="Saturday">
+                                                        <input type="checkbox" id="dow7" name="day[]" value="Saturday" required>
                                                         <label for="dow7">Sat</label>
                                                     </div>
                                                 </div>
@@ -119,16 +117,14 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input_from">Date From</label>
-                                                            <input type="date" name="start_date" class="form-control" id="input_from"
-                                                                placeholder="Start Date">
- 
+                                                            <input type="date" name="start_date" class="form-control" id="input_from" placeholder="Start Date" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input_to">Date To</label>
                                                             <input type="date" name="end_date" class="form-control" id="input_to"
-                                                                placeholder="End Date">
+                                                                placeholder="End Date" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,13 +136,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input_from">Time From</label>
-                                                            <input type="time" step="600" name="start_time" class="form-control" id="from_time">
+                                                            <input type="time" step="600" name="start_time" class="form-control" id="from_time" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="input_to">Time To</label>
-                                                            <input type="time" step="600" name="end_time" class="form-control" id="time">
+                                                            <input type="time" step="600" name="end_time" class="form-control" id="time" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,7 +154,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="activity">Activity</label>
-                                                            <select name="activity" id="" class="form-control" id="activity">
+                                                            <select name="activity" id="" class="form-control" id="activity" required>
                                                                 @foreach($activities as $act)
                                                                 <option value='{{$act->id}}' selected="true">{{$act->activity_name}}
                                                                 </option>
@@ -169,7 +165,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="location">Location</label>
-                                                            <select name="location" id="" class="form-control">
+                                                            <select name="location" id="" class="form-control" required>
                                                                 @foreach($locations as $loc)
                                                                 <option value='{{$loc->id}}'>{{$loc->location}}</option>
                                                                 @endforeach
@@ -182,7 +178,7 @@
                                                     <div class="col-md-6 hidden" id="showPerson">
                                                         <div class="form-group">
                                                             <label for="person">Person</label>
-                                                            <select name="person" id="" class="form-control">
+                                                            <select name="person" id="" class="form-control" required>
                                                                 @foreach($person as $per)
                                                                 <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
                                                                 @endforeach
@@ -202,7 +198,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="remarks">Remarks</label>
-                                                            <input type="text" name="remarks" id="" class="form-control">
+                                                            <input type="text" name="remarks" id="" class="form-control" required>
                                                         </div>
                                                         {{-- {{url('/')}}/data --}}
                                                     </div>
@@ -225,7 +221,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                       
+                                        </div>   
+                                        {{-- <div class="row justify-content-center">
+                                            @if(Session::has('success'))
+                                                <div class="alert alert-success">
+                                                     {{ Session::get('success') }}
+                                                </div>
+                                            @endif
+                                        </div>                                     --}}
                                     </div>
                                 </div>
                             </div>
