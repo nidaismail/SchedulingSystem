@@ -92,8 +92,11 @@
                                             <td>{{$data->remarks}}</td>
                                             <td>
                                                 <!-- Default switch -->
+                                                <?php
+
+                                                $checked =  $data->admissible==1 ? 'checked="checked"' : 'nooo'?>
                                                 <div class="form-check form-switch">
-                                                    <input data-id="{{$data->id}}"
+                                                    <input data-id="{{$data->id}}" {{$checked}}
                                                         class="flexSwitchCheckDefault form-check-input" name="toggle"
                                                         type="checkbox" role="switch" class="" />
                                                     <label class="form-check-label"
@@ -138,7 +141,6 @@ $(document).ready(function() {
 
 
         $('.flexSwitchCheckDefault').each(function(el) {
-            debugger;
             if ($(this).is(":checked")) {
                 schedule_id.push($(this).attr('data-id'));
             }
