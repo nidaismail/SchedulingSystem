@@ -73,7 +73,7 @@ class HomeController extends Controller
                 }
             }
            
-            return back();
+            return redirect()->back()->with('success','Schedule added Successfully');
         }
         
        

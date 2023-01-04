@@ -43,6 +43,9 @@
         return false;
     }
   }
+  setTimeout(function() {
+    $('#successMessage').fadeOut('fast');
+}, 4000);
 
 </script>
 @endpush
@@ -245,13 +248,14 @@
                                                 </div>
                                             </div>
                                         </div>   
-                                        {{-- <div class="row justify-content-center">
-                                            @if(Session::has('success'))
+                                        <div class="row p-4 justify-content-center" id="successMessage">
+                                            @if(session()->has('success'))
                                                 <div class="alert alert-success">
-                                                     {{ Session::get('success') }}
+                                                     {{ session()->get('success') }}
                                                 </div>
                                             @endif
-                                        </div>                                     --}}
+                                           
+                                        </div>                                    
                                     </div>
                                 </div>
                             </div>
