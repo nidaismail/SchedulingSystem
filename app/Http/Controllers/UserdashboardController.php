@@ -18,6 +18,7 @@ class UserdashboardController extends Controller
     public function admissible(Request $request)
     {
         $data = Schedule::whereIn('id', $request['schedule_id'])->update(['admissible'=>1]);
+        $data = Schedule::whereNotIn('id', $request['schedule_id'])->update(['admissible'=>0]);
 
         // $data->admissible = $request['schedule_id'];
     }
