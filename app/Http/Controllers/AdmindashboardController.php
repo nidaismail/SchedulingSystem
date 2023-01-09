@@ -13,7 +13,11 @@ class AdmindashboardController extends Controller
 {
     public function admindata()
     {
-        $admindata = Schedule::where('id', '>=', 1)->with(['person','activity','location'])->get();
+        $today = Today()->toDateString();
+        $admindata = Schedule::where('date', '>=', $today)
+                            ->with(['person','activity','location'])
+                            ->orderBy('date')
+                            ->get();
 
         // $activitydata = Schedule::where('id', '>=', 1)->with(['activity'])->get();
        

@@ -17,7 +17,7 @@ class GradeSeeder extends Seeder
     {
         DB::table('grade')->insert(
             [
-            ['class_name' => " "],
+            ['class_name' => "None"],
             ['class_name' => "MBBS-1"],
             ['class_name' => "MBBS-2"],
             ['class_name' => "MBBS-3"],
@@ -28,7 +28,9 @@ class GradeSeeder extends Seeder
             ['class_name' => "BDS-3"],
             ['class_name' => "BDS-4"],
             ['class_name' => "Nursing-1"],
-            ['class_name' => "Nursing-2"]],
+            ['class_name' => "Nursing-2"],
+            ['class_name' => "Nursing-3"],
+            ['class_name' => "Nursing-4"]],
         );
     }
 }

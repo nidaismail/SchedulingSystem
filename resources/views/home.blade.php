@@ -36,6 +36,7 @@ function validate() {
         return false;
     }
 }
+//
 setTimeout(function() {
     $('#successMessage').fadeOut('fast');
 }, 4000);
@@ -133,7 +134,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_from">Date From</label>
-                                            <input type="date" name="start_date" class="form-control" id="input_from"
+                                            <input type="date" min="0" name="start_date" class="form-control" id="input_from"
                                                 placeholder="Start Date" required>
                                         </div>
                                     </div>
@@ -299,12 +300,17 @@ $(document).ready(function() {
     })
     $("div.hidden").hide();
     $("div.removed").hide();
+    // $("#display" + divalue).show();
+    //         $("div.removed").not($("#display" + divalue)).hide();
+    //         $("#show" + divalue).hide();
+    //         $("div.hidden").not($("#show" + divalue)).show();
 
     $('input:radio[name="category"]').on('change', function() {
         var divalue = $(this).val();
         if (divalue == "") {
             $("div.hidden").hide();
             $("div.removed").hide();
+            
         } else if (divalue == "Person") {
             $('#pers').prop('disabled', false);
             $('#cls').prop('disabled', false);

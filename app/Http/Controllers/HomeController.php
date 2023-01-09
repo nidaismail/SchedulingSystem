@@ -44,13 +44,10 @@ class HomeController extends Controller
     public function store(Request $request){
         $begin = new DateTime($request->start_date);
         $end = new DateTime($request->end_date);
+        $end->setTime(0,0,1);  
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
-        // if(!$request->day){
-        //     $days=[];
-        //     return redirect()->back()->with($days);
-        // }
-        // else {
+       
             foreach ($period as $dt) {
                 if (in_array($dt->format('l'), $request->day)) {
                     $data = new Schedule();
