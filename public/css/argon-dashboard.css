@@ -281,7 +281,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
+  margin-top: 1rem;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -13212,7 +13212,26 @@ a.text-darker:focus {
 /* .invisible {
   visibility: hidden !important;
 } */
-
+input[type="date"]{
+  background-color: #16A796;
+  padding: 10px;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  font-family: "Roboto Mono",monospace;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+::-webkit-calendar-picker-indicator{
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
 @media print {
 
   *,
@@ -13241,7 +13260,8 @@ a.text-darker:focus {
   }
 
   thead {
-    display: table-header-group;
+    display: table-row;
+    vertical-align: inherit;
   }
 
   tr,
@@ -18402,7 +18422,7 @@ textarea[resize="horizontal"] {
 
 .table td,
 .table th {
-  font-size: 0.8125rem;
+  font-size: 0.7125rem;
   white-space: nowrap;
 }
 

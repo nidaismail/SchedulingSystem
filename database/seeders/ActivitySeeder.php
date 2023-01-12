@@ -31,7 +31,7 @@ class ActivitySeeder extends Seeder
             ['activity_name' => "24-H Call Duty","activity_description"=>""],
             ['activity_name' => "32-H Call Duty","activity_description"=>""],
             ['activity_name' => "Workshop/Training","activity_description"=>""],
-            ['activity_name' => "Office Activities","activity_description"=>""],
+            ['activity_name' => "Office","activity_description"=>""],
             ['activity_name' => "ICU/ER","activity_description"=>""],
             ['activity_name' => "None","activity_description"=>""]],
         );

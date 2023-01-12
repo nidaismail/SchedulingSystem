@@ -65,7 +65,7 @@ setTimeout(function() {
                                             <label for="input_from">Select</label>
                                             <input type="radio" id="id" value="Class" name="category" class="pad">
                                             <label for="" class="cat">Class</label>
-                                            <input type="radio" id="ids" value="Person" name="category">
+                                            <input type="radio" id="ids" value="Person" name="category" checked="checked">
                                             <label for="" class="cat">Person</label>
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@ setTimeout(function() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 removed" id="displayClass">
+                                    <div class="col-md-6 removedClass" id="displayClass">
                                         <div class="form-group">
                                             <select name="class" id="cls" class="form-control class-input">
                                                 <option value="" disabled selected>Select Class</option>
@@ -206,7 +206,7 @@ setTimeout(function() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 hidden" id="showClass">
+                                    <div class="col-md-6 hiddenClass" id="showClass">
                                         <div class="form-group">
                                             <label for="class">Class</label>
                                             <select name="class" id="cls2" class="form-control class-input">
@@ -299,7 +299,7 @@ $(document).ready(function() {
         $('.class-input').val($(this).val())
     })
     $("div.hidden").hide();
-    $("div.removed").hide();
+    $("div.removedClass").hide();
     // $("#display" + divalue).show();
     //         $("div.removed").not($("#display" + divalue)).hide();
     //         $("#show" + divalue).hide();
@@ -317,10 +317,10 @@ $(document).ready(function() {
             $("#display" + divalue).show();
             // $("#ids").prop( "checked", false );
             $('#cls').prop('disabled', 'disabled');
-            $("div.removed").not($("#display" + divalue)).hide();
+            $("div.removedClass").not($("#display" + divalue)).hide();
             $("#show" + divalue).hide();
             $("#show" + divalue).prop('disabled', 'disabled');
-            $("div.hidden").not($("#show" + divalue)).show();
+            $("div.hiddenClass").not($("#show" + divalue)).show();
         } else if (divalue == "Class") {
             $('#pers').prop('disabled', false);
             $('#cls').prop('disabled', false);

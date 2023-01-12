@@ -25,6 +25,9 @@
 Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
 */
 $(document).ready(function(){
+        
+   
+
     $('.filterable .btn-filter').click(function(){
         var $panel = $(this).parents('.filterable'),
         $filters = $panel.find('.filters input'),
@@ -237,7 +240,7 @@ $(document).ready(function(){
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
-        <div class="header-body">
+        {{-- <div class="header-body">
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-3 col-lg-6">
@@ -325,7 +328,7 @@ $(document).ready(function(){
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
     <div class="container-fluid mt--7">   
@@ -335,43 +338,21 @@ $(document).ready(function(){
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-md-12 text-center">
-                  <h3 class="mb-0">Employee Dashboard</h3>
-                   @php
+                   {{-- @php
                      $current = Today();
-                   @endphp
-                  <div class="divs"> <h3> <i class="arrow left mars"></i>{{ \Carbon\Carbon::parse($current)->format('d F, Y') }}<i class="arrow right mars"></i> </h3> </div>
-                </div>
-                
-               
-                {{-- <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div> --}}
-              </div>
-            </div>
-            {{-- <div class="row">
-              <div class="col-md-2"></div>
-
-              <div class="col-md-2">
-                
-              </div>
-              <div class="col-md-2">
-                <div class="dropdown">
-                  <button class="btn btn-secondary btn-filter dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-filter"></span> Departments
-                  </button>
-                  <div class=" filters dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">IT</a>
-                    <a class="dropdown-item" href="#">Student Affairs</a>
-                    <a class="dropdown-item" href="#">Exam</a>
+                   @endphp --}}
+                   {{-- <i class="arrow left mars"></i>
+                   <a href="{{ URL::route('next'); }}"><i class="arrow right mars" ></i></a> --}}
+                  {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($current)->format('d F, Y') }} </h3> </div> --}}
+                  <div class="divs">
+                    <input type="date" name="userdate" value="<?=date('Y-m-d')?>">
                   </div>
                 </div>
               </div>
-            </div> --}}
+            </div>
+            
             
             <div class="row ">
-              {{-- <div class="col-md-1">  
-              
-              </div> --}}
               <div class="col-md-12">
               <div class="panel panel-primary filterable">
                   <div class="panel-heading">
@@ -480,6 +461,9 @@ $(document).ready(function(){
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+//       function previous() {
+//      alert("previous");
+// }
   </script>
 </body>
 

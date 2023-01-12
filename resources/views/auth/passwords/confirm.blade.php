@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" type="text/css"  href="css/app.css">
+    {{-- <link rel="stylesheet" href="css/styles.css"> --}}
+@endpush
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
