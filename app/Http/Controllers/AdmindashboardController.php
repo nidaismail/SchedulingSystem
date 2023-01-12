@@ -29,11 +29,13 @@ class AdmindashboardController extends Controller
 
     // }
     public function dataWithdate(Request $request){
-          $currentdate = Carbon::parse($request['userdate']);
+          $currentdate =  Carbon::parse($request['userdate'])->format('Y-m-d');
+        
           $admindata = Schedule::where('date', '=', $currentdate)
                                 ->with(['person','activity','location'])
                                 ->orderBy('date')
                                 ->get();
+
         return view('admindashboard')->with(compact('admindata'));
     
     }
