@@ -26,7 +26,9 @@ Please consider that the JS part isn't production ready at all, I just code it t
 */
 $(document).ready(function(){
         
-   
+  $('input[type=date]').change(function () {
+    this.form.submit();
+});
 
     $('.filterable .btn-filter').click(function(){
         var $panel = $(this).parents('.filterable'),
@@ -163,8 +165,8 @@ $(document).ready(function(){
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/login')}}">
-              <i class="ni ni-key-25 text-info"></i> 
+            <a class="nav-link" href="{{url('/')}}">
+              <i class="ni ni-key-25 text-info"></i> Home 
             </a>
           </li>
           <li class="nav-item">
@@ -345,7 +347,10 @@ $(document).ready(function(){
                    <a href="{{ URL::route('next'); }}"><i class="arrow right mars" ></i></a> --}}
                   {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($current)->format('d F, Y') }} </h3> </div> --}}
                   <div class="divs">
-                    <input type="date" name="userdate" value="<?=date('Y-m-d')?>">
+                    <form action="" method="GET">
+                    <input type="date" name="userdate"  value="<?=date('Y-m-d')?>">
+                    
+                  </form>
                   </div>
                 </div>
               </div>
