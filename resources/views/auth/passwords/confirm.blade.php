@@ -2,6 +2,7 @@
 
 @push('styles')
     <link rel="stylesheet" type="text/css"  href="css/app.css">
+    <link href="images/favicon.png" rel="icon" type="image/png"> 
     {{-- <link rel="stylesheet" href="css/styles.css"> --}}
 @endpush
 @section('content')

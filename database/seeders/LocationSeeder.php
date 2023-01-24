@@ -17,7 +17,7 @@ class LocationSeeder extends Seeder
     {
         DB::table('location')->insert(
             [
-            ['location' => "None"],
+            ['location' => "Others"],
             ['location' => "Lecture Hall-1 (IMDC)"],
             ['location' => "Lecture Hall-2 (IMDC)"],
             ['location' => "Lecture Hall-3 (IMDC)"],
@@ -39,6 +39,9 @@ class LocationSeeder extends Seeder
             ['location' => "Plastic Surgery Clinic"],
             ['location' => "Oncology Clinic"],
             ['location' => "Psychology Clinic"],
+            ['location' => "Dental Clinic"],
+            ['location' => "Paediatric Surgery Clinic"],
+            ['location' => "Paediatrics Clinic l"],
             ['location' => "Paediatrics Clinic ll"],
             ['location' => "Obstetrics & Gynaecology Clinic l"],
             ['location' => "Obstetrics & Gynaecology Clinic ll"],
@@ -54,10 +57,11 @@ class LocationSeeder extends Seeder
             ['location' => "Eye CME Room (MLT)"],
             ['location' => "Office"],
             ['location' => "Outside Organization"],
-            ['location' => "Room # 110"],
-            ['location' => "Room # 111"],
-            ['location' => "Room # 117"],
+            // ['location' => "Room # 110"],
+            // ['location' => "Room # 111"],
+            // ['location' => "Room # 117"],
             ],
         );
+        
     }
 }

@@ -5,36 +5,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
-        Dashboard
+      Dashboard
     </title>
+    
     <!-- Favicon -->
-    <link href="./images/brand/favicon.png" rel="icon" type="image/png">
+    <link href="./images/favicon.png" rel="icon" type="image/png"> 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- Icons -->
     <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
     <link href="./css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    
     {{-- {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 </head>
 <script>
 /*
 Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
 */
-<<<<<<< HEAD
-$(document).ready(function(){
-        
+
+
+
+$(document).ready(function() {
+
   $('input[type=date]').change(function () {
     this.form.submit();
-});
-=======
-$(document).ready(function() {
->>>>>>> 02901e9375485fd376b942d9e7c608a45a5ed9f6
-
-
+  });
 
     $('.filterable .btn-filter').click(function() {
         var $panel = $(this).parents('.filterable'),
@@ -89,12 +92,12 @@ $(document).ready(function() {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Brand -->
-            <a class="navbar-brand pt-0" href="https://www.anth.pk/">
-                <img src="./images/brand/CIRS.PNG" class="navbar-brand-img" alt="...">
+            <a class="navbar-brand pt-0" href="https://www.anth.pk/" target="_blank" >
+                <img src="./images/brand/CIRS.png" class="navbar-brand-img" alt="...">
             </a>
             <!-- User -->
             <ul class="nav align-items-center d-md-none">
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <i class="ni ni-bell-55"></i>
@@ -106,7 +109,7 @@ $(document).ready(function() {
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -150,8 +153,8 @@ $(document).ready(function() {
                 <div class="navbar-collapse-header d-md-none">
                     <div class="row">
                         <div class="col-6 collapse-brand">
-                            <a href="./index.html">
-                                <img src="./images/brand/blue.png">
+                            <a href="https://www.anth.pk/" target="_blank">
+                                <img src="./images/brand/CIRS.png">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -166,7 +169,7 @@ $(document).ready(function() {
                 </div>
                 <!-- Form -->
                 <form class="mt-4 mb-3 d-md-none">
-                    <div class="input-group input-group-rounded input-group-merge">
+                    {{-- <div class="input-group input-group-rounded input-group-merge">
                         <input type="search" class="form-control form-control-rounded form-control-prepended"
                             placeholder="Search" aria-label="Search">
                         <div class="input-group-prepend">
@@ -174,13 +177,13 @@ $(document).ready(function() {
                                 <span class="fa fa-search"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </form>
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/login')}}">
-                            <i class="ni ni-key-25 text-info"></i>
+                        <a class="nav-link" href="{{url('/')}}" target="_blank">
+                            <i class="ni ni-key-25 text-info"></i> Home
                         </a>
                     </li>
                     <li class="nav-item">
@@ -191,43 +194,8 @@ $(document).ready(function() {
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
-        <!-- Form -->
-        <form class="mt-4 mb-3 d-md-none">
-          <div class="input-group input-group-rounded input-group-merge">
-            <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <span class="fa fa-search"></span>
-              </div>
-            </div>
-          </div>
-        </form>
-        <!-- Navigation -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{{url('/')}}">
-              <i class="ni ni-key-25 text-info"></i> Home 
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="{{url('/admin')}}">
-              <i class="ni ni-single-02 text-yellow"></i> Dashboard
-            </a>
-          </li> 
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-      <div class="container-fluid">
-        <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{url('/admin')}}">Dashboard</a>
-        <!-- Form -->
-        {{-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-=======
+
+
     </nav>
     <div class="main-content">
         <!-- Navbar -->
@@ -258,7 +226,7 @@ $(document).ready(function() {
                                     <img alt="Image placeholder" src="./images/theme/team-4-800x800.jpg">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Yair Niazi</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">Yasir Niazi</span>
                                 </div>
                             </div>
                         </a>
@@ -397,46 +365,8 @@ $(document).ready(function() {
                                     {{-- @php
                      $current = Today();
                    @endphp --}}
-<<<<<<< HEAD
-                   {{-- <i class="arrow left mars"></i>
-                   <a href="{{ URL::route('next'); }}"><i class="arrow right mars" ></i></a> --}}
-                  {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($current)->format('d F, Y') }} </h3> </div> --}}
-                  <div class="divs">
-                    <form action="" method="GET">
-                    <input type="date" name="userdate"  value="<?=date('Y-m-d')?>">
-                    
-                  </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            
-            <div class="row ">
-              <div class="col-md-12">
-              <div class="panel panel-primary filterable">
-                  <div class="panel-heading">
-                  
-                    
-                  <div class="col pull-right text-right">
-                      <button class="btn btn-primary btn-sm btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                   </div>
-                     <h3 class="mb-10 panel-title"></h3>
-                      
-                  </div>
-                  <table class=" table table-bordered table-responsive">
-                      <thead>
-                          <tr class="filters">
-                             <th><input type="text" class="form-control" placeholder="Date" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Day" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Time From" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Time To" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Person" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Activity" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Class" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Location" disabled></th>
-                              <th><input type="text" class="form-control" placeholder="Remarks" disabled></th>
-=======
+
+
                                     {{-- <i class="arrow left mars"></i>
                    <a href="{{ URL::route('next'); }}"><i class="arrow right mars"></i></a> --}}
                                     {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($currentdate)->format('d F, Y') }}
@@ -450,65 +380,46 @@ $(document).ready(function() {
                             </div>
                         </div>
                     </div>
->>>>>>> 02901e9375485fd376b942d9e7c608a45a5ed9f6
+
 
 
                     <div class="row ">
                         <div class="col-md-12">
                             <div class="panel panel-primary filterable">
                                 <div class="panel-heading">
-
-
                                     <div class="col pull-right text-right">
                                         <button class="btn btn-primary btn-sm btn-filter"><span
                                                 class="glyphicon glyphicon-filter"></span> Filter</button>
                                     </div>
                                     <h3 class="mb-10 panel-title"></h3>
-
                                 </div>
-                                <table class=" table table-bordered table-responsive">
+                                
+                                <table  class=" table table-bordered table-responsive">
                                     <thead>
                                         <tr class="filters">
-                                            <th><input type="text" class="form-control" placeholder="Date" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Day" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Time From"
-                                                    disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Time To" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Person" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Activity" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Class" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Location" disabled>
-                                            </th>
-                                            <th><input type="text" class="form-control" placeholder="Remarks" disabled>
-                                            </th>
-
+                                            {{-- <th><input type="text" class="form-control" placeholder="Date" disabled></th> --}}
+                                            <th><b><input type="text" class="form-control" placeholder="Day" disabled></b></th>
+                                            <th><input type="text" class="form-control" placeholder="Time From"disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Time To" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Person" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Activity" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Class" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Location" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="Remarks" disabled></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($admindata as $data)
                                         <tr>
-                                            {{--                       
-                          $dabdate = $data->date;
-                          $va = $dabdate.' 00:00:00.0 UTC (+00:00)';
-                          $current = Today();  --}}
-
-
-                                            {{-- @if ($va === $current)  --}}
-                                            <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
+                                            {{-- <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td> --}}
                                             <td>{{$data->day}}</td>
-                                            <td>{{$data->time_from}}</td>
-                                            <td>{{$data->time_to}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
                                             <td>{{$data->person->Employee_name}} </td>
                                             <td>{{$data->activity->activity_name}} </td>
                                             <td>{{$data->class->class_name}} </td>
                                             <td>{{$data->location->location}} </td>
                                             <td>{{$data->remarks}}</td>
-
 
                                         </tr>
 
@@ -516,7 +427,9 @@ $(document).ready(function() {
 
 
                                     </tbody>
+
                                 </table>
+                               
                             </div>
                             {{-- <div class="col-md-1"></div>
           </div> --}}
@@ -570,6 +483,7 @@ $(document).ready(function() {
         $('#filter_date').change(function() {
             $('#filter_form').submit();
         })
+       
     })
     window.TrackJS &&
         TrackJS.install({

@@ -17,7 +17,7 @@ class GradeSeeder extends Seeder
     {
         DB::table('grade')->insert(
             [
-            ['class_name' => "None"],
+            ['class_name' => "Others"],
             ['class_name' => "MBBS-1"],
             ['class_name' => "MBBS-2"],
             ['class_name' => "MBBS-3"],

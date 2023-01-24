@@ -4,6 +4,7 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="css/dashboardstyles.css" rel="stylesheet" />
+<link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
 
 @push('scripts')
@@ -81,10 +82,10 @@
                                         @foreach ($persondata as $data)
                                         <tr>
 
-                                            <td>{{$data->date}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
                                             <td>{{$data->day}}</td>
-                                            <td>{{$data->time_from}}</td>
-                                            <td>{{$data->time_to}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
                                             <td>{{$data->person->Employee_name}} </td>
                                             <td>{{$data->activity->activity_name}} </td>
                                             <td>{{$data->class->class_name}} </td>

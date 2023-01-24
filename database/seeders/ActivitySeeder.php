@@ -33,7 +33,7 @@ class ActivitySeeder extends Seeder
             ['activity_name' => "Workshop/Training","activity_description"=>""],
             ['activity_name' => "Office","activity_description"=>""],
             ['activity_name' => "ICU/ER","activity_description"=>""],
-            ['activity_name' => "None","activity_description"=>""]],
+            ['activity_name' => "Others","activity_description"=>""]],
         );
     }
 }

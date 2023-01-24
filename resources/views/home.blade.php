@@ -6,12 +6,16 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/alert.css">
+<link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
 
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
 <script>
+   
 function validate() {
     var valid = false;
     if (document.getElementById("dow1").checked) {
@@ -32,14 +36,17 @@ function validate() {
     if (valid) {
         console.log("done");
     } else {
-        alert("Please Select a Day");
+        document.getElementById("alert").style.display = "block";
         return false;
     }
 }
-//
+
+
 setTimeout(function() {
     $('#successMessage').fadeOut('fast');
 }, 4000);
+// $('#alert').fadeOut('fast');
+// }, 4000);
 </script>
 @endpush
 
@@ -48,6 +55,7 @@ setTimeout(function() {
 <div class="">
     @if (session('status'))
     <div class="alert alert-success" role="alert">
+        
         {{ session('status') }}
     </div>
     @endif
@@ -57,6 +65,19 @@ setTimeout(function() {
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                 <div class="content">
                     <div class="container text-left">
+                        <div class="row p-4 justify-content-center" id="successMessage">
+                            @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                <i class="fa fa-check-circle"></i>
+                                {{ session()->get('success') }}
+                            </div>
+                            @endif
+
+                        </div>
+                        <div  id="alert" class="error-msg" role="alert">
+                            <i class="fa fa-times-circle"></i>
+                            Please Select a Day.
+                          </div>
                         <div class="row justify-content-center given-mar">
                             <div class="col-lg-7">
                                 <div class="row">
@@ -82,7 +103,7 @@ setTimeout(function() {
                                     <div class="col-md-6 removedClass" id="displayClass">
                                         <div class="form-group">
                                             <select name="class" id="cls" class="form-control class-input">
-                                                <option value="" disabled selected>Select Class</option>
+                                                <option value="" disabled selected>Select  Class</option>
                                                 @foreach($clas as $cl)
                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                 @endforeach
@@ -134,15 +155,20 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_from">Date From</label>
-                                            <input type="date" min="0" name="start_date" class="form-control" id="input_from"
-                                                placeholder="Start Date" required>
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" min="0" name="start_date" class="form-control" id="input_from"
+                                            placeholder="" required value="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
+                                    {{-- @php
+                                    $today = \Carbon\Carbon::now(); //Current Date and Time
+                                   $lastDayofMonth =    \Carbon\Carbon::parse($today)->endOfMonth()->toDateString();
+                                   dd($lastDayofMonth);
+                                   @endphp --}}
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Date To</label>
-                                            <input type="date" name="end_date" class="form-control" id="input_to"
-                                                placeholder="End Date" required>
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="DateTo"
+                                                placeholder="End Date" required value="<?php echo date('Y-m-t', strtotime('0 months')); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -155,13 +181,13 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="input_from">Time From</label>
                                             <input type="time" step="600" name="start_time" class="form-control"
-                                                id="from_time" required>
+                                                id="from_time" value = "08:00" required >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Time To</label>
-                                            <input type="time" step="600" name="end_time" class="form-control" id="time"
+                                            <input type="time" step="600" name="end_time" class="form-control" id="time" value = "16:00"
                                                 required>
                                         </div>
                                     </div>
@@ -175,9 +201,10 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="activity">Activity</label>
                                             <select name="activity" id="" class="form-control" id="activity" required>
+                                                <option value="" disabled selected>Select Activity</option>
                                                 @foreach($activities as $act)
-                                                <option value='{{$act->id}}' selected="true">{{$act->activity_name}}
-                                                </option>
+                                                <option value='{{$act->id}}'>{{$act->activity_name}}</option>
+                                                
                                                 @endforeach
                                             </select>
                                         </div>
@@ -186,6 +213,7 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="location">Location</label>
                                             <select name="location" id="" class="form-control" required>
+                                                <option value="" disabled selected>Select Location</option>
                                                 @foreach($locations as $loc)
                                                 <option value='{{$loc->id}}'>{{$loc->location}}</option>
                                                 @endforeach
@@ -198,8 +226,8 @@ setTimeout(function() {
                                     <div class="col-md-6 hidden" id="showPerson">
                                         <div class="form-group">
                                             <label for="person">Person</label>
-                                            <select name="person" id="" class="form-control person-input" required>
-
+                                            <select name="person" id="pers2" class="form-control person-input">
+                                                <option value="" disabled selected>Select Person</option>
                                                 @foreach($person as $per)
                                                 <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
                                                 @endforeach
@@ -210,7 +238,7 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="class">Class</label>
                                             <select name="class" id="cls2" class="form-control class-input">
-
+                                                <option value="" disabled selected>Select  Class</option>
                                                 @foreach($clas as $cl)
                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                 @endforeach
@@ -247,14 +275,7 @@ setTimeout(function() {
                                 </div>
                             </div>
                         </div>
-                        <div class="row p-4 justify-content-center" id="successMessage">
-                            @if(session()->has('success'))
-                            <div class="alert alert-success">
-                                {{ session()->get('success') }}
-                            </div>
-                            @endif
-
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -283,6 +304,7 @@ setTimeout(function() {
 </div>
 </div> --}}
 @endsection
+
 @prepend('scripts')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
@@ -292,6 +314,7 @@ setTimeout(function() {
 <script src="js/main.js"></script>
 <script>
 $(document).ready(function() {
+ 
     $('.person-input').change(function() {
         $('.person-input').val($(this).val())
     })
@@ -300,6 +323,10 @@ $(document).ready(function() {
     })
     $("div.hidden").hide();
     $("div.removedClass").hide();
+    $('#pers').prop('required', true);
+    $('#cls').prop('required', false);
+    $('#pers2').prop('required', false);
+    $('#cls2').prop('required', true);
     // $("#display" + divalue).show();
     //         $("div.removed").not($("#display" + divalue)).hide();
     //         $("#show" + divalue).hide();
@@ -315,6 +342,11 @@ $(document).ready(function() {
             $('#pers').prop('disabled', false);
             $('#cls').prop('disabled', false);
             $("#display" + divalue).show();
+            $('#pers').prop('required', true);
+            $('#cls').prop('required', false);
+            $('#pers2').prop('required', false);
+            $('#cls2').prop('required', true);
+
             // $("#ids").prop( "checked", false );
             $('#cls').prop('disabled', 'disabled');
             $("div.removedClass").not($("#display" + divalue)).hide();
@@ -324,6 +356,10 @@ $(document).ready(function() {
         } else if (divalue == "Class") {
             $('#pers').prop('disabled', false);
             $('#cls').prop('disabled', false);
+            $('#cls').prop('required', true);
+            $('#pers').prop('required', false);
+            $('#pers2').prop('required', true);
+            $('#cls2').prop('required', false);
             $("#display" + divalue).show();
             // $("#id").prop( "checked", false );
             $('#pers').prop('disabled', 'disabled');
@@ -332,6 +368,13 @@ $(document).ready(function() {
             $("div.hidden").not($("#show" + divalue)).show();
         }
     });
+    $("input").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "YYYY-MM-DD")
+        .format( this.getAttribute("data-date-format") )
+    )
+}).trigger("change")
 
 });
 </script>

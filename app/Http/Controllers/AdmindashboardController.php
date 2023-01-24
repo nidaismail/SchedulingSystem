@@ -34,6 +34,7 @@ class AdmindashboardController extends Controller
 
 
         $admindata = Schedule::where('date', '=', $currentdate)
+                              ->where('admissible', '=', 0)
                               ->with(['person','activity','location'])
                               ->orderBy('date')
                               ->get();

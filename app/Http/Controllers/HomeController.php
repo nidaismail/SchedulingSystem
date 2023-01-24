@@ -32,14 +32,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $activities = Activity::all(); 
-        $locations = Location::all();
-        $clas = Grade::all();
-        $person = Person::all();
+        $activities = Activity::all()->sortBy(function ($activities) {
+            return $activities->activity_name;
+        }); 
+        $locations = Location::all()->sortBy(function ($locations) {
+            return $locations->location;
+        });
+        $clas = Grade::all()->sortBy(function ($clas) {
+            return $clas->class_name;
+        });;
+        $person = Person::all()->sortBy(function ($person) {
+            return $person->Employee_name;
+        });;
         return view('home')->with('activities', $activities)
             ->with('locations', $locations)
             ->with('clas', $clas)
-            ->with('person', $person);
+            ->with('person', $person) ;
+            
+        
     }
     public function store(Request $request){
         $begin = new DateTime($request->start_date);
