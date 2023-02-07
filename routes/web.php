@@ -31,8 +31,15 @@ Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->nam
 
 Auth::routes();
 
+Route::post('/locationCheck', [App\Http\Controllers\HomeController::class, 'check'])->name('locationCheck');
+
+Auth::routes();
+
 Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
+
 Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');
+
+Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate']);
+
 //Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'admindata']);
 // Route::get('/next', [App\Http\Controllers\AdmindashboardController::class, 'nextdata'])->name('next');
-Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate']);

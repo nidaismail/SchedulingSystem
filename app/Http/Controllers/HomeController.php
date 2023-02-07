@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Grade;
@@ -9,9 +8,8 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use App\Models\Activity;
-
+use DB;
 use App\Models\Location;
-
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -47,9 +45,7 @@ class HomeController extends Controller
         return view('home')->with('activities', $activities)
             ->with('locations', $locations)
             ->with('clas', $clas)
-            ->with('person', $person) ;
-            
-        
+            ->with('person', $person);
     }
     public function store(Request $request){
         $begin = new DateTime($request->start_date);
@@ -57,19 +53,16 @@ class HomeController extends Controller
         $end->setTime(0,0,1);  
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
-       
             foreach ($period as $dt) {
                 if (in_array($dt->format('l'), $request->day)) {
                     $data = new Schedule();
                     $dt->format("Y-m-d H:i:s");
                    // $data->employee_id = $request['id'];
                     $data->date = Carbon::parse($dt);
-                
                     $data->time_from = $request->start_time;
                     $data->time_to = $request->end_time;
                     $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
                     // this will show if the day we are looping in is selected by user or not
-                    
                     $data->person_id = $request['person'];
                     $data->class_id = $request['class'];
                     $data->activity_id = $request['activity'];
@@ -79,11 +72,34 @@ class HomeController extends Controller
                     $data->save();
                 }
             }
+            // $location_id = $request['location'];
+            // $date = $dt;
+            // $time_from = $request->start_time; 
+            // $existingRecord = DB::table('Schedule')
+            // ->where('location_id', $location_id)
+            // ->whereDate('date', $date)
+            // ->whereTime('time_from', $time_from)
+            // ->first();
            
             return redirect()->back()->with('success','Schedule added Successfully');
         }
         
-       
+    public function check(Request $request)
+    {
+        $selectedValue = $request->location_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+        $timeFrom= $request->timeFrom;
+        $timeTo= $request->timeTo;
+        $existingrecod = DB::table('Schedule')
+                                 ->where('location_id',[$selectedValue])
+                                 ->whereBetween('date', [$dateFrom, $dateTo])
+                                 ->where('time_from',[$timeFrom])
+                                 ->where('time_to',[$timeTo])
+                                 ->get();
+        return response()->json(['success' => true]);
+    
+    }
     public function displayActivity(Request $request)
     {
         $data =  Schedule::where('id', '>=', 1)->with(['person'])->get()->toArray();

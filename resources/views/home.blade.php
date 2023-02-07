@@ -47,6 +47,34 @@ setTimeout(function() {
 }, 4000);
 // $('#alert').fadeOut('fast');
 // }, 4000);
+$('#selected_Location').on('change', function() {
+    var selectedValue = $(this).val();
+    var dateFrom = $('#input_from').val();
+    var dateTo = $('#input_to').val();
+    var timeFrom = $('#from_time').val();
+    var timeTo = $('#to_time').val();
+    alert(timeFrom);
+    $.ajax({
+        url: "{{ route('locationCheck') }}",
+        type: 'POST',
+        data: {
+               'location_id': selectedValue,
+               'dateFrom': dateFrom,
+               'dateTo': dateTo,
+               'timeFrom': timeFrom,
+               'timeTo': timeTo
+            },
+        success: function(response) {
+            if(response == 'exists') {
+                $('#selected_Location').tooltip({
+                    content: "This Location is already booked on this Date and Time",
+                    position: {my: "center top", at: "center bottom"}
+                    console.log(you are here);
+                });
+            }
+        }
+    });
+    });
 </script>
 @endpush
 
@@ -167,7 +195,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Date To</label>
-                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="DateTo"
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="input_to"
                                                 placeholder="End Date" required value="<?php echo date('Y-m-t', strtotime('0 months')); ?>">
                                         </div>
                                     </div>
@@ -187,7 +215,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Time To</label>
-                                            <input type="time" step="600" name="end_time" class="form-control" id="time" value = "16:00"
+                                            <input type="time" step="600" name="end_time" class="form-control" id="to_time" value = "16:00"
                                                 required>
                                         </div>
                                     </div>
@@ -212,7 +240,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="location">Location</label>
-                                            <select name="location" id="" class="form-control" required>
+                                            <select name="location" id="selected_Location" class="form-control" required>
                                                 <option value="" disabled selected>Select Location</option>
                                                 @foreach($locations as $loc)
                                                 <option value='{{$loc->id}}'>{{$loc->location}}</option>
@@ -368,6 +396,7 @@ $(document).ready(function() {
             $("div.hidden").not($("#show" + divalue)).show();
         }
     });
+
     $("input").on("change", function() {
     this.setAttribute(
         "data-date",
@@ -376,6 +405,47 @@ $(document).ready(function() {
     )
 }).trigger("change")
 
+
+
 });
 </script>
 @endprepend
+{{-- $(document).ready(function() {
+    $("#myform").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                remote: {
+                    url: '/check-email',
+                    type: 'post',
+                    data: {
+                        email: function() {
+                            return $('#email').val();
+                        }
+                    }
+                }
+            },
+            // other form fields and validation rules
+        },
+        messages: {
+            email: {
+                remote: "Email already exists"
+            },
+            // other error messages
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+// app/Http/Controllers/CheckEmailController.php
+class CheckEmailController extends Controller
+{
+    public function check(Request $request)
+    {
+        $email = $request->input('email');
+        $exists = YourModel::where('email', $email)->exists();
+        return response()->json(['valid' => !$exists]);
+    }
+} --}}
