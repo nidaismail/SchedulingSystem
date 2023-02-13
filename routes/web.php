@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/get-user-details/{id}', [App\Http\Controllers\LoginController::class, 'getUserDetails']);
+Route::get('/get-user-details/{userID}', [App\Http\Controllers\Auth\LoginController::class, 'getUserDetails']);
 
 Auth::routes();
 

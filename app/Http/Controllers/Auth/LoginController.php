@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
+use Psy\Command\WhereamiCommand;
 
 class LoginController extends Controller
 {
@@ -44,8 +45,13 @@ class LoginController extends Controller
     }
     public function getUserDetails($id)
     {
-        $user = User::find($id);
-
+    //    $records = User::all();
+    //    $userID = $records->pluck('userID');
+       // $user = User::find($id);
+        $user = User::where('userID', '=', $id);
+        
+    //    dd($id); this is the inputted ID
         return response()->json($user);
+        
     }
 }

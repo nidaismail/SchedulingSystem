@@ -10,8 +10,8 @@
 <script>
     $(document).ready(function() {
         $('#userID').on('change', function() {
-            alert('hallo');
             var id = $(this).val();
+          
             if (id) {
                 $.ajax({
                     type: "GET",
