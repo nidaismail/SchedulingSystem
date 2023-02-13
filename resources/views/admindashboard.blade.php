@@ -375,7 +375,7 @@ $(document).ready(function() {
                                 <div class="divs">
                                     <form method="GET" id="filter_form">
                                         <input type="date" id="filter_date" name="userdate" value="<?=$currentdate?>">
-                                        <label>{{$day}}</label>
+                                        {{-- <label>{{$day}}</label> --}}
                                     </form>
                                 </div>
                             </div>

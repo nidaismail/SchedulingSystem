@@ -5,6 +5,30 @@
     {{-- <link rel="stylesheet" href="css/styles.css"> --}}
     <link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
+@push('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#userID').on('change', function() {
+            alert('hallo');
+            var id = $(this).val();
+            if (id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/get-user-details/" + id,
+                    success: function(data) {
+                       
+                        $('#email').val(data.email);
+                    }
+                });
+            } else {
+               
+                $('#email').val('');
+            }
+        });
+    });
+</script>
+@endpush
  
 @section('content')
 <div class="main">
@@ -20,6 +44,18 @@
                     <h2 class="form-title">Login</h2>
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
+                        <div class="form-group">
+                            <label for="userID"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="number"  id="userID" placeholder="Your ID" class="form-control @error('userID') is-invalid @enderror" name="userID" value="{{ old('userID') }}" required autocomplete="email" autofocus>
+                            <div class="col-md-6">
+                                @error('userID')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
                             <input type="text"  id="email" placeholder="Your Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -139,4 +175,5 @@
         </div>
     </div>
 </div> --}}
+
 @endsection

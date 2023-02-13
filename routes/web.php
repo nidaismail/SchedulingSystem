@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/get-user-details/{id}', [App\Http\Controllers\LoginController::class, 'getUserDetails']);
+
+Auth::routes();
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -43,3 +47,4 @@ Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dat
 
 //Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'admindata']);
 // Route::get('/next', [App\Http\Controllers\AdmindashboardController::class, 'nextdata'])->name('next');
+

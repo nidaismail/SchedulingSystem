@@ -17,9 +17,9 @@
                     <form method="POST" action = "{{ route('register') }}"  class="register-form" id="register-form">
                         @csrf
                         <div class="form-group">
-                            <label for="id"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input id="id" type="number" class="form-control @error('id') is-invalid @enderror" name="id" value="{{ old('id') }}" required autocomplete="id" placeholder="{{ __('ID') }}" autofocus  >
-                            @error('id')
+                            <label for="userID"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input id="userID" type="number" class="form-control @error('userID') is-invalid @enderror" name="userID" value="{{ old('userID') }}" required autocomplete="userID" placeholder="{{ __('ID') }}" autofocus  >
+                            @error('userID')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

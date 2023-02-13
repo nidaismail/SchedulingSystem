@@ -15,7 +15,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
 <script>
-   
+$('#selected_Location').on('change', function() {
+    var selectedValue = $(this).val();
+    var dateFrom = $('#input_from').val();
+    var dateTo = $('#input_to').val();
+    var timeFrom = $('#from_time').val();
+    var timeTo = $('#to_time').val();
+    alert(timeFrom);
+    // console.log(you are here);
+    $.ajax({
+        url: "{{ route('locationCheck') }}",
+        type: 'POST',
+        data: {
+               'location_id': selectedValue,
+               'dateFrom': dateFrom,
+               'dateTo': dateTo,
+               'timeFrom': timeFrom,
+               'timeTo': timeTo
+            },
+        success: function(response) {
+            if(response == 'exists') {
+                $('#selected_Location').tooltip({
+                     
+                    content: "This Location is already booked on this Date and Time",
+                    position: {my: "center top", at: "center bottom"}
+                    
+                });
+            }
+        }
+    });
+    }); 
 function validate() {
     var valid = false;
     if (document.getElementById("dow1").checked) {
@@ -47,34 +76,7 @@ setTimeout(function() {
 }, 4000);
 // $('#alert').fadeOut('fast');
 // }, 4000);
-$('#selected_Location').on('change', function() {
-    var selectedValue = $(this).val();
-    var dateFrom = $('#input_from').val();
-    var dateTo = $('#input_to').val();
-    var timeFrom = $('#from_time').val();
-    var timeTo = $('#to_time').val();
-    alert(timeFrom);
-    $.ajax({
-        url: "{{ route('locationCheck') }}",
-        type: 'POST',
-        data: {
-               'location_id': selectedValue,
-               'dateFrom': dateFrom,
-               'dateTo': dateTo,
-               'timeFrom': timeFrom,
-               'timeTo': timeTo
-            },
-        success: function(response) {
-            if(response == 'exists') {
-                $('#selected_Location').tooltip({
-                    content: "This Location is already booked on this Date and Time",
-                    position: {my: "center top", at: "center bottom"}
-                    console.log(you are here);
-                });
-            }
-        }
-    });
-    });
+
 </script>
 @endpush
 

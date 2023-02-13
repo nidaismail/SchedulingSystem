@@ -26,7 +26,7 @@ class AdmindashboardController extends Controller
     public function dataWithdate(Request $request)
     {
         $currentdate =  Carbon::parse($request['userdate'])->format('Y-m-d');
-        $day =  $currentdate->format('l');
+        //$day =  $currentdate->format('l');
         $admindata = Schedule::where('date', '=', $currentdate)
                               ->where('admissible', '=', 0)
                               ->with(['person','activity','location'])
