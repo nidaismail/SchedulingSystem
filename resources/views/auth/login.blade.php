@@ -19,18 +19,25 @@
     $(document).ready(function() {
         $('#userID').on('change', function() {
             var id = $(this).val();
+            alert("HI");
           
             if (id) {
                 $.ajax({
                     type: "GET",
                     url: "/get-user-details/" + id,
                     success: function(data) {
+                        $('#name').val(data.name);
                         $('#email').val(data.email);
+                        $('#designation').val(data.designation);
+                        $('#department').val(data.department);
                     }
                 });
             } else {
-               
-                $('#email').val('');
+            
+                        $('#name').val('');
+                        $('#email').val('');
+                        $('#designation').val('');
+                        $('#department').val('');
             }
         });
     });
