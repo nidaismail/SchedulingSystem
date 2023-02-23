@@ -13,11 +13,12 @@ class UserdashboardController extends Controller
     public function preview()
     {
         $today = Today()->toDateString();
-        $persondata = Schedule::where('person_id', '=', Auth::user()->id)
+        $persondata = Schedule::where('user_id', '=', Auth::user()->userID)
                                 ->where('date', '>=', $today)
-                                ->with(['person','activity','location'])
+                                ->with(['user','activity','location'])
                                 ->orderBy('date')
                                 ->get();
+                              
         return view('userdashboard')->with(compact('persondata'));
     }
     public function admissible(Request $request)

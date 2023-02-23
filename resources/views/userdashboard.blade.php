@@ -86,7 +86,7 @@
                                             <td>{{$data->day}}</td>
                                             <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
-                                            <td>{{$data->person->Employee_name}} </td>
+                                            <td>{{$data->user->name}} </td>
                                             <td>{{$data->activity->activity_name}} </td>
                                             <td>{{$data->class->class_name}} </td>
                                             <td>{{$data->location->location}} </td>

@@ -16,8 +16,8 @@ class Person extends Model
         'email',
         'password',
     ];
-    public function schedule()
-    {
-        return $this->belongsTo(Schedule::class);
-    }
+    // public function schedule()
+    // {
+    //     return $this->belongsTo(Schedule::class);
+    // }
 }

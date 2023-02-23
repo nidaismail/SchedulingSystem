@@ -42,6 +42,7 @@ class HomeController extends Controller
         $person = User::all()->sortBy(function ($person) {
             return $person->name;
         });
+        // $supervisor = Auth::user()->
         return view('home')->with('activities', $activities)
             ->with('locations', $locations)
             ->with('clas', $clas)
@@ -63,7 +64,7 @@ class HomeController extends Controller
                     $data->time_to = $request->end_time;
                     $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
                     // this will show if the day we are looping in is selected by user or not
-                    $data->person_id = $request['person'];
+                    $data->user_id = $request['person'];
                     $data->class_id = $request['class'];
                     $data->activity_id = $request['activity'];
                     $data->location_id = $request['location'];
