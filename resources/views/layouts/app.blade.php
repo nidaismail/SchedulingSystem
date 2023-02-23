@@ -25,9 +25,25 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-teal shadow-sm">
             <div class="container">
+                @role('admin')
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/')}}" target="_blank">
+                            <i class="ni ni-key-25 text-info"></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{url('/admin')}}">
+                            <i class="ni ni-single-02 text-yellow"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
+                @else
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Scheduling System') }}
                 </a>
+                @endrole
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

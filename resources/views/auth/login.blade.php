@@ -2,11 +2,19 @@
 
 @push('styles')
     <link rel="stylesheet" type="text/css"  href="css/app.css">
-    {{-- <link rel="stylesheet" href="css/styles.css"> --}}
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+{{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
+ 
+<link rel="stylesheet" href="css/alert.css">
+ 
     <link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#userID').on('change', function() {
@@ -17,7 +25,6 @@
                     type: "GET",
                     url: "/get-user-details/" + id,
                     success: function(data) {
-                       
                         $('#email').val(data.email);
                     }
                 });
@@ -41,14 +48,39 @@
                     <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>    
                 </div>
                 <div class="signin-form">
+                    <div class="row p-2 justify-content-center " id="successMessage">
+                        @if(session()->has('success'))
+                        <div class="alert alert-success warning-msg">
+                            <i class="fa fa-close"></i>
+                            {{ session()->get('success') }}
+                        </div>
+                        @endif
+
+                    </div>
+                    
+
+                    
                     <h2 class="form-title">Login</h2>
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
+                        
                         <div class="form-group">
-                            <label for="userID"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <label for="userID"></label>
                             <input type="number"  id="userID" placeholder="Your ID" class="form-control @error('userID') is-invalid @enderror" name="userID" value="{{ old('userID') }}" required autocomplete="email" autofocus>
                             <div class="col-md-6">
                                 @error('userID')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="name" placeholder="Your Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <div class="col-md-6">
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -67,6 +99,30 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="designation"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="designation" placeholder="Your Designation" class="form-control @error('designation') is-invalid @enderror" name="designation" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
+                            <div class="col-md-6">
+                                @error('designation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="department" placeholder="Your Department" class="form-control @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
+                            <div class="col-md-6">
+                                @error('department')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div> 
                         <div class="form-group">
                             <label for="password"><i class="zmdi zmdi-lock"></i></label>
                             <input id="password" type="password" placeholder="Your Passowrd" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" autofocud>

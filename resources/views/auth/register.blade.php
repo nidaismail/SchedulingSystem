@@ -45,6 +45,30 @@
                                 @enderror
                         </div>
                         <div class="form-group">
+                            <label for="designation"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="designation" placeholder="Your Designation" class="form-control @error('designation') is-invalid @enderror" name="designation" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
+                            <div class="col-md-6">
+                                @error('designation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="department" placeholder="Your Department" class="form-control @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
+                            <div class="col-md-6">
+                                @error('department')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="password"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}">
                             @error('password')

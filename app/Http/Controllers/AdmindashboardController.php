@@ -32,7 +32,7 @@ class AdmindashboardController extends Controller
                               ->with(['person','activity','location'])
                               ->orderBy('date')
                               ->get();
-        return view('admindashboard')->with(compact('admindata', 'currentdate'));
+        return view('admin.admindashboard')->with(compact('admindata', 'currentdate'));
     }
     // public function nextdata(){
     //     $today = Today()->addDay()->toDateString();

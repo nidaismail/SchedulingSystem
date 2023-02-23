@@ -369,12 +369,13 @@ $(document).ready(function() {
 
                                     {{-- <i class="arrow left mars"></i>
                    <a href="{{ URL::route('next'); }}"><i class="arrow right mars"></i></a> --}}
+                  
                                     {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($currentdate)->format('d F, Y') }}
                                     </h3>
                                 </div> --}}
                                 <div class="divs">
                                     <form method="GET" id="filter_form">
-                                        <input type="date" id="filter_date" name="userdate" value="<?=$currentdate?>">
+                                        <input type="date" id="filter_date" name="userdate" value=" <?=$currentdate?> ">
                                         {{-- <label>{{$day}}</label> --}}
                                     </form>
                                 </div>

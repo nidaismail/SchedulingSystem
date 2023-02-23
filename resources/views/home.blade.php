@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/alert.css">
 <link href="images/favicon.png" rel="icon" type="image/png"> 
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -82,6 +86,7 @@ setTimeout(function() {
 
 
 @section('content')
+
 <div class="">
     @if (session('status'))
     <div class="alert alert-success" role="alert">
@@ -89,6 +94,7 @@ setTimeout(function() {
         {{ session('status') }}
     </div>
     @endif
+
     <form class="myform" method="POST" action="{{ route('save') }}" onsubmit="return validate()">
         @csrf
         <div class="container px-lg-5">
@@ -97,7 +103,7 @@ setTimeout(function() {
                     <div class="container text-left">
                         <div class="row p-4 justify-content-center" id="successMessage">
                             @if(session()->has('success'))
-                            <div class="alert alert-success">
+                            <div class="alert alert-success error-msg">
                                 <i class="fa fa-check-circle"></i>
                                 {{ session()->get('success') }}
                             </div>
@@ -105,7 +111,7 @@ setTimeout(function() {
 
                         </div>
                         <div  id="alert" class="error-msg" role="alert">
-                            <i class="fa fa-times-circle"></i>
+                            <i class="fa fa-times-close"></i>
                             Please Select a Day.
                           </div>
                         <div class="row justify-content-center given-mar">
@@ -123,10 +129,23 @@ setTimeout(function() {
                                     <div class="col-md-6 removed" id="displayPerson">
                                         <div class="form-group">
                                             <select name="person" id="pers" class="form-control person-input">
+                                                @role('admin')
+                                                    <option value="" disabled selected>Select Person</option>
+                                                    @foreach($person as $per)
+                                                        <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                    @endforeach
+                                                @endrole
+                                                @role('supervisor')
                                                 <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
-                                                @endforeach
+                                                    @foreach($person as $per)
+                                                        @if (Auth::user()->department == $per->department)
+                                                            <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
+                                                @endrole
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -257,10 +276,23 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="person">Person</label>
                                             <select name="person" id="pers2" class="form-control person-input">
+                                                @role('admin')
+                                                    <option value="" disabled selected>Select Person</option>
+                                                    @foreach($person as $per)
+                                                        <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                    @endforeach
+                                                @endrole
+                                                @role('supervisor')
                                                 <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                <option value='{{$per->id}}'>{{$per->Employee_name}}</option>
-                                                @endforeach
+                                                    @foreach($person as $per)
+                                                        @if (Auth::user()->department == $per->department)
+                                                            <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
+                                                @endrole
+                                               
                                             </select>
                                         </div>
                                     </div>

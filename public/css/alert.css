@@ -3,8 +3,9 @@
 #alert{
   display: none;
 }
-.error-msg {
-  
+.error-msg,
+.warning-msg {
+  width: 340px;
   margin: 10px 5px;
   padding: 10px;
   border-radius: 8px 4px 4px 4px;
@@ -12,4 +13,8 @@
 .error-msg {
   color: #9F6000;
   background-color: #FEEFB3;
+}
+.warning-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
 }

@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
     {
         DB::table('persons')->insert(
             [
-            
-            ['id' => "0187",'Employee_name' => "Muhammad Asif",'Employee_email' => "muhammad.asif@imdcollege.edu.pk",'Employee_department' => "IT","Employee_designation"=>"Head of IT"],
-            ['id' => "0188",'Employee_name' => "Muhammad Zeeshan",'Employee_email' => "zeeshan.mobin@imdcollege.com",'Employee_department' => "IT","Employee_designation"=>"Manager IT & Technical Operations"],
+           // ['id' => "3",'userID' => "2200",'name' => "Liaqat Hussain",]
+            //['id' => "0187",'Employee_name' => "Muhammad Asif",'Employee_email' => "muhammad.asif@imdcollege.edu.pk",'Employee_department' => "IT","Employee_designation"=>"Head of IT"],
+            //['id' => "0188",'Employee_name' => "Muhammad Zeeshan",'Employee_email' => "zeeshan.mobin@imdcollege.com",'Employee_department' => "IT","Employee_designation"=>"Manager IT & Technical Operations"],
             ['id' => "0189",'Employee_name' => "Wajih UL Hussan", 'Employee_email' => "wajih.hussan@imdcollege.edu.pk", 'Employee_department' => "IT","Employee_designation"=>"IT Assitant"],
             ['id' => "0318",'Employee_name' => "Azmat Shaheen",'Employee_email' => "@imdcollege.edu.pk",'Employee_department' => "Psychiatry","Employee_designation"=>"Senior Lecturer"],
             ['id' => "0215",'Employee_name' => "Dr Usman Zafar",'Employee_email' => "@imdcollege.edu.pk",'Employee_department' => "Medicine","Employee_designation"=>"Associate Professor"],
-            ['id' => "2558",'Employee_name' => "Nida Ismail",'Employee_email' => "nida.ismail@imdcollege.edu.pk",'Employee_department' => "IT Department","Employee_designation" => "Web Developer"],
+            //['id' => "2558",'Employee_name' => "Nida Ismail",'Employee_email' => "nida.ismail@imdcollege.edu.pk",'Employee_department' => "IT Department","Employee_designation" => "Web Developer"],
             ['id' => "2328",'Employee_name' => "Mahnoor Arif",'Employee_email' => "@imdcollege.edu.pk",'Employee_department' =>  "Medicine","Employee_designation"=>"Medical Officer"],
             ['id' => "0216",'Employee_name' => "Dr Bilal Mustafa",'Employee_email' => "@imdcollege.edu.pk",'Employee_department' => "Medicine","Employee_designation"=>"Associate Professor"],
             ['id' => "2370",'Employee_name' => "Sadaf Rana",'Employee_email' => "sadaf.rana@imdcollege.edu.pk",'Employee_department' => "IT Department","Employee_designation" => "Web Developer"],

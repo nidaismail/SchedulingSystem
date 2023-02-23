@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Grade;
-use App\Models\Person;
+use App\Models\User;
 use App\Models\Schedule;
 use DateInterval;
 use DatePeriod;
@@ -38,10 +38,10 @@ class HomeController extends Controller
         });
         $clas = Grade::all()->sortBy(function ($clas) {
             return $clas->class_name;
-        });;
-        $person = Person::all()->sortBy(function ($person) {
-            return $person->Employee_name;
-        });;
+        });
+        $person = User::all()->sortBy(function ($person) {
+            return $person->name;
+        });
         return view('home')->with('activities', $activities)
             ->with('locations', $locations)
             ->with('clas', $clas)

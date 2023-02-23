@@ -170,8 +170,8 @@ img {
 
 figure {
   margin: 0;
-  margin-top: 40px;
-  padding-top: 30px ; }
+  margin-top: 20px;
+  padding-top: 10px ; }
 
 
 
@@ -267,7 +267,7 @@ body {
   margin: 0 55px; }
 
 .form-title {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
   margin-left: 0.5rem; }
 
@@ -277,7 +277,7 @@ body {
 .logo {
   
   text-align: center;
-  padding-top: 50px; }
+  padding-top: 10px; }
 .bg-teal {
     --bs-bg-opacity: 1;
     background-color: #1BA998;
@@ -467,7 +467,7 @@ label.valid {
 
 .signin-content {
   /* padding-top: 67px; */
-  padding-bottom: 87px; }
+  padding-bottom: 67px; }
 
 .social-login {
   align-items: center;
@@ -525,7 +525,7 @@ label.valid {
 
   margin-right: 90px;
   margin-left: 80px; 
-  margin-top: 50px; }
+  margin-top: 15px; }
 
 .signin-image {
   margin-left: 110px;

@@ -17,33 +17,40 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+    Auth::routes();
+    Route::get('/get-user-details/{userID}', [App\Http\Controllers\Auth\LoginController::class, 'getUserDetails']);
 
-Route::get('/get-user-details/{userID}', [App\Http\Controllers\Auth\LoginController::class, 'getUserDetails']);
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    Auth::routes();
+    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    Auth::routes();
+    
+    Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->name('save');
+    
+    Auth::routes();
+    
+    Route::post('/locationCheck', [App\Http\Controllers\HomeController::class, 'check'])->name('locationCheck');
+    
+    Auth::routes();
+    
+    Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
+    
+    Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');  
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->name('save');
 
-Auth::routes();
+// 
+Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function() {
+    Route::get('/', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
 
-Route::post('/locationCheck', [App\Http\Controllers\HomeController::class, 'check'])->name('locationCheck');
-
-Auth::routes();
-
-Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
-
-Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');
-
-Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate']);
+});
 
 //Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'admindata']);
 // Route::get('/next', [App\Http\Controllers\AdmindashboardController::class, 'nextdata'])->name('next');
