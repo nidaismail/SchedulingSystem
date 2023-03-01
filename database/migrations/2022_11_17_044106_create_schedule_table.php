@@ -22,6 +22,7 @@ return new class () extends Migration
             $table->time('time_to');
             $table->string('day');
             $table->string('user_id');
+            $table->string('department');
             $table->string('activity_id');
             $table->string('class_id');
             $table->string('location_id');

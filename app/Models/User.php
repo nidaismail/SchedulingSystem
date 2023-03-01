@@ -27,7 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'designation',
-        'department',
+        'dep_id',
         'password',
     ];
 
@@ -52,6 +52,10 @@ class User extends Authenticatable
     public function schedule()
     {
         return $this->belongsTo(Schedule::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
     // public function roles()
     // {

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('designation');
-            $table->string('department');
+            $table->string('dep_id');
             $table->boolean('exists')->default(1);
             $table->boolean('isActive')->default(1);
             $table->string('password');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
@@ -40,6 +41,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    // public function showLoginForm($id)
+    // {
+        
+    // }
     public function username()
     {
         return 'userID';
@@ -51,7 +56,9 @@ class LoginController extends Controller
             Auth::logout();
             return redirect('login')->with('success','You are not an active User');
             }
-        }
+            // $user->application_id = $request->input('application_id');
+            // $user->save();   
+    }
     
 
     public function getUserDetails($id)
@@ -60,7 +67,7 @@ class LoginController extends Controller
     //    $records = User::all();
     //    $userID = $records->pluck('userID');
     //    $user = User::find($id);
-          $user = User::where($id, '=', 'userID');
+          $user = User::where('userID','=',$id)->first();
           
         
     //    dd($id); this is the inputted ID

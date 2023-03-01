@@ -19,7 +19,7 @@
     $(document).ready(function() {
         $('#userID').on('change', function() {
             var id = $(this).val();
-            alert("HI");
+           
           
             if (id) {
                 $.ajax({
@@ -29,15 +29,14 @@
                         $('#name').val(data.name);
                         $('#email').val(data.email);
                         $('#designation').val(data.designation);
-                        $('#department').val(data.department);
+                        $('#dep_id').val(data.dep_id);
                     }
                 });
             } else {
-            
                         $('#name').val('');
                         $('#email').val('');
                         $('#designation').val('');
-                        $('#department').val('');
+                        $('#dep_id').val('');
             }
         });
     });
@@ -70,7 +69,7 @@
                     <h2 class="form-title">Login</h2>
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
-                        
+                        {{-- <input type="hidden" name="application_id" value="{{ request('application_id') }}"> --}}
                         <div class="form-group">
                             <label for="userID"></label>
                             <input type="number"  id="userID" placeholder="Your ID" class="form-control @error('userID') is-invalid @enderror" name="userID" value="{{ old('userID') }}" required autocomplete="email" autofocus>
@@ -120,10 +119,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="department"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text"  id="department" placeholder="Your Department" class="form-control @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
+                            <label for="dep_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="dep_id" placeholder="Your Department" class="form-control @error('dep_id') is-invalid @enderror" name="dep_id" value="{{ old('dep_id') }}" required autocomplete="dep_id" autofocus>
                             <div class="col-md-6">
-                                @error('department')
+                                @error('dep_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

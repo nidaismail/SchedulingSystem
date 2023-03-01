@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
             'email' => 'nida.ismail@imdcollege.edu.pk',
             'email_verified_at' => now(),
             'designation' => 'Web developer',
-            'department' => 'IT',
+            'dep_id' => '1',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             
         ])->assignRole('admin');
@@ -38,7 +38,7 @@ class AdminSeeder extends Seeder
             'email' => 'zeeshan.mubeen@imdcollege.com',
             'email_verified_at' => now(),
             'designation' => 'IT Manager',
-            'department' => 'IT',
+            'dep_id' => '1',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             
         ])->assignRole('supervisor');

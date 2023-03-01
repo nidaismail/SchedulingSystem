@@ -49,6 +49,7 @@ class HomeController extends Controller
             ->with('person', $person);
     }
     public function store(Request $request){
+
         $begin = new DateTime($request->start_date);
         $end = new DateTime($request->end_date);
         $end->setTime(0,0,1);  
@@ -65,6 +66,7 @@ class HomeController extends Controller
                     $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
                     // this will show if the day we are looping in is selected by user or not
                     $data->user_id = $request['person'];
+                    $data->department = 'personSelected';
                     $data->class_id = $request['class'];
                     $data->activity_id = $request['activity'];
                     $data->location_id = $request['location'];

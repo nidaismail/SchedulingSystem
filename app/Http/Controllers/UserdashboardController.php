@@ -13,13 +13,33 @@ class UserdashboardController extends Controller
     public function preview()
     {
         $today = Today()->toDateString();
-        $persondata = Schedule::where('user_id', '=', Auth::user()->userID)
-                                ->where('date', '>=', $today)
-                                ->with(['user','activity','location'])
-                                ->orderBy('date')
-                                ->get();
-                              
-        return view('userdashboard')->with(compact('persondata'));
+        $user_role = Auth::user()->getRoleNames();
+        foreach ($user_role as $role) {
+            if ($role == 'admin') {
+              
+                $persondata = Schedule::where('date', '>=', $today)
+                                            ->with(['user','activity','location'])
+                                            ->orderBy('date')
+                                            ->get();                       
+                    return view('userdashboard')->with(compact('persondata'));
+
+            } elseif ($role == 'supervisor') {
+                    $persondata = Schedule::where('department', '=', Auth::user()->department)
+                                            ->where('date', '>=', $today)
+                                            ->with(['user','activity','location'])
+                                            ->orderBy('date')
+                                            ->get();                       
+                    return view('userdashboard')->with(compact('persondata'));
+            } else {
+                
+                $persondata = Schedule::where('user_id', '=', Auth::user()->userID)
+                                        ->where('date', '>=', $today)
+                                        ->with(['user','activity','location'])
+                                        ->orderBy('date')
+                                        ->get();                       
+                return view('userdashboard')->with(compact('persondata'));
+            }
+        }
     }
     public function admissible(Request $request)
     {

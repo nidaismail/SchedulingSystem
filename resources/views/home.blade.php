@@ -19,6 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
 <script>
+
 $('#selected_Location').on('change', function() {
     var selectedValue = $(this).val();
     var dateFrom = $('#input_from').val();
@@ -129,20 +130,21 @@ setTimeout(function() {
                                     <div class="col-md-6 removed" id="displayPerson">
                                         <div class="form-group">
                                             <select name="person" id="pers" class="form-control person-input">
-                                                @role('admin')
+                                                @role('admin'):
                                                     <option value="" disabled selected>Select Person</option>
                                                     @foreach($person as $per)
-                                                        <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                        <option  value='{{$per->userID}}'>{{$per->name}}</option>
                                                     @endforeach
                                                 @endrole
-                                                @role('supervisor')
+                                                @role('supervisor'):
                                                 <option value="" disabled selected>Select Person</option>
                                                     @foreach($person as $per)
                                                         @if (Auth::user()->department == $per->department)
                                                             <option value='{{$per->userID}}'>{{$per->name}}</option>
                                                         @endif
                                                     @endforeach
-                                                @else
+                                                @endrole
+                                                @role('user'):
                                                     <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
                                                 @endrole
                                                 
@@ -376,6 +378,24 @@ setTimeout(function() {
 <script src="js/main.js"></script>
 <script>
 $(document).ready(function() {
+    $('#pers').on('change', function() {
+  
+    var personSelected = $(this).val();
+    // alert('Selected value: ' + personSelected);
+    $.ajax({
+        url: "{{ route('locationCheck') }}",
+        type: 'POST',
+        data: {
+            personSelected: personSelected
+        },
+    success: function(reponse) {
+        if(response == 'exists') {
+                console.log("department Assigned");
+            }
+        }
+    });
+    alert('Selected value: ' + Person_selected);
+});
  
     $('.person-input').change(function() {
         $('.person-input').val($(this).val())
