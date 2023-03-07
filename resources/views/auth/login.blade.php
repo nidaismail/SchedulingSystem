@@ -19,17 +19,16 @@
     $(document).ready(function() {
         $('#userID').on('change', function() {
             var id = $(this).val();
-           
-          
             if (id) {
                 $.ajax({
                     type: "GET",
                     url: "/get-user-details/" + id,
+                    
                     success: function(data) {
                         $('#name').val(data.name);
                         $('#email').val(data.email);
                         $('#designation').val(data.designation);
-                        $('#dep_id').val(data.dep_id);
+                        $('#dep_name').val(data.dep_name);
                     }
                 });
             } else {
@@ -63,9 +62,6 @@
                         @endif
 
                     </div>
-                    
-
-                    
                     <h2 class="form-title">Login</h2>
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
@@ -119,10 +115,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="dep_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text"  id="dep_id" placeholder="Your Department" class="form-control @error('dep_id') is-invalid @enderror" name="dep_id" value="{{ old('dep_id') }}" required autocomplete="dep_id" autofocus>
+                            <label for="dep_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text"  id="dep_name" placeholder="Your Department" class="form-control @error('dep_name') is-invalid @enderror" name="dep_name" value="{{ old('dep_name') }}" required autocomplete="dep_name" autofocus>
                             <div class="col-md-6">
-                                @error('dep_id')
+                                @error('dep_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -237,5 +233,4 @@
         </div>
     </div>
 </div> --}}
-
 @endsection

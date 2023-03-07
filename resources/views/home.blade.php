@@ -139,7 +139,7 @@ setTimeout(function() {
                                                 @role('supervisor'):
                                                 <option value="" disabled selected>Select Person</option>
                                                     @foreach($person as $per)
-                                                        @if (Auth::user()->department == $per->department)
+                                                        @if (Auth::user()->dep_id == $per->dep_id)
                                                             <option value='{{$per->userID}}'>{{$per->name}}</option>
                                                         @endif
                                                     @endforeach

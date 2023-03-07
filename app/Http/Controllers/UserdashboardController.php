@@ -24,7 +24,7 @@ class UserdashboardController extends Controller
                     return view('userdashboard')->with(compact('persondata'));
 
             } elseif ($role == 'supervisor') {
-                    $persondata = Schedule::where('department', '=', Auth::user()->department)
+                    $persondata = Schedule::where('department', '=', Auth::user()->dep_id)
                                             ->where('date', '>=', $today)
                                             ->with(['user','activity','location'])
                                             ->orderBy('date')

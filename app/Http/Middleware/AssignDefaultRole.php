@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
 
 class AssignDefaultRole
 {
@@ -16,10 +18,10 @@ class AssignDefaultRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && !Auth::user()->hasRole()) {
-            // Replace 'default_role' with the name of the role you want to assign
-            Auth::user()->assignRole('user');
-        }
+        // if (Auth::check() && !Auth::user()->hasRole()) {
+        //     // Replace 'default_role' with the name of the role you want to assign
+        //     Auth::user()->assignRole('user');
+        // }
         return $next($request);
     }
 }

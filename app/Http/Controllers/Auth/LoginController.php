@@ -10,6 +10,7 @@ use App\Models\User;
 use Psy\Command\WhereamiCommand;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 class LoginController extends Controller
 {
     /*
@@ -63,16 +64,15 @@ class LoginController extends Controller
 
     public function getUserDetails($id)
     {
-        
-    //    $records = User::all();
-    //    $userID = $records->pluck('userID');
-    //    $user = User::find($id);
-          $user = User::where('userID','=',$id)->first();
-          
-        
-    //    dd($id); this is the inputted ID
-        
-        return response()->json($user);
+        //   $user = User::where('userID','=',$id)->first();
+        // return response()->json($user);
+        $user = DB::table('users')
+                    ->join('department', 'users.dep_id', '=', 'department.id')
+                    ->select('users.name', 'users.email', 'users.designation','department.name as dep_name', )
+                    ->where('users.userID', $id)
+                    ->first();
+
+    return response()->json($user);
         
     }
     

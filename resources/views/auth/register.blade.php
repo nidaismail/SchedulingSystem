@@ -57,10 +57,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="department"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text"  id="department" placeholder="Your Department" class="form-control @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
+                            <label for="dep_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="number"  id="dep_id" placeholder="Your Department" class="form-control @error('dep_id') is-invalid @enderror" name="dep_id" value="{{ old('dep_id') }}" required autocomplete="dep_id" autofocus>
                             <div class="col-md-6">
-                                @error('department')
+                                @error('dep_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

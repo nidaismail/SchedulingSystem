@@ -17,10 +17,11 @@ class DepartmentSeeder extends Seeder
     {
         DB::table('department')->insert(
             [
-            ['department' => "IT"],
-            ['department' => "DPT"],
-            ['department' => "MLT"],
+            ['name' => "IT"],
+            ['name' => "DPT"],
+            ['name' => "MLT"],
            
             ]);
     }
 }
+?>
