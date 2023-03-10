@@ -28,7 +28,7 @@
                 @role('admin')
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}" target="_blank">
+                        <a class="nav-link" href="{{url('/roles')}}" target="_blank">
                             <i class="ni ni-key-25 text-info"></i> Users
                         </a>
                     </li>

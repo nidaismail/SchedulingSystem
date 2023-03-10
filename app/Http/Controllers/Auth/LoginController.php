@@ -46,10 +46,10 @@ class LoginController extends Controller
     // {
         
     // }
-    public function username()
-    {
-        return 'userID';
-    }
+    // public function username()
+    // {
+    //     return 'userID';
+    // }
 
     protected function authenticated(Request $request, $user)
     {   

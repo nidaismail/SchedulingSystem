@@ -34,14 +34,14 @@ Route::get('/', function () {
     
     Auth::routes();
     
-    Route::post('/locationCheck', [App\Http\Controllers\HomeController::class, 'check'])->name('locationCheck');
+    Route::post('/location-Check', [App\Http\Controllers\HomeController::class, 'check']);
     
     Auth::routes();
     
     Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
     
     Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');  
-
+    Route::get('/roles', [App\Http\Controllers\RolesController::class, 'show']);
 
 
 
@@ -49,6 +49,8 @@ Route::get('/', function () {
 // 
 Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function() {
     Route::get('/', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
+    
+
 
 });
 

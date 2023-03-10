@@ -491,9 +491,7 @@ $(document).ready(function() {
             token: "ee6fab19c5a04ac1a32a645abde4613a",
             application: "argon-dashboard-free"
         });
-    //       function previous() {
-    //      alert("previous");
-    // }
+    
     </script>
 </body>
 

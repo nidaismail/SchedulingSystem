@@ -29,7 +29,7 @@ $('#selected_Location').on('change', function() {
     alert(timeFrom);
     // console.log(you are here);
     $.ajax({
-        url: "{{ route('locationCheck') }}",
+        url: '/location-Check',
         type: 'POST',
         data: {
                'location_id': selectedValue,
@@ -378,25 +378,6 @@ setTimeout(function() {
 <script src="js/main.js"></script>
 <script>
 $(document).ready(function() {
-    $('#pers').on('change', function() {
-  
-    var personSelected = $(this).val();
-    // alert('Selected value: ' + personSelected);
-    $.ajax({
-        url: "{{ route('locationCheck') }}",
-        type: 'POST',
-        data: {
-            personSelected: personSelected
-        },
-    success: function(reponse) {
-        if(response == 'exists') {
-                console.log("department Assigned");
-            }
-        }
-    });
-    alert('Selected value: ' + Person_selected);
-});
- 
     $('.person-input').change(function() {
         $('.person-input').val($(this).val())
     })

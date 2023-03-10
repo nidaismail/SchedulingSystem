@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 class RolesController extends Controller
 {
     //
-    public function show($id)
+    public function show()
     {
-        $user = User::find($id);
-        return view('admin.roles',compact('user'));
+        // $user = User::find($id);
+        //return view('admin.roles',compact('user'));
+        return view('admin.roles');
     }
     public function edit($id)
     {
