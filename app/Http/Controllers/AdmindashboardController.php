@@ -29,7 +29,7 @@ class AdmindashboardController extends Controller
         //$day =  $currentdate->format('l');
         $admindata = Schedule::where('date', '=', $currentdate)
                               ->where('admissible', '=', 0)
-                              ->with(['person','activity','location'])
+                              ->with(['user','activity','location'])
                               ->orderBy('date')
                               ->get();
         return view('admin.admindashboard')->with(compact('admindata', 'currentdate'));

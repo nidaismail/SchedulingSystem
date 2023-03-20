@@ -9,8 +9,5 @@ class Role extends Model
 {
     use HasFactory;
     public $table = 'roles';
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'pivot');
-    // }
+ 
 }

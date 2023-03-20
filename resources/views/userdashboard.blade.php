@@ -54,7 +54,7 @@
 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container">
                         <h1 class="mt-4">UserDashboard</h1>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -63,52 +63,54 @@
                             </div>
 
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Day</th>
-                                            <th>Time From</th>
-                                            <th>Time To</th>
-                                            <th>Person</th>
-                                            <th>Activity</th>
-                                            <th>Class</th>
-                                            <th>Location</th>
-                                            <th>Remarks</th>
-                                            <th>Non-Admissible</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($persondata as $data)
-                                        <tr>
-
-                                            <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
-                                            <td>{{$data->day}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
-                                            <td>{{$data->user->name}} </td>
-                                            <td>{{$data->activity->activity_name}} </td>
-                                            <td>{{$data->class->class_name}} </td>
-                                            <td>{{$data->location->location}} </td>
-                                            <td>{{$data->remarks}}</td>
-                                            <td>
-                                                <!-- Default switch -->
-                                                <?php
-
-                                                $checked =  $data->admissible==1 ? 'checked="checked"' : 'nooo'?>
-                                                <div class="form-check form-switch">
-                                                    <input data-id="{{$data->id}}" {{$checked}}
-                                                        class="flexSwitchCheckDefault form-check-input" name="toggle"
-                                                        type="checkbox" role="switch" class="" />
-                                                    <label class="form-check-label"
-                                                        for="flexSwitchCheckDefault"></label>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <div class="col-xl-12 col-md-12 col-sm-12">
+                                    <table class="table table-bordered table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th width="200px">Date</th>
+                                                <th width="150px">Day</th>
+                                                <th width="150px">Time From</th>
+                                                <th width="150px">Time To</th>
+                                                <th width="150px">Person</th>
+                                                <th width="150px">Activity</th>
+                                                <th width="150px">Class</th>
+                                                <th width="250px">Location</th>
+                                                <th width="150px">Remarks</th>
+                                                <th width="150px">Non-Admissible</th>
+                                            </tr>
+                                        </thead>
+                                            @foreach ($persondata as $data)
+                                            <tr>
+    
+                                                <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
+                                                <td>{{$data->day}}</td>
+                                                <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
+                                                <td>{{$data->user->name}} </td>
+                                                <td>{{$data->activity->activity_name}} </td>
+                                                <td>{{$data->class->class_name}} </td>
+                                                <td>{{$data->location->location}} </td>
+                                                <td>{{$data->remarks}}</td>
+                                                <td>
+                                                    <!-- Default switch -->
+                                                    <?php
+    
+                                                    $checked =  $data->admissible==1 ? 'checked="checked"' : 'nooo'?>
+                                                    <div class="form-check form-switch">
+                                                        <input data-id="{{$data->id}}" {{$checked}}
+                                                            class="flexSwitchCheckDefault form-check-input" name="toggle"
+                                                            type="checkbox" role="switch" class="" />
+                                                        <label class="form-check-label"
+                                                            for="flexSwitchCheckDefault"></label>
+                                                    </div>
+    
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                              
                             </div>
                         </div>
                         <button type="button" class="btn btn-success rounded-3 justify-content-center"

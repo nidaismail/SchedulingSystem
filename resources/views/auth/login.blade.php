@@ -8,8 +8,7 @@
 {{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
  
 <link rel="stylesheet" href="css/alert.css">
- 
-    <link href="images/favicon.png" rel="icon" type="image/png"> 
+<link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>

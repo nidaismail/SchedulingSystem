@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
     // public function roles()
     // {
-    //     return $this->belongsToMany(Role::class, 'pivot');
+    //     return $this->belongsToMany(Role::class);
     // }
 
     // protected function role(): Attribute{
@@ -68,6 +68,15 @@ class User extends Authenticatable
     //     ); 
 
     // }
+//     protected static function boot()
+// {
+//     parent::boot();
+
+//     static::created(function ($user) {
+//         $user->setDefaultRole();
+//     });
+// }
+
         
      
 }

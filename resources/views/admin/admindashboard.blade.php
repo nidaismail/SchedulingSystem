@@ -374,16 +374,18 @@ $(document).ready(function() {
                                 </div> --}}
                                 <div class="divs">
                                     <form method="GET" id="filter_form">
-                                        <input type="date" id="filter_date" name="userdate" value=" <?=$currentdate?> ">
+                                      @php
+                                        // $formattedDate =;
+                                        // dd($formattedDate);
+                                      @endphp
+                                    
+                                        <input type="date" id="filter_date" name="userdate" value=" <?= \Carbon\Carbon::parse($currentdate)->format('l, F jS Y')?> ">
                                         {{-- <label>{{$day}}</label> --}}
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="row ">
                         <div class="col-md-12">
                             <div class="panel panel-primary filterable">
@@ -421,16 +423,10 @@ $(document).ready(function() {
                                             <td>{{$data->class->class_name}} </td>
                                             <td>{{$data->location->location}} </td>
                                             <td>{{$data->remarks}}</td>
-
                                         </tr>
-
                                         @endforeach
-
-
                                     </tbody>
-
                                 </table>
-                               
                             </div>
                             {{-- <div class="col-md-1"></div>
           </div> --}}
