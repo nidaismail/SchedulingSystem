@@ -27,8 +27,8 @@ class AssignRoleToNewUser
      */
     public function handle(Registered $event)
 {
-    $user = $event->user;
-    $role = Role::where('name', 'user')->first();
-    $user->roles()->attach($role);
+    // $user = $event->user;
+    // $role = Role::where('name', 'user')->first();
+    // $user->roles()->attach($role);
 }
 }
