@@ -20,36 +20,62 @@
 
 <script>
 
-$('#selected_Location').on('change', function() {
-    var selectedValue = $(this).val();
-    var dateFrom = $('#input_from').val();
-    var dateTo = $('#input_to').val();
-    var timeFrom = $('#from_time').val();
-    var timeTo = $('#to_time').val();
-    alert(timeFrom);
-    // console.log(you are here);
-    $.ajax({
-        url: '/location-Check',
-        type: 'POST',
-        data: {
-               'location_id': selectedValue,
-               'dateFrom': dateFrom,
-               'dateTo': dateTo,
-               'timeFrom': timeFrom,
-               'timeTo': timeTo
-            },
-        success: function(response) {
-            if(response == 'exists') {
-                $('#selected_Location').tooltip({
+// $('#selected_Location').on('change', function() {
+//     var selectedValue = $(this).val();
+//     var dateFrom = $('#input_from').val();
+//     var dateTo = $('#input_to').val();
+//     var timeFrom = $('#from_time').val();
+//     var timeTo = $('#to_time').val();
+//     alert(timeFrom);
+//     // console.log(you are here);
+//     $.ajax({
+//         url: '/location-Check',
+//         type: 'POST',
+//         data: {
+//                'location_id': selectedValue,
+//                'dateFrom': dateFrom,
+//                'dateTo': dateTo,
+//                'timeFrom': timeFrom,
+//                'timeTo': timeTo
+//             },
+//         success: function(response) {
+//             if(response == 'exists') {
+//                 $('#selected_Location').tooltip({
                      
-                    content: "This Location is already booked on this Date and Time",
-                    position: {my: "center top", at: "center bottom"}
+//                     content: "This Location is already booked on this Date and Time",
+//                     position: {my: "center top", at: "center bottom"}
                     
-                });
-            }
-        }
-    });
-    }); 
+//                 });
+//             }
+//         }
+//     });
+//     }); 
+$(document).ready(function() {
+$('#selected_Location').change(function() {
+  var selectedLocation = $(this).val();
+  var selectedFrom = $('#from_time').val();
+  var selectedTo = $('#to_time').val();
+  $.ajax({
+    url: '/check-schedule',
+    method: 'GET',
+    data: {
+      location: selectedLocation,
+      timeFrom: selectedFrom,
+      timeTo: selectedTo
+    },
+    success: function(response) {
+      if (response.available) {
+        // Allow submission of form
+        alert('Location is free at this time.');
+      } else {
+        // Display popup message
+        alert('Location is already booked at this time.');
+      }
+    }
+  });
+});
+});
+
 function validate() {
     var valid = false;
     if (document.getElementById("dow1").checked) {
@@ -75,7 +101,7 @@ function validate() {
     }
 }
 
-
+// This is for removing the div tag after a schedule is added ahh its a pop up actually or a better an alert. 
 setTimeout(function() {
     $('#successMessage').fadeOut('fast');
 }, 4000);
@@ -135,16 +161,15 @@ setTimeout(function() {
                                                     @foreach($person as $per)
                                                         <option  value='{{$per->userID}}'>{{$per->name}}</option>
                                                     @endforeach
-                                                @endrole
-                                                @role('supervisor'):
+                                             
+                                                @elserole('supervisor'):
                                                 <option value="" disabled selected>Select Person</option>
                                                     @foreach($person as $per)
                                                         @if (Auth::user()->dep_id == $per->dep_id)
                                                             <option value='{{$per->userID}}'>{{$per->name}}</option>
                                                         @endif
                                                     @endforeach
-                                                @endrole
-                                                @role('user'):
+                                                @else
                                                     <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
                                                 @endrole
                                                 
@@ -283,8 +308,8 @@ setTimeout(function() {
                                                     @foreach($person as $per)
                                                         <option value='{{$per->userID}}'>{{$per->name}}</option>
                                                     @endforeach
-                                                @endrole
-                                                @role('supervisor')
+                                               
+                                                @elserole('supervisor')
                                                 <option value="" disabled selected>Select Person</option>
                                                     @foreach($person as $per)
                                                         @if (Auth::user()->department == $per->department)

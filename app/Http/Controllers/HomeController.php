@@ -86,6 +86,24 @@ class HomeController extends Controller
            
             return redirect()->back()->with('success','Schedule added Successfully');
         }
+
+        // public function checkSchedule(Request $request)
+        // {
+        //   $location = $request->input('location');
+        //   $timeFrom = $request->input('timeFrom');
+        //   $timeTo = $request->input('timeTo');
+        
+        //   $scheduleCount = Schedule::where('location', $location)
+        //                             ->where('time_from', $timeFrom)
+        //                             ->where('time_to', $timeTo)
+        //                             ->count();
+        
+        //   if ($scheduleCount > 0) {
+        //     return response()->json(['available' => false]);
+        //   } else {
+        //     return response()->json(['available' => true]);
+        //   }
+        // }
         
     public function check(Request $request)
     {
@@ -103,6 +121,7 @@ class HomeController extends Controller
         return response()->json(['success' => true]);
     
     }
+
     public function displayActivity(Request $request)
     {
         $data =  Schedule::where('id', '>=', 1)->with(['person'])->get()->toArray();

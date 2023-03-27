@@ -34,7 +34,7 @@ Route::get('/', function () {
     
     Auth::routes();
     
-    Route::post('/location-Check', [App\Http\Controllers\HomeController::class, 'check']);
+    Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']);
     
     Auth::routes();
     

@@ -1,0 +1,7 @@
+<!-- This is a help File for Employee Scheduling System V2 
+I will tell you the functions that are properly working 
+    1. Registers a user correctly
+    2. User automatically gets a role after new registeration
+    3. Dates in admin works fines
+-->
+<!-- <input type="date" id="filter_date" name="userdate" value=" <?= \Carbon\Carbon::parse($currentdate)->format('l, F jS Y')?> "/> -->

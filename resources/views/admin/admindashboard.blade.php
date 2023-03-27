@@ -370,8 +370,11 @@ $(document).ready(function() {
                    <a href="{{ URL::route('next'); }}"><i class="arrow right mars"></i></a> --}}
                   
                                     {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($currentdate)->format('d F, Y') }}
+                                      {{-- <input type="date" id="filter_date" name="userdate" value= > 
                                     </h3>
                                 </div> --}}
+                                
+                               
                                 <div class="divs">
                                     <form method="GET" id="filter_form">
                                       @php
@@ -379,8 +382,7 @@ $(document).ready(function() {
                                         // dd($formattedDate);
                                       @endphp
                                     
-                                        <input type="date" id="filter_date" name="userdate" value=" <?= \Carbon\Carbon::parse($currentdate)->format('l, F jS Y')?> ">
-                                        {{-- <label>{{$day}}</label> --}}
+                                        <input type="date" id="filter_date" name="userdate" value="<?php echo date('Y-m-d', strtotime($currentdate)); ?>"/>
                                     </form>
                                 </div>
                             </div>

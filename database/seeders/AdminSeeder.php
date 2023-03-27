@@ -34,8 +34,8 @@ class AdminSeeder extends Seeder
         User::create([
             
             'userID' => '188',
-            'name' => 'Zeeshan Mubeen',
-            'email' => 'zeeshan.mubeen@imdcollege.com',
+            'name' => 'Zeeshan Mobin',
+            'email' => 'zeeshan.mobin@imdcollege.com',
             'email_verified_at' => now(),
             'designation' => 'IT Manager',
             'dep_id' => '1',
@@ -67,7 +67,7 @@ class AdminSeeder extends Seeder
         ])->assignRole('user');
         User::create([
             
-            'userID' => '2554',
+            'userID' => '2254',
             'name' => 'Muhammad Ahsan Hussain',
             'email' => 'ahsan.hussain@imdcollege.edu.pk',
             'email_verified_at' => now(),
