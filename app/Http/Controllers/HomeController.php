@@ -75,14 +75,7 @@ class HomeController extends Controller
                     $data->save();
                 }
             }
-            // $location_id = $request['location'];
-            // $date = $dt;
-            // $time_from = $request->start_time; 
-            // $existingRecord = DB::table('Schedule')
-            // ->where('location_id', $location_id)
-            // ->whereDate('date', $date)
-            // ->whereTime('time_from', $time_from)
-            // ->first();
+            
            
             return redirect()->back()->with('success','Schedule added Successfully');
         }
