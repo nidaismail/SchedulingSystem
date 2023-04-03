@@ -19,63 +19,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
 <script>
-
-$('#selected_Location').on('change', function() {
-    var selectedValue = $(this).val();
-    var dateFrom = $('#input_from').val();
-    var dateTo = $('#input_to').val();
-    var timeFrom = $('#from_time').val();
-    var timeTo = $('#to_time').val();
-    alert(timeFrom);
-    // console.log(you are here);
-    $.ajax({
-        url: '/location-Check',
-        type: 'POST',
-        data: {
-               'location_id': selectedValue,
-               'dateFrom': dateFrom,
-               'dateTo': dateTo,
-               'timeFrom': timeFrom,
-               'timeTo': timeTo
-            },
-        success: function(response) {
-            if(response == 'exists') {
-                $('#selected_Location').tooltip({
-                     
-                    content: "This Location is already booked on this Date and Time",
-                    position: {my: "center top", at: "center bottom"}
-                    
-                });
-            }
-        }
-    });
-    }); 
-// $(document).ready(function() {
-// $('#selected_Location').change(function() {
-//   var selectedLocation = $(this).val();
-//   var selectedFrom = $('#from_time').val();
-//   var selectedTo = $('#to_time').val();
-//   $.ajax({
-//     url: '/check-schedule',
-//     method: 'GET',
-//     data: {
-//       location: selectedLocation,
-//       timeFrom: selectedFrom,
-//       timeTo: selectedTo
-//     },
-//     success: function(response) {
-//       if (response.available) {
-//         // Allow submission of form
-//         alert('Location is free at this time.');
-//       } else {
-//         // Display popup message
-//         alert('Location is already booked at this time.');
-//       }
-//     }
-//   });
-// });
-// });
-
 function validate() {
     var valid = false;
     if (document.getElementById("dow1").checked) {
@@ -100,13 +43,13 @@ function validate() {
         return false;
     }
 }
-
 // This is for removing the div tag after a schedule is added ahh its a pop up actually or a better an alert. 
 setTimeout(function() {
     $('#successMessage').fadeOut('fast');
 }, 4000);
 // $('#alert').fadeOut('fast');
 // }, 4000);
+
 
 </script>
 @endpush
@@ -121,8 +64,9 @@ setTimeout(function() {
         {{ session('status') }}
     </div>
     @endif
+    
 
-    <form class="myform" method="POST" action="{{ route('save') }}" onsubmit="return validate()">
+    <form class="myform" method="POST" action="{{ route('save') }}" onsubmit="return validate();">
         @csrf
         <div class="container px-lg-5">
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
@@ -130,7 +74,7 @@ setTimeout(function() {
                     <div class="container text-left">
                         <div class="row p-4 justify-content-center" id="successMessage">
                             @if(session()->has('success'))
-                            <div class="alert alert-success error-msg">
+                            <div class="alert alert-success">
                                 <i class="fa fa-check-circle"></i>
                                 {{ session()->get('success') }}
                             </div>
@@ -138,8 +82,10 @@ setTimeout(function() {
 
                         </div>
                         <div  id="alert" class="error-msg" role="alert">
-                            <i class="fa fa-times-close"></i>
-                            Please Select a Day.
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            <span style="">
+                                Please Select a Day.
+                            </span>
                           </div>
                         <div class="row justify-content-center given-mar">
                             <div class="col-lg-7">
@@ -183,6 +129,7 @@ setTimeout(function() {
                                                 @foreach($clas as $cl)
                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                 @endforeach
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -231,7 +178,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_from">Date From</label>
-                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" min="0" name="start_date" class="form-control" id="input_from"
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" min="0" name="start_date" class="form-control" id="start_date"
                                             placeholder="" required value="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
@@ -243,7 +190,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Date To</label>
-                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="input_to"
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="end_date"
                                                 placeholder="End Date" required value="<?php echo date('Y-m-t', strtotime('0 months')); ?>">
                                         </div>
                                     </div>
@@ -257,13 +204,13 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="input_from">Time From</label>
                                             <input type="time" step="600" name="start_time" class="form-control"
-                                                id="from_time" value = "08:00" required >
+                                                id="start_time" value = "08:00" required >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Time To</label>
-                                            <input type="time" step="600" name="end_time" class="form-control" id="to_time" value = "16:00"
+                                            <input type="time" step="600" name="end_time" class="form-control" id="end_time" value = "16:00"
                                                 required>
                                         </div>
                                     </div>
@@ -288,7 +235,7 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="location">Location</label>
-                                            <select name="location" id="selected_Location" class="form-control" required>
+                                            <select name="location" id="location" class="form-control" required>
                                                 <option value="" disabled selected>Select Location</option>
                                                 @foreach($locations as $loc)
                                                 <option value='{{$loc->id}}'>{{$loc->location}}</option>
@@ -348,8 +295,8 @@ setTimeout(function() {
                             <div class="col-lg-7 col-md-">
                                 <div class="row">
                                     <div style="padding-top: 10px" class="col-md-4 col-sm-12">
-                                        <a href="{{ route('save') }}"> <button type="submit"
-                                                class="btn btn-success rounded-3 justify-content-center">Submit
+                                        <a href="{{ route('save') }}" id="schedule-form"> <button type="submit"
+                                                class="btn btn-success rounded-3 justify-content-center" >Submit
                                             </button></a>
 
                                     </div>
@@ -393,6 +340,9 @@ setTimeout(function() {
 </div>
 </div> --}}
 @endsection
+@push('script')
+
+@endpush
 
 @prepend('scripts')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -455,6 +405,39 @@ $(document).ready(function() {
             $("#show" + divalue).hide();
             $("div.hidden").not($("#show" + divalue)).show();
         }
+    });
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#location').on('change', function() {
+        
+        var locationId = $(this).val();
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
+        var startTime = $('#start_time').val();
+        var endTime = $('#end_time').val();
+        alert("hello world " + startDate);
+       
+        //'check-location-availability'
+        $.ajax({
+            url: '{{ route('check-location-availability') }}',
+            method: 'POST',
+            data: {
+                location_id: locationId,
+                start_date: startDate,
+                end_date: endDate,
+                start_time: startTime,
+                end_time: endTime
+            },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                }
+            }
+        });
     });
 
     $("input").on("change", function() {

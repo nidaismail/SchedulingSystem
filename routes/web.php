@@ -24,33 +24,32 @@ Route::get('/', function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
-    Auth::routes();
+   
     
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
-    Auth::routes();
+   
     
     Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->name('save');
     
-    Auth::routes();
     
-    Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']);
     
-    Auth::routes();
+    //Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']);
+    
+    
     
     Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
     
     Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');  
     Route::get('/roles', [App\Http\Controllers\RolesController::class, 'show']);
 
-
+    Route::post('/check-location-availability', [App\Http\Controllers\HomeController::class,'checkLocationAvailability'])->name('check-location-availability');
 
 
 // 
-Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function() {
+    Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function() {
     Route::get('/', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
     
-
 
 });
 

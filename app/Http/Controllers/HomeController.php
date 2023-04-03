@@ -48,6 +48,8 @@ class HomeController extends Controller
             ->with('clas', $clas)
             ->with('person', $person);
     }
+
+
     public function store(Request $request){
 
         $begin = new DateTime($request->start_date);
@@ -79,6 +81,32 @@ class HomeController extends Controller
            
             return redirect()->back()->with('success','Schedule added Successfully');
         }
+        public function checkLocationAvailability(Request $request)
+        {
+            $locationId = $request->input('location_id');
+            $startDate = Carbon::createFromFormat('Y-m-d', $request->input('start_date'));
+            $endDate = Carbon::createFromFormat('Y-m-d', $request->input('end_date'));
+            $startTime = Carbon::createFromFormat('H:i', $request->input('start_time'));
+            $endTime = Carbon::createFromFormat('H:i', $request->input('end_time'));
+
+            $isLocationAvailable = Schedule::where('location_id', $locationId)
+            ->where(function($query) use ($startDate, $endDate, $startTime, $endTime) {
+                $query->whereBetween('date', [$startDate, $endDate]);
+                    })
+                    ->orWhere(function($query) use ($startTime, $endTime) {
+                        $query->whereTime('time_from', '<', $endTime)
+                            ->whereTime('time_to', '>', $startTime);
+                    
+            })->get();// query database to check if the location is available during the specified time frame
+        
+            if ($isLocationAvailable) {
+                return response()->json(['success' => 'Location is available']);
+            } else {
+                return response()->json(['error' => 'Location is already booked']);
+            }
+        }
+
+    
 
         // public function checkSchedule(Request $request)
         // {
@@ -98,22 +126,24 @@ class HomeController extends Controller
         //   }
         // }
         
-    public function check(Request $request)
-    {
-        $selectedValue = $request->location_id;
-        $dateFrom = $request->dateFrom;
-        $dateTo = $request->dateTo;
-        $timeFrom= $request->timeFrom;
-        $timeTo= $request->timeTo;
-        $existingrecod = DB::table('Schedule')
-                                 ->where('location_id',[$selectedValue])
-                                 ->whereBetween('date', [$dateFrom, $dateTo])
-                                 ->where('time_from',[$timeFrom])
-                                 ->where('time_to',[$timeTo])
-                                 ->get();
-        return response()->json(['success' => true]);
+    // public function check(Request $request)
+    // {
+    //     $selectedValue = $request->location_id;
+    //     $dateFrom = $request->dateFrom;
+    //     $dateTo = $request->dateTo;
+    //     $timeFrom= $request->timeFrom;
+    //     $timeTo= $request->timeTo;
+    //     $existingrecod = DB::table('Schedule')
+    //                              ->where('location_id',[$selectedValue])
+    //                              ->whereBetween('date', [$dateFrom, $dateTo])
+    //                              ->where('time_from',[$timeFrom])
+    //                              ->where('time_to',[$timeTo])
+    //                              ->get();
+    //     return response()->json(['success' => true]);
     
-    }
+    // }
+    
+    
 
     public function displayActivity(Request $request)
     {
