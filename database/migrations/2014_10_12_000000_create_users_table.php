@@ -21,7 +21,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('designation');
             $table->integer('dep_id');
-            $table->boolean('exists')->default(1);
             $table->boolean('isActive')->default(1);
             $table->string('password');
             $table->rememberToken();

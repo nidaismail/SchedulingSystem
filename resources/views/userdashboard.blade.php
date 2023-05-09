@@ -77,10 +77,12 @@
                                                 <th width="250px">Location</th>
                                                 <th width="150px">Remarks</th>
                                                 <th width="150px">Non-Admissible</th>
+                                                
                                             </tr>
                                         </thead>
                                             @foreach ($persondata as $data)
                                             <tr>
+                                               
     
                                                 <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
                                                 <td>{{$data->day}}</td>
