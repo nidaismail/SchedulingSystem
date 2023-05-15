@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/alert.css">
-<link href="images/favicon.png" rel="icon" type="image/png"> 
+<link href="images/favicon.png" rel="icon" type="image/png">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <!-- Icons -->
-    <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-    <link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<!-- Icons -->
+<link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+<link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -49,8 +49,6 @@ setTimeout(function() {
 }, 4000);
 // $('#alert').fadeOut('fast');
 // }, 4000);
-
-
 </script>
 @endpush
 
@@ -60,11 +58,11 @@ setTimeout(function() {
 <div class="">
     @if (session('status'))
     <div class="alert alert-success" role="alert">
-        
+
         {{ session('status') }}
     </div>
     @endif
-    
+
 
     <form class="myform" method="POST" action="{{ route('save') }}" onsubmit="return validate();">
         @csrf
@@ -81,12 +79,12 @@ setTimeout(function() {
                             @endif
 
                         </div>
-                        <div  id="alert" class="error-msg" role="alert">
+                        <div id="alert" class="error-msg" role="alert">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             <span style="">
                                 Please Select a Day.
                             </span>
-                          </div>
+                        </div>
                         <div class="row justify-content-center given-mar">
                             <div class="col-lg-7">
                                 <div class="row">
@@ -95,7 +93,8 @@ setTimeout(function() {
                                             <label for="input_from">Select</label>
                                             <input type="radio" id="id" value="Class" name="category" class="pad">
                                             <label for="" class="cat">Class</label>
-                                            <input type="radio" id="ids" value="Person" name="category" checked="checked">
+                                            <input type="radio" id="ids" value="Person" name="category"
+                                                checked="checked">
                                             <label for="" class="cat">Person</label>
                                         </div>
                                     </div>
@@ -103,33 +102,34 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <select name="person" id="pers" class="form-control person-input">
                                                 @role('admin'):
-                                                    <option value="" disabled selected>Select Person</option>
-                                                    @foreach($person as $per)
-                                                        <option  value='{{$per->userID}}'>{{$per->name}}</option>
-                                                    @endforeach
-                                             
+                                                <option value="" disabled selected>Select Person</option>
+                                                @foreach($person as $per)
+                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                @endforeach
+
                                                 @elserole('supervisor'):
                                                 <option value="" disabled selected>Select Person</option>
-                                                    @foreach($person as $per)
-                                                        @if (Auth::user()->dep_id == $per->dep_id)
-                                                            <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                        @endif
-                                                    @endforeach
+                                                @foreach($person as $per)
+                                                @if (Auth::user()->dep_id == $per->dep_id)
+                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                @endif
+                                                @endforeach
                                                 @else
-                                                    <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
+                                                <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}
+                                                </option>
                                                 @endrole
-                                                
+
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 removedClass" id="displayClass">
                                         <div class="form-group">
                                             <select name="class" id="cls" class="form-control class-input">
-                                                <option value="" disabled selected>Select  Class</option>
+                                                <option value="" disabled selected>Select Class</option>
                                                 @foreach($clas as $cl)
                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                 @endforeach
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -178,8 +178,9 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_from">Date From</label>
-                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" min="0" name="start_date" class="form-control" id="start_date"
-                                            placeholder="" required value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" min="0"
+                                                name="start_date" class="form-control" id="start_date" placeholder=""
+                                                required value="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
                                     {{-- @php
@@ -190,8 +191,10 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Date To</label>
-                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="end_date" class="form-control" id="end_date"
-                                                placeholder="End Date" required value="<?php echo date('Y-m-t', strtotime('0 months')); ?>">
+                                            <input type="date" data-date="" data-date-format="DD MMMM YYYY"
+                                                name="end_date" class="form-control" id="end_date"
+                                                placeholder="End Date" required
+                                                value="<?php echo date('Y-m-t', strtotime('0 months')); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -204,14 +207,14 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="input_from">Time From</label>
                                             <input type="time" step="600" name="start_time" class="form-control"
-                                                id="start_time" value = "08:00" required >
+                                                id="start_time" value="08:00" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Time To</label>
-                                            <input type="time" step="600" name="end_time" class="form-control" id="end_time" value = "16:00"
-                                                required>
+                                            <input type="time" step="600" name="end_time" class="form-control"
+                                                id="end_time" value="16:00" required>
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +230,7 @@ setTimeout(function() {
                                                 <option value="" disabled selected>Select Activity</option>
                                                 @foreach($activities as $act)
                                                 <option value='{{$act->id}}'>{{$act->activity_name}}</option>
-                                                
+
                                                 @endforeach
                                             </select>
                                         </div>
@@ -251,22 +254,23 @@ setTimeout(function() {
                                             <label for="person">Person</label>
                                             <select name="person" id="pers2" class="form-control person-input">
                                                 @role('admin')
-                                                    <option value="" disabled selected>Select Person</option>
-                                                    @foreach($person as $per)
-                                                        <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                    @endforeach
-                                               
+                                                <option value="" disabled selected>Select Person</option>
+                                                @foreach($person as $per)
+                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                @endforeach
+
                                                 @elserole('supervisor')
                                                 <option value="" disabled selected>Select Person</option>
-                                                    @foreach($person as $per)
-                                                        @if (Auth::user()->department == $per->department)
-                                                            <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                        @endif
-                                                    @endforeach
+                                                @foreach($person as $per)
+                                                @if (Auth::user()->department == $per->department)
+                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
+                                                @endif
+                                                @endforeach
                                                 @else
-                                                    <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}</option>
+                                                <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}
+                                                </option>
                                                 @endrole
-                                               
+
                                             </select>
                                         </div>
                                     </div>
@@ -274,7 +278,7 @@ setTimeout(function() {
                                         <div class="form-group">
                                             <label for="class">Class</label>
                                             <select name="class" id="cls2" class="form-control class-input">
-                                                <option value="" disabled selected>Select  Class</option>
+                                                <option value="" disabled selected>Select Class</option>
                                                 @foreach($clas as $cl)
                                                 <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
                                                 @endforeach
@@ -296,7 +300,7 @@ setTimeout(function() {
                                 <div class="row">
                                     <div style="padding-top: 10px" class="col-md-4 col-sm-12">
                                         <a href="{{ route('save') }}" id="schedule-form"> <button type="submit"
-                                                class="btn btn-success rounded-3 justify-content-center" >Submit
+                                                class="btn btn-success rounded-3 justify-content-center">Submit
                                             </button></a>
 
                                     </div>
@@ -311,7 +315,7 @@ setTimeout(function() {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -375,7 +379,7 @@ $(document).ready(function() {
         if (divalue == "") {
             $("div.hidden").hide();
             $("div.removed").hide();
-            
+
         } else if (divalue == "Person") {
             $('#pers').prop('disabled', false);
             $('#cls').prop('disabled', false);
@@ -407,20 +411,24 @@ $(document).ready(function() {
         }
     });
     $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
     $('#location').on('change', function() {
-        
+
         var locationId = $(this).val();
         var startDate = $('#start_date').val();
         var endDate = $('#end_date').val();
         var startTime = $('#start_time').val();
         var endTime = $('#end_time').val();
+        var selectedDays = [];
+        $("input[name='day[]']:checked").each(function(index, obj) {
+            selectedDays.push($(obj).val())
+        });
         alert("hello world " + startDate);
-       
+
         //'check-location-availability'
         $.ajax({
             url: '{{ route('check-location-availability') }}',
@@ -430,7 +438,8 @@ $(document).ready(function() {
                 start_date: startDate,
                 end_date: endDate,
                 start_time: startTime,
-                end_time: endTime
+                end_time: endTime,
+                selectedDays: JSON.stringify(selectedDays)
             },
             success: function(response) {
                 if (response.error) {
@@ -441,12 +450,12 @@ $(document).ready(function() {
     });
 
     $("input").on("change", function() {
-    this.setAttribute(
-        "data-date",
-        moment(this.value, "YYYY-MM-DD")
-        .format( this.getAttribute("data-date-format") )
-    )
-}).trigger("change")
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format(this.getAttribute("data-date-format"))
+        )
+    }).trigger("change")
 
 
 
