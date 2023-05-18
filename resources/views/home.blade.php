@@ -427,7 +427,7 @@ $(document).ready(function() {
         $("input[name='day[]']:checked").each(function(index, obj) {
             selectedDays.push($(obj).val())
         });
-        alert("hello world " + startDate);
+        
 
         //'check-location-availability'
         $.ajax({
