@@ -82,8 +82,6 @@
                                         </thead>
                                             @foreach ($persondata as $data)
                                             <tr>
-                                               
-    
                                                 <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td>
                                                 <td>{{$data->day}}</td>
                                                 <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>

@@ -5,6 +5,24 @@
     <link href="images/favicon.png" rel="icon" type="image/png"> 
     {{-- <link rel="stylesheet" href="css/styles.css"> --}}
 @endpush
+@push('scripts')
+<script>
+    $(document).ready(function() {
+      $('#togglePassword').click(function() {
+        var passwordInput = $('#password');
+        var type = passwordInput.attr('type');
+        
+        if (type === 'password') {
+          passwordInput.attr('type', 'text');
+          $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          passwordInput.attr('type', 'password');
+          $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      });
+    });
+  </script>
+@endpush
 @section('content')
 
 <div class="container">
@@ -30,6 +48,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <i class="fas fa-eye eye-icon" id="togglePassword"></i>
                             </div>
                         </div>
 

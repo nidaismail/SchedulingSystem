@@ -536,6 +536,14 @@ label.valid {
   color: red;
   text-align: center;
 }
+.eye-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #999;
+}
 
 
 @media screen and (max-width: 1200px) {
@@ -603,7 +611,8 @@ label.valid {
     padding: 0 30px; }
 
   .form-title {
-    text-align: center; } }
+    text-align: center; }
+   }
 @media screen and (max-width: 400px) {
   .social-login {
     flex-direction: column;

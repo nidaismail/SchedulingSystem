@@ -106,7 +106,7 @@ setTimeout(function() {
                                                 @foreach($person as $per)
                                                 <option value='{{$per->userID}}'>{{$per->name}}</option>
                                                 @endforeach
-
+                                                
                                                 @elserole('supervisor'):
                                                 <option value="" disabled selected>Select Person</option>
                                                 @foreach($person as $per)
@@ -427,8 +427,6 @@ $(document).ready(function() {
         $("input[name='day[]']:checked").each(function(index, obj) {
             selectedDays.push($(obj).val())
         });
-        
-
         //'check-location-availability'
         $.ajax({
             url: '{{ route('check-location-availability') }}',
