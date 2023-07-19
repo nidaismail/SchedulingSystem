@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\StudUpdateController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,39 +21,49 @@ Route::get('/', function () {
 // Route::get('/login/{id}', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
     Auth::routes();
     Route::get('/get-user-details/{userID}', [App\Http\Controllers\Auth\LoginController::class, 'getUserDetails']);
-
-
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    
-   
     
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    
-    
     Route::post('/save', [App\Http\Controllers\HomeController::class, 'store'])->name('save');
     
-    
-    
-    //Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']);
-    
-    
+    // Route::get('/index', [App\Http\Controllers\UserController::class, 'index']);
+    //Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']); 
     
     Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
     
     Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');  
-    Route::get('/roles', [App\Http\Controllers\RolesController::class, 'show']);
-
-    Route::post('/check-location-availability', [App\Http\Controllers\HomeController::class,'checkLocationAvailability'])->name('check-location-availability');
-
-
-// 
-    Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function() {
-    Route::get('/', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
     
+    Route::post('/check-location-availability', [App\Http\Controllers\HomeController::class,'checkLocationAvailability'])->name('check-location-availability');
+  
+    // Route::get('/create', [App\Http\Controllers\RolesController::class, 'index'])->name('create');
+    // Route::get('/roles', [App\Http\Controllers\RolesController::class, 'show']);
+    Route::middleware(['auth', 'role:admin'])->name('admin.')->group(function() {
+    Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
+    Route::get('/create', [App\Http\Controllers\UserController::class, 'create']);
+    // Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit']);
+    Route::get('/show/{userID}', [App\Http\Controllers\UserController::class, 'show']);
+    // Route::get('/destroy/{userID}', [App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+    Route::get('/roles', [App\Http\Controllers\UserController::class, 'main']);
+    // Route::get('/update', [App\Http\Controllers\UserController::class, 'update'])->name('update');
+         Route::get('edit-records', [App\Http\Controllers\UserUpdateController::class, 'index']);
+         Route::get('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'show']);
+         Route::post('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'edit']);
+
+         Route::get('delete-records', [App\Http\Controllers\UserDeleteController::class, 'index']);
+         Route::get('delete/{id}', [App\Http\Controllers\UserDeleteController::class, 'destroy']);
+         
 
 });
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('users', UserController::class);
+});
+// Route::group(['middleware' => ['auth']], function() {
+   
+//     Route::resource('users', UserController::class);
+    
+// });
 
 //Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'admindata']);
 // Route::get('/next', [App\Http\Controllers\AdmindashboardController::class, 'nextdata'])->name('next');

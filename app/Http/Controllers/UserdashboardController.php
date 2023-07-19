@@ -14,7 +14,7 @@ class UserdashboardController extends Controller
     {
         $today = Today()->toDateString();
         $user_role = Auth::user()->getRoleNames();
-        // dd($user_role);
+       
         foreach ($user_role as $role) {
             if ($role == 'admin') {
               
@@ -41,7 +41,7 @@ class UserdashboardController extends Controller
                 return view('userdashboard')->with(compact('persondata'));
             }
         }
-        
+       
     }
     public function admissible(Request $request)
     {

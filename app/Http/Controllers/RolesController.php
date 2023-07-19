@@ -15,6 +15,12 @@ class RolesController extends Controller
         //return view('admin.roles',compact('user'));
         return view('admin.roles');
     }
+    public function index()
+    {
+        // $user = User::find($id);
+        //return view('admin.roles',compact('user'));
+        return view('admin.create');
+    }
     public function edit($id)
     {
         $user = User::find($id);
