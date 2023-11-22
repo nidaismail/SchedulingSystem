@@ -75,16 +75,20 @@ class HomeController extends Controller
         $startTime = $request->start_time;
         $endTime = $request->end_time;
         $selectedDays = $request->day;
-
-        $existingSchedule = Schedule::where('location_id', $locationId)
-            ->where('time_from', $startTime)
-            ->where('time_to', $endTime)
-            ->whereIn('day', $selectedDays) // Check for existing schedules on the selected days
-            ->first();
-
-        if ($existingSchedule) {
-            return redirect()->back()->with('error', 'Location is already booked for ' . $existingSchedule->user->name . ' at this date and time.');
-        }
+        
+        $existingSchedules = Schedule::where('location_id', $locationId)
+            ->whereIn('day', $selectedDays)
+            ->get();
+        
+        foreach ($existingSchedules as $existingSchedule) {
+            if (
+                ($startTime >= $existingSchedule->time_from && $startTime < $existingSchedule->time_to) ||
+                ($endTime > $existingSchedule->time_from && $endTime <= $existingSchedule->time_to) ||
+                ($startTime <= $existingSchedule->time_from && $endTime >= $existingSchedule->time_to)
+            ) {
+                return redirect()->back()->with('error', 'Location is already booked for ' . $existingSchedule->user->name . ' at this date and time.');
+            }
+        }        
 
         // Loop through each selected person
         foreach ($request->input('persons') as $selectedPersonId) {
@@ -110,7 +114,7 @@ class HomeController extends Controller
         }
     
         return redirect()->back()->with('success', 'Schedule added Successfully');
-    } 
+    }
         // public function checkLocationAvailability(Request $request)
         // {
         //     $locationId = $request->input('location_id');

@@ -17,6 +17,7 @@ class LocationSeeder extends Seeder
     {
         DB::table('location')->insert(
             [
+            ['location' => "TBD"],
             ['location' => "Others"],
             ['location' => "Lecture Hall-1 (IMDC)"],
             ['location' => "Lecture Hall-2 (IMDC)"],

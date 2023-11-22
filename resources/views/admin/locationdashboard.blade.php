@@ -7,7 +7,6 @@
     <title>
       Dashboard
     </title>
-    
     <!-- Favicon -->
     <link href="./images/favicon.png" rel="icon" type="image/png"> 
     <!-- Fonts -->
@@ -16,9 +15,6 @@
     <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
     <link href="./css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     
     {{-- {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
@@ -27,12 +23,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 </head>
 <script>
+  
 /*
 Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
 */
-
-
-
 $(document).ready(function() {
 
   $('input[type=date]').change(function () {
@@ -83,6 +77,18 @@ $(document).ready(function() {
 </script>
 
 <body class="">
+  <style>
+    /* CSS to set the text color based on background color */
+    td[data-color="red"] {
+        background-color: red;
+        color: white; /* Text color for red cells */
+    }
+
+    td[data-color="green"] {
+        background-color: green;
+        color: black; /* Text color for green cells */
+    }
+</style>
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
             <!-- Toggler -->
@@ -95,57 +101,6 @@ $(document).ready(function() {
                 <img src="./images/brand/CIRS.png" class="navbar-brand-img" alt="...">
             </a>
             <!-- User -->
-            <ul class="nav align-items-center d-md-none">
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ni ni-bell-55"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
-                        aria-labelledby="navbar-default_dropdown_1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> --}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <div class="media align-items-center">
-                            <span class="avatar avatar-sm rounded-circle">
-                                <img alt="Image placeholder" src="./images/theme/team-1-800x800.jpg">
-                            </span>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                        <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
-                        </div>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-calendar-grid-58"></i>
-                            <span>Activity</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-support-16"></i>
-                            <span>Support</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#!" class="dropdown-item">
-                            <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
             <!-- Collapse -->
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Collapse header -->
@@ -166,19 +121,6 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
-                <!-- Form -->
-                <form class="mt-4 mb-3 d-md-none">
-                    {{-- <div class="input-group input-group-rounded input-group-merge">
-                        <input type="search" class="form-control form-control-rounded form-control-prepended"
-                            placeholder="Search" aria-label="Search">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <span class="fa fa-search"></span>
-                            </div>
-                        </div>
-                    </div> --}}
-                </form>
-                <!-- Navigation -->
                 <ul class="navbar-nav">
                   <li class="nav-item">
                         <a class="nav-link" href="{{url('/admin')}}" target="_self">
@@ -203,168 +145,23 @@ $(document).ready(function() {
                 </ul>
             </div>
         </div>
-
-
-    </nav>
-    <div class="main-content">
+      </nav>
+      <div class="main-content">
         <!-- Navbar -->
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
                 <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
                     href="{{url('/admin')}}">Dashboard</a>
-                <!-- Form -->
-                {{-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
->>>>>>> 02901e9375485fd376b942d9e7c608a45a5ed9f6
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form> --}}
-                <!-- User -->
-                {{-- <ul class="navbar-nav align-items-center d-none d-md-flex">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <div class="media align-items-center">
-                                <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="./images/theme/team-4-800x800.jpg">
-                                </span>
-                                <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Yasir Niazi</span>
-                                </div>
-                            </div>
-                        </a> --}}
-                        {{-- <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-              <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
-              </div>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
-                <span>Logout</span>
-              </a>
-            </div> --}}
-                    {{-- </li>
-                </ul> --}}
             </div>
         </nav>
         <!-- End Navbar -->
         <!-- Header -->
-        <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="header bg-gradient-primary pb-1 pt-5 pt-md-8">
             <div class="container-fluid">
-                {{-- <div class="header-body">
-          <!-- Card stats -->
-          <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Employees</h5>
-                      <span class="h2 font-weight-bold mb-0">2669</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New Employees</h5>
-                      <span class="h2 font-weight-bold mb-0">0</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 0.00%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Activities</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
+               
             </div>
         </div>
-        
         <div class="container-fluid mt--7">
             <div class="row mt-5">
                 <div class="col-xl-12 mb-5 mb-xl-0">
@@ -372,21 +169,7 @@ $(document).ready(function() {
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="col-md-12 text-center">
-                                    {{-- @php
-                     $current = Today();
-                   @endphp --}}
-
-
-                                    {{-- <i class="arrow left mars"></i>
-                   <a href="{{ URL::route('next'); }}"><i class="arrow right mars"></i></a> --}}
-                  
-                                    {{-- <div class="divs"> <h3> {{ \Carbon\Carbon::parse($currentdate)->format('d F, Y') }}
-                                      {{-- <input type="date" id="filter_date" name="userdate" value= > 
-                                    </h3>
-                                </div> --}}
-                                
-                               
-                                {{-- <div class="divs">
+                                <div class="divs">
                                     <form method="GET" id="filter_form">
                                       @php
                                         // $formattedDate =;
@@ -395,7 +178,7 @@ $(document).ready(function() {
                                     
                                         <input type="date" id="filter_date" name="userdate" value="<?php echo date('Y-m-d', strtotime($currentdate)); ?>"/>
                                     </form>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -411,112 +194,37 @@ $(document).ready(function() {
                                     
                                     <h3 class="mb-10 panel-title"></h3>
                                 </div>
-                                @php
-                                $allTimeIntervals = [];
-                            
-                                // Extract unique time intervals from schedule data for all locations
-                                foreach ($scheduleData as $locationSchedules) {
-                                    $allTimeIntervals = array_merge($allTimeIntervals, array_keys($locationSchedules));
-                                }
-                            
-                                // Filter unique time intervals and sort them based on their start time
-                                $uniqueTimeIntervals = array_unique($allTimeIntervals);
-                                usort($uniqueTimeIntervals, function($a, $b) {
-                                    return strtotime(explode(' - ', $a)[0]) - strtotime(explode(' - ', $b)[0]);
-                                });
-                            @endphp
-                            
-                            <table class="table table-bordered table-responsive">
-                                <thead>
-                                    <tr class="filters">
-                                        <th><input type="text" class="form-control" placeholder="Location" disabled></th>
-                                        @foreach ($uniqueTimeIntervals as $interval)
-                                            <th><input type="text" class="form-control" placeholder="{{ $interval }}" disabled></th>
-                                        @endforeach
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($allLocations as $location)
-                                        <tr>
-                                            <td>{{ $location->location }}</td>
-                                            @foreach ($uniqueTimeIntervals as $interval)
-                                                <td style="background-color: {{ $scheduleData[$location->id][$interval] ?? 'green' }}"></td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            
-
-
-
-                                
-                              
-                                
-                                {{-- <table  class=" table table-bordered table-responsive" >
-                                    <thead>
-                                        <tr class="filters">
-                                           
-                                            <th><input type="text" class="form-control" placeholder="Location" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="08:30 - 09:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="09:30 - 10:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="10:30 - 11:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="11:30 - 12:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="12:30 - 01:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="01:30 - 02:30" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="01:30 - 02:30" disabled></th>
-                                            
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                      @foreach ($allLocations as $loc)
+                                <table class="table table-bordered table-responsive">
+                                  <thead>
                                       <tr>
-                                        <td>{{ $loc->location }}</td>
-                                      </tr> 
-                                      @endforeach 
-                                        
-                                        
-                                    </tbody>
-                                </table> --}}
-                                <!-- classtable -->
-                                
+                                          <th>Location</th>
+                                          @foreach ($timeIntervals as $interval)
+                                              <th>{{ $interval }}</th>
+                                          @endforeach
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach ($allLocations as $location)
+                                          <tr>
+                                              <td>{{ $location->location }}</td>
+                                              @foreach ($timeIntervals as $interval)
+                                                  @php
+                                                  $cellData = $occupancyData[$location->id][$interval];
+                                                  @endphp
+                                                  <td style="background-color: {{ $cellData['color'] }}">
+                                                      {{ $cellData['details'] }}
+                                                  </td>
+                                              @endforeach
+                                          </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
                             </div>
-                            {{-- <div class="col-md-1"></div>
-          </div> --}}
                         </div>
-
-
                     </div>
                 </div>
 
             </div>
-            <!-- Footer -->
-            {{-- <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer> --}}
         </div>
     </div>
     <!--   Core   -->
