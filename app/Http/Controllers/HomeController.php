@@ -39,72 +39,102 @@ class HomeController extends Controller
         $clas = Grade::all()->sortBy(function ($clas) {
             return $clas->class_name;
         });
-        $person = User::all()->sortBy(function ($person) {
+        $persons = User::all()->sortBy(function ($person) {
             return $person->name;
         });
         // $supervisor = Auth::user()->
         return view('home')->with('activities', $activities)
             ->with('locations', $locations)
             ->with('clas', $clas)
-            ->with('person', $person);
+            ->with('persons', $persons);
     }
-
-
-    public function store(Request $request){
-
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'persons' => 'required|array',
+            'persons.*' => 'integer',
+            'day' => 'required|array',
+            'activity' => 'required|integer',
+            'location' => 'required|integer',
+            'remarks' => 'string|nullable',
+        ]);
+    
         $begin = new DateTime($request->start_date);
         $end = new DateTime($request->end_date);
-        $end->setTime(0,0,1);  
+        $end->setTime(0, 0, 1);
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
+    
+        // Check if the location is already booked for the specified time frame
+        $locationId = $request->location;
+        $startTime = $request->start_time;
+        $endTime = $request->end_time;
+        $selectedDays = $request->day;
+
+        $existingSchedule = Schedule::where('location_id', $locationId)
+            ->where('time_from', $startTime)
+            ->where('time_to', $endTime)
+            ->whereIn('day', $selectedDays) // Check for existing schedules on the selected days
+            ->first();
+
+        if ($existingSchedule) {
+            return redirect()->back()->with('error', 'Location is already booked for ' . $existingSchedule->user->name . ' at this date and time.');
+        }
+
+        // Loop through each selected person
+        foreach ($request->input('persons') as $selectedPersonId) {
             foreach ($period as $dt) {
                 if (in_array($dt->format('l'), $request->day)) {
+                    $startDate = Carbon::parse($dt);
+    
+                    // Create a new schedule for the current person
                     $data = new Schedule();
-                    $dt->format("Y-m-d H:i:s");
-                   // $data->employee_id = $request['id'];
-                    $data->date = Carbon::parse($dt);
-                    $data->time_from = $request->start_time;
-                    $data->time_to = $request->end_time;
-                    $data->day =  $dt->format('l');//I have fetched day from the date, you need to check if this day is selected by user
-                    // this will show if the day we are looping in is selected by user or not
-                    $data->user_id = $request['person'];
-                    $data->department = Auth::user()->dep_id; //auth user->dep_id
-                    $data->class_id = $request['class'];
-                    $data->activity_id = $request['activity'];
-                    $data->location_id = $request['location'];
-                    $data->remarks = $request['remarks'];
-                    // $data->created_by = $request['created_by'];
+                    $data->date = $startDate;
+                    $data->time_from = $startTime;
+                    $data->time_to = $endTime;
+                    $data->day = $dt->format('l');
+                    $data->user_id = $selectedPersonId;
+                    $data->department = Auth::user()->dep_id;
+                    $data->class_id = $request->class;
+                    $data->activity_id = $request->activity;
+                    $data->location_id = $locationId;
+                    $data->remarks = $request->remarks;
                     $data->save();
                 }
             }
-            
-           
-            return redirect()->back()->with('success','Schedule added Successfully');
         }
-        public function checkLocationAvailability(Request $request)
-        {
-            $locationId = $request->input('location_id');
-            $startDate = Carbon::createFromFormat('Y-m-d', $request->input('start_date'));
-            $endDate = Carbon::createFromFormat('Y-m-d', $request->input('end_date'));
-            $startTime = Carbon::createFromFormat('H:i:s', $request->input('start_time'));
-            $endTime = Carbon::createFromFormat('H:i:s', $request->input('end_time'));
+    
+        return redirect()->back()->with('success', 'Schedule added Successfully');
+    } 
+        // public function checkLocationAvailability(Request $request)
+        // {
+        //     $locationId = $request->input('location_id');
+        //     $startDate = Carbon::createFromFormat('Y-m-d', $request->input('start_date'));
+        //     $endDate = Carbon::createFromFormat('Y-m-d', $request->input('end_date'));
+        //     $startTime = Carbon::createFromFormat('H:i:s', $request->input('start_time'));
+        //     $endTime = Carbon::createFromFormat('H:i:s', $request->input('end_time'));
 
-            $isLocationAvailable = Schedule::where('location_id', $locationId)
-            ->where(function($query) use ($startDate, $endDate, $startTime, $endTime) {
-                $query->whereBetween('date', [$startDate, $endDate]);
-                    })
-                    ->orWhere(function($query) use ($startTime, $endTime) {
-                        $query->whereTime('time_from', '<', $endTime)
-                            ->whereTime('time_to', '>', $startTime);
+        //     $isLocationAvailable = Schedule::where('location_id', $locationId)
+        //     ->where(function($query) use ($startDate, $endDate, $startTime, $endTime) {
+        //         $query->whereBetween('date', [$startDate, $endDate]);
+        //             })
+        //             ->orWhere(function($query) use ($startTime, $endTime) {
+        //                 $query->whereTime('time_from', '<', $endTime)
+        //                     ->whereTime('time_to', '>', $startTime);
                     
-            })->get();// query database to check if the location is available during the specified time frame
+        //     })->get();// query database to check if the location is available during the specified time frame
         
-            if ($isLocationAvailable) {
-                return response()->json(['success' => 'Location is available']);
-            } else {
-                return response()->json(['error' => 'Location is already booked']);
-            }
-        }
+        //     if ($isLocationAvailable) {
+        //         return response()->json(['success' => 'Location is available']);
+        //     } else {
+        //         return response()->json(['error' => 'Location is already booked']);
+        //     }
+        // }
 
     
 

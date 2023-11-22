@@ -4,11 +4,8 @@
     <link rel="stylesheet" type="text/css"  href="css/app.css">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
-{{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
- 
-<link rel="stylesheet" href="css/alert.css">
-<link href="images/favicon.png" rel="icon" type="image/png"> 
+    <link rel="stylesheet" href="css/alert.css">
+    <link href="images/favicon.png" rel="icon" type="image/png"> 
 @endpush
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>

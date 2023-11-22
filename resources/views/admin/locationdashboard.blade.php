@@ -191,10 +191,10 @@ $(document).ready(function() {
                         </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{url('/locationadmin')}}" target="_self">
-                          <i class="ni ni-key-25 text-info"></i> Location Activity 
-                      </a>
-                  </li>
+                        <a class="nav-link" href="{{url('/locationadmin')}}" target="_self">
+                            <i class="ni ni-key-25 text-info"></i> Location Activity 
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link " href="{{url('/home')}}">
                             <i class="ni ni-single-02 text-yellow"></i> Home
@@ -386,7 +386,7 @@ $(document).ready(function() {
                                 </div> --}}
                                 
                                
-                                <div class="divs">
+                                {{-- <div class="divs">
                                     <form method="GET" id="filter_form">
                                       @php
                                         // $formattedDate =;
@@ -395,7 +395,7 @@ $(document).ready(function() {
                                     
                                         <input type="date" id="filter_date" name="userdate" value="<?php echo date('Y-m-d', strtotime($currentdate)); ?>"/>
                                     </form>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -411,37 +411,74 @@ $(document).ready(function() {
                                     
                                     <h3 class="mb-10 panel-title"></h3>
                                 </div>
+                                @php
+                                $allTimeIntervals = [];
+                            
+                                // Extract unique time intervals from schedule data for all locations
+                                foreach ($scheduleData as $locationSchedules) {
+                                    $allTimeIntervals = array_merge($allTimeIntervals, array_keys($locationSchedules));
+                                }
+                            
+                                // Filter unique time intervals and sort them based on their start time
+                                $uniqueTimeIntervals = array_unique($allTimeIntervals);
+                                usort($uniqueTimeIntervals, function($a, $b) {
+                                    return strtotime(explode(' - ', $a)[0]) - strtotime(explode(' - ', $b)[0]);
+                                });
+                            @endphp
+                            
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr class="filters">
+                                        <th><input type="text" class="form-control" placeholder="Location" disabled></th>
+                                        @foreach ($uniqueTimeIntervals as $interval)
+                                            <th><input type="text" class="form-control" placeholder="{{ $interval }}" disabled></th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($allLocations as $location)
+                                        <tr>
+                                            <td>{{ $location->location }}</td>
+                                            @foreach ($uniqueTimeIntervals as $interval)
+                                                <td style="background-color: {{ $scheduleData[$location->id][$interval] ?? 'green' }}"></td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            
+
+
+
                                 
-                                <table  class=" table table-bordered table-responsive" >
+                              
+                                
+                                {{-- <table  class=" table table-bordered table-responsive" >
                                     <thead>
                                         <tr class="filters">
-                                            {{-- <th><input type="text" class="form-control" placeholder="Date" disabled></th> --}}
-                                            <th><b><input type="text" class="form-control" placeholder="Day" disabled></b></th>
-                                            <th><input type="text" class="form-control" placeholder="Time From"disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Time To" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Person" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Activity" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Class" disabled></th>
+                                           
                                             <th><input type="text" class="form-control" placeholder="Location" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Remarks" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="08:30 - 09:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="09:30 - 10:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="10:30 - 11:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="11:30 - 12:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="12:30 - 01:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="01:30 - 02:30" disabled></th>
+                                            <th><input type="text" class="form-control" placeholder="01:30 - 02:30" disabled></th>
+                                            
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($admindata as $data)
-                                        <tr>
-                                            {{-- <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td> --}}
-                                            <td>{{$data->day}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
-                                            <td>{{$data->user->name}} </td>
-                                            <td>{{$data->activity->activity_name}} </td>
-                                            <td>{{$data->class->class_name}} </td>
-                                            <td>{{$data->location->location}} </td>
-                                            <td>{{$data->remarks}}</td>
-                                        </tr>
-                                        @endforeach
+                                      @foreach ($allLocations as $loc)
+                                      <tr>
+                                        <td>{{ $loc->location }}</td>
+                                      </tr> 
+                                      @endforeach 
+                                        
+                                        
                                     </tbody>
-                                </table>
+                                </table> --}}
                                 <!-- classtable -->
                                 
                             </div>

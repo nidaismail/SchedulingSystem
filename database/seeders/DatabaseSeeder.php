@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
               LocationSeeder::class,
               RoleSeeder::class,
               AdminSeeder::class,
-              Department::class,
+              DepartmentSeeder::class,
             ]);
         }
     

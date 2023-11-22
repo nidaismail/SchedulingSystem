@@ -21,7 +21,7 @@ class UserdashboardController extends Controller
                 $persondata = Schedule::where('date', '>=', $today)
                                             ->with(['user','activity','location'])
                                             ->orderBy('date')
-                                            ->get();                       
+                                            ->get();                     
                     return view('userdashboard')->with(compact('persondata'));
                 
             } elseif ($role == 'supervisor') {
@@ -41,8 +41,19 @@ class UserdashboardController extends Controller
                 return view('userdashboard')->with(compact('persondata'));
             }
         }
-       
     }
+
+    public function classview(){
+        $today = Today()->toDateString();
+        $schedules = Schedule::where('date', '>=', $today)
+                                            ->with(['user','activity','location'])
+                                            ->orderBy('date')
+                                            ->get();                     
+                    return view('classview')->with(compact('schedules'));
+        }
+    
+       
+    
     public function admissible(Request $request)
     {
         $data = Schedule::whereIn('id', $request['schedule_id'])->update(['admissible'=>1]);
@@ -63,4 +74,7 @@ class UserdashboardController extends Controller
     // $checked_array = $request->schedule_id;
     //foreach($persondata->id as $key){
         //if(in-array($request->persondata[$key], $checked_array))
+        
+
+      
 }

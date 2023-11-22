@@ -71,6 +71,7 @@ class DepartmentSeeder extends Seeder
             ['name' => "Admission & Discharge"],
             ['name' => "Dialysis Unit"],
             ['name' => "Gynae OT"],
+            ['name' => "Management"],
             ]);
     }
 }

@@ -10,7 +10,8 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Job Portal</title>
+    <title>Scheduling System</title>
+    <link rel="icon" href="{{ url('images/favicon.jpg') }}">
 
     <!-- Icons font CSS-->
     <link href="asset/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -62,9 +63,9 @@
     background-color: #FFBABA;
     }
       input {
-  width: 100%;
-  box-sizing: border-box;
-  color:"white";
+        width: 100%;
+        box-sizing: border-box;
+        color:"white";
         }
         input[type=text] {
         width: 100%;
@@ -94,7 +95,7 @@
             <div class="card card-2">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Update Post</h2>
+                    <h2 class="title">Update User</h2>
                     <form action = "/edit/<?php echo $users[0]->id; ?>" method = "post">
                     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                         @csrf
@@ -158,13 +159,13 @@
                         <button style="padding: 10px 20px; background-color: #1969b3; color: white; line-height: 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; text-decoration: none;"
                     onmouseover="this.style.backgroundColor='white'; this.style.color='#1969b3'; this.style.border='2px solid #1969b3';"
                     onmouseout="this.style.backgroundColor='#1969b3'; this.style.color='white'; this.style.border='none';">
-                            Update Post
+                            Update User
                         </button>
                         </div><br>
                         <button style="padding: 10px 20px; background-color: #1969b3; color: white; line-height: 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; text-decoration: none;"
                     onmouseover="this.style.backgroundColor='white'; this.style.color='#1969b3'; this.style.border='2px solid #1969b3';"
                     onmouseout="this.style.backgroundColor='#1969b3'; this.style.color='white'; this.style.border='none';">
-                    <span style="margin-right: 5px; font-size: 12px; line-height: 12px;">&#8592;</span> Go Back
+                    <span style="margin-right: 5px; font-size: 12px; line-height: 12px;">&#8592;</span> <a  href="{{ route('home') }}">Go Back</a>
                     </button>
                     </form>
                 </div>

@@ -32,6 +32,7 @@ Route::get('/', function () {
     //Route::get('//location-Check', [App\Http\Controllers\HomeController::class, 'check']); 
     
     Route::get('/viewdata', [App\Http\Controllers\UserdashboardController::class, 'preview'])->name('viewdata');
+    Route::get('/view', [App\Http\Controllers\UserdashboardController::class, 'classview'])->name('view');
     
     Route::post('/admissible', [App\Http\Controllers\UserdashboardController::class, 'admissible'])->name('admissible');  
     
@@ -41,20 +42,20 @@ Route::get('/', function () {
     // Route::get('/roles', [App\Http\Controllers\RolesController::class, 'show']);
     Route::middleware(['auth', 'role:admin'])->name('admin.')->group(function() {
     Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
+    Route::get('/classadmin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithclass'])->name('dataWithclass');
+    Route::get('/locationadmin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithlocation'])->name('dataWithlocation');
     Route::get('/create', [App\Http\Controllers\UserController::class, 'create']);
     // Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit']);
     Route::get('/show/{userID}', [App\Http\Controllers\UserController::class, 'show']);
     // Route::get('/destroy/{userID}', [App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
     Route::get('/roles', [App\Http\Controllers\UserController::class, 'main']);
     // Route::get('/update', [App\Http\Controllers\UserController::class, 'update'])->name('update');
-         Route::get('edit-records', [App\Http\Controllers\UserUpdateController::class, 'index']);
-         Route::get('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'show']);
-         Route::post('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'edit']);
-
-         Route::get('delete-records', [App\Http\Controllers\UserDeleteController::class, 'index']);
-         Route::get('delete/{id}', [App\Http\Controllers\UserDeleteController::class, 'destroy']);
-         
-
+     Route::get('edit-records', [App\Http\Controllers\UserUpdateController::class, 'index']);
+     Route::get('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'show']);
+     Route::post('edit/{id}', [App\Http\Controllers\UserUpdateController::class, 'edit']);
+     Route::get('delete-records', [App\Http\Controllers\UserDeleteController::class, 'index']);
+     Route::get('delete/{id}', [App\Http\Controllers\UserDeleteController::class, 'destroy']);
+        
 });
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);

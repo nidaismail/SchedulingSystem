@@ -11,13 +11,106 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <!-- Icons -->
 <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-<link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-@endpush
-
-@push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+    .form-control{
+        text-align: left;
+    }
+    .dropdown-menu{
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px
+    }
+    .dropdown-menu {
+        width: 100%;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
 
+    .dropdown-item {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+</style>
+@endpush
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Open the dropdown when the button is clicked
+        $('#classDropdown').on('focus', function() {
+            $(this).dropdown('toggle');
+        });
+
+        // Listen for the click event on the dropdown items
+        $('.class-item').on('click', function() {
+            // Get the text of the clicked item
+            var selectedText = $(this).text();
+
+            // Update the button text with the selected text
+            $('#classDropdown').text(selectedText);
+
+            // Get the data-value attribute of the clicked item
+            var selectedValue = $(this).data('value');
+
+            // Update the hidden input value with the selected value
+            $('#cls').val(selectedValue);
+
+            // Close the dropdown after selection
+            $('#classDropdown').dropdown('toggle');
+        });
+
+        // Prevent the form from submitting if the dropdown is clicked
+        $('.dropdown-menu').on('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+
+<script>
+$(document).ready(function () {
+    // Search for persons
+    $('#personSearch').on('input', function () {
+        var searchQuery = $(this).val().toLowerCase();
+        $('.person-item').hide().filter(function () {
+            return $(this).data('name').toLowerCase().includes(searchQuery);
+        }).show();
+    });
+
+    // Search for classes
+    $('#classSearch').on('input', function () {
+        var searchValue = $(this).val().toLowerCase();
+        $('.class-item').each(function () {
+            var itemText = $(this).text().toLowerCase();
+            $(this).toggle(itemText.indexOf(searchValue) > -1);
+        });
+    });
+
+    // Handle click event for class items
+    $('.class-item').on('click', function () {
+        var selectedValue = $(this).data('value');
+        $('#cls').val(selectedValue); // Set the value of the original select element
+        $('#classDropdown button').html($(this).text());
+        // You can use the selectedValue as needed (e.g., submit it with a form)
+    });
+});
+</script>
 <script>
 function validate() {
     var valid = false;
@@ -77,7 +170,13 @@ setTimeout(function() {
                                 {{ session()->get('success') }}
                             </div>
                             @endif
-
+                        
+                            @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                <i class="fa fa-exclamation-circle"></i>
+                                {{ session()->get('error') }}
+                            </div>
+                            @endif
                         </div>
                         <div id="alert" class="error-msg" role="alert">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -99,39 +198,60 @@ setTimeout(function() {
                                         </div>
                                     </div>
                                     <div class="col-md-6 removed" id="displayPerson">
-                                        <div class="form-group">
-                                            <select name="person" id="pers" class="form-control person-input">
-                                                @role('admin'):
-                                                <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                @endforeach
-                                                
-                                                @elserole('supervisor'):
-                                                <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                @if (Auth::user()->dep_id == $per->dep_id)
-                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                @endif
-                                                @endforeach
-                                                @else
-                                                <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}
-                                                </option>
-                                                @endrole
-
-                                            </select>
+                                    <div class="form-group">
+                                        <div class="dropdown">
+                                            <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Persons
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="personsDropdown">
+                                    @role('admin')
+                                        <input type="text" id="personSearch" class="form-control" placeholder="Search...">
+                                        @foreach($persons as $person)
+                                            <div class="form-check person-item" data-name="{{ $person->name }}">
+                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                            </div>
+                                        @endforeach
+                                
+                                        @elserole('supervisor')
+                                                    @foreach($persons as $person)
+                                                        @if (Auth::user()->dep_id == $person->dep_id)
+                                                            <div class="form-check">
+                                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                    @else
+                                                    @foreach($persons as $person)
+                                                    @if (Auth::user()->userID == $person->userID)
+                                                    <div class="form-check">
+                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ Auth::user()->userID }}" class="form-check-input">
+                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ Auth::user()->name  }}</label>
+                                                    </div>
+                                                    @endif
+                                                    @endforeach
+                                                    @endrole
+                                                </div>
+                                            </div>
+                                  
                                         </div>
                                     </div>
                                     <div class="col-md-6 removedClass" id="displayClass">
-                                        <div class="form-group">
-                                            <select name="class" id="cls" class="form-control class-input">
-                                                <option value="" disabled selected>Select Class</option>
+                                    <div class="form-group">
+                                        <div class="dropdown">
+                                            <button class="form-control dropdown-toggle" type="button" id="classDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Class
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="classDropdown">
+                                                <input type="text" id="classSearch" class="form-control" placeholder="Search...">
+                                                <div class="dropdown-divider"></div>
                                                 @foreach($clas as $cl)
-                                                <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
+                                                    <a class="dropdown-item class-item" href="#" data-value="{{$cl->id}}">{{$cl->class_name}}</a>
                                                 @endforeach
-
-                                            </select>
+                                            </div>
                                         </div>
+                                        <input type="hidden" name="class" id="cls" value="">
                                     </div>
                                 </div>
                             </div>
@@ -206,14 +326,14 @@ setTimeout(function() {
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_from">Time From</label>
-                                            <input type="time" step="600" name="start_time" class="form-control"
+                                            <input type="time" name="start_time" class="form-control"
                                                 id="start_time" value="08:00" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="input_to">Time To</label>
-                                            <input type="time" step="600" name="end_time" class="form-control"
+                                            <input type="time" name="end_time" class="form-control"
                                                 id="end_time" value="16:00" required>
                                         </div>
                                     </div>
@@ -248,11 +368,45 @@ setTimeout(function() {
                                     </div>
                                     <br>
                                     <br>
-
                                     <div class="col-md-6 hidden" id="showPerson">
-                                        <div class="form-group">
-                                            <label for="person">Person</label>
-                                            <select name="person" id="pers2" class="form-control person-input">
+                                <div class="form-group">
+                                    <label for="Persons[]">Person</label>
+                                    <div class="dropdown">
+                                        <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Select Persons
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="personsDropdown">
+                                            @role('admin')
+                                            <input type="text" id="classSearch" class="form-control" placeholder="Search Person...">
+                                                @foreach($persons as $person)
+                                                    <div class="form-check person-item" data-name="{{ $person->name }}">
+                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @elserole('supervisor')
+                                                @foreach($persons as $person)
+                                                    @if(Auth::user()->dep_id == $person->dep_id)
+                                                        <div class="form-check">
+                                                            <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                            <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                @foreach($persons as $person)
+                                                    @if (Auth::user()->userID == $person->userID)
+                                                        <div class="form-check">
+                                                            <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ Auth::user()->userID }}" class="form-check-input">
+                                                            <label class="form-check-label" for="person_{{ $person->userID }}">{{ Auth::user()->name  }}</label>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @endrole
+                                        </div>
+                                    </div>
+   
+                                            {{-- <select name="person" id="pers2" class="form-control person-input">
                                                 @role('admin')
                                                 <option value="" disabled selected>Select Person</option>
                                                 @foreach($person as $per)
@@ -271,7 +425,7 @@ setTimeout(function() {
                                                 </option>
                                                 @endrole
 
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-6 hiddenClass" id="showClass">
@@ -355,6 +509,9 @@ setTimeout(function() {
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <script>
 $(document).ready(function() {
     $('.person-input').change(function() {
@@ -460,42 +617,3 @@ $(document).ready(function() {
 });
 </script>
 @endprepend
-{{-- $(document).ready(function() {
-    $("#myform").validate({
-        rules: {
-            email: {
-                required: true,
-                email: true,
-                remote: {
-                    url: '/check-email',
-                    type: 'post',
-                    data: {
-                        email: function() {
-                            return $('#email').val();
-                        }
-                    }
-                }
-            },
-            // other form fields and validation rules
-        },
-        messages: {
-            email: {
-                remote: "Email already exists"
-            },
-            // other error messages
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-});
-// app/Http/Controllers/CheckEmailController.php
-class CheckEmailController extends Controller
-{
-    public function check(Request $request)
-    {
-        $email = $request->input('email');
-        $exists = YourModel::where('email', $email)->exists();
-        return response()->json(['valid' => !$exists]);
-    }
-} --}}

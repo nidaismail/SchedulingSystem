@@ -14,9 +14,9 @@
     <main class="container">
         {{-- <div class="container"> --}}
             <h1 class="mt-4">User Management</h1>
-            <div class="pull-right">
+            {{-- <div class="pull-right">
                 <a class="btn btn-success" href="{{ url('create') }}"> Create New User</a>
-            </div>
+            </div> --}}
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>

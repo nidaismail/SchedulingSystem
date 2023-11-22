@@ -11710,3 +11710,7 @@ body {
   display: flex;
   justify-content: flex-end
 }
+.mar{
+  margin-bottom: 8px;
+  margin-left: 8px;
+}

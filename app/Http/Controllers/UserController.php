@@ -125,19 +125,20 @@ class UserController extends Controller
      * @param  int  $userID
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($userID)
-    // {
-    //     User::find($userID)->delete();
-    //     return redirect()->route('admin.main')
-    //                     ->with('success','User deleted successfully');
-    // }
-    public function destroy($userID) {
-        DB::delete('delete from users where id = ?',[$userID]);
-        $user = User::find($userID);
-        $user->delete();
-        echo "Record deleted successfully.";
+    public function destroy($userID)
+    {
+        User::find($userID)->delete();
+        return redirect()->route('admin.main')
+                        ->with('success','User deleted successfully');
+    }
+    // public function destroy($userID) {
+    //     DB::delete('delete from users where id = ?',[$userID]);
+    //     $user = User::find($userID);
+    //     $user->delete();
+    //     echo "Record deleted successfully.
+    //     ";
         
-        }
+    //     }
     
 }
     

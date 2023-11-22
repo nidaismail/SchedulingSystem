@@ -416,28 +416,42 @@ $(document).ready(function() {
                                     <thead>
                                         <tr class="filters">
                                             {{-- <th><input type="text" class="form-control" placeholder="Date" disabled></th> --}}
+                                            <th><input type="text" class="form-control" placeholder="Class" disabled></th>
                                             <th><b><input type="text" class="form-control" placeholder="Day" disabled></b></th>
                                             <th><input type="text" class="form-control" placeholder="Time From"disabled></th>
                                             <th><input type="text" class="form-control" placeholder="Time To" disabled></th>
                                             <th><input type="text" class="form-control" placeholder="Person" disabled></th>
                                             <th><input type="text" class="form-control" placeholder="Activity" disabled></th>
-                                            <th><input type="text" class="form-control" placeholder="Class" disabled></th>
+                                            
                                             <th><input type="text" class="form-control" placeholder="Location" disabled></th>
                                             <th><input type="text" class="form-control" placeholder="Remarks" disabled></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($admindata as $data)
+                                        @php
+                                            $groupedData = $adminclass->groupBy(function ($item) {
+                                            return $item->date . $item->time_from . $item->time_to . $item->location . $item->activity . $item->remarks;
+                                            });
+                                        @endphp
+                                        @foreach ($groupedData as $group)
                                         <tr>
-                                            {{-- <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td> --}}
-                                            <td>{{$data->day}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_from)->format('h:i A') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->time_to)->format('h:i A') }}</td>
-                                            <td>{{$data->user->name}} </td>
-                                            <td>{{$data->activity->activity_name}} </td>
-                                            <td>{{$data->class->class_name}} </td>
-                                            <td>{{$data->location->location}} </td>
-                                            <td>{{$data->remarks}}</td>
+                                            <!-- {{-- <td>{{ \Carbon\Carbon::parse($data->date)->format('d F, Y') }}</td> --}} -->
+                                            <td>{{ $group[0]->class->class_name }}</td>
+                                            <!-- <td>{{ \Carbon\Carbon::parse($group[0]->date)->format('d F, Y') }}</td> -->
+                                            <td>{{ $group[0]->day }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($group[0]->time_from)->format('h:i A') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($group[0]->time_to)->format('h:i A') }}</td>
+                                            <td>
+                                                @foreach ($group as $data)
+                                                    {{ $data->user->name }}
+                                                        @if (!$loop->last)
+                                                            <br>
+                                                        @endif
+                                                @endforeach
+                                            </td>
+                                            <td>{{ $group[0]->activity->activity_name }}</td>
+                                            <td>{{ $group[0]->location->location }}</td>
+                                            <td>{{ $group[0]->remarks }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
