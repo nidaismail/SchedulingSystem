@@ -198,6 +198,7 @@ $(document).ready(function() {
                                   <thead>
                                       <tr>
                                           <th>Location</th>
+                                          <th>Specifications</th>
                                           @foreach ($timeIntervals as $interval)
                                               <th>{{ $interval }}</th>
                                           @endforeach
@@ -207,6 +208,10 @@ $(document).ready(function() {
                                       @foreach ($allLocations as $location)
                                           <tr>
                                               <td>{{ $location->location }}</td>
+                                              <td><div style="display: block">Seating Capacity: {{$location->capacity}}</div>
+                                                <div style="display: block">Projector : {{$location->projector}}</div>
+                                                <div style="display: block">Sound System: {{$location->soundSystem}}</div>
+                                            </td>
                                               @foreach ($timeIntervals as $interval)
                                                   @php
                                                   $cellData = $occupancyData[$location->id][$interval];
