@@ -191,6 +191,25 @@ $(document).ready(function() {
                                         <button class="btn btn-primary btn-sm btn-filter"><span
                                                 class="glyphicon glyphicon-filter"></span> Filter</button>
                                     </div>
+                                    <div class="col pull-right text-left">
+                                        <span
+                                                class="glyphicon glyphicon-filter"></span>  <div class="form-group">
+                                                    <div class="dropdown">
+                                                        <button class="form-control dropdown-toggle" type="button" id="classDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Select Class
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="classDropdown">
+                                                            <input type="text" id="classSearch" class="form-control" placeholder="Search...">
+                                                            <div class="dropdown-divider"></div>
+                                                            @foreach($clas as $cl)
+                                                                <a class="dropdown-item class-item" href="#" data-value="{{$cl->id}}">{{$cl->class_name}}</a>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                    </div>
+                                    
                                     
                                     <h3 class="mb-10 panel-title"></h3>
                                 </div>
@@ -209,16 +228,19 @@ $(document).ready(function() {
                                           <tr>
                                               <td>{{ $location->location }}</td>
                                               <td><div style="display: block">Seating Capacity: {{$location->capacity}}</div>
-                                                <div style="display: block">Projector : {{$location->projector}}</div>
+                                                
                                                 <div style="display: block">Sound System: {{$location->soundSystem}}</div>
+                                                <div style="display: block">Projector : {{$location->projector}}</div>
                                             </td>
                                               @foreach ($timeIntervals as $interval)
-                                                  @php
-                                                  $cellData = $occupancyData[$location->id][$interval];
-                                                  @endphp
-                                                  <td style="background-color: {{ $cellData['color'] }}">
-                                                      {{ $cellData['details'] }}
-                                                  </td>
+                                              @php
+                                              $cellData = $occupancyData[$location->id][$interval];
+                                              $tooltipContent = $cellData['details']; // Person's name and class
+                                          @endphp
+                                                  <td style="background-color: {{ $cellData['color'] }}" data-toggle="tooltip" title="{{ $tooltipContent }}">
+                                                    <!-- If the cell is occupied (red), display a tooltip -->
+                                                    <!-- Tooltip will show the person's name and class -->
+                                                </td>
                                               @endforeach
                                           </tr>
                                       @endforeach
@@ -241,6 +263,12 @@ $(document).ready(function() {
     <!--   Argon JS   -->
     <script src="./js/argon-dashboard.min.js?v=1.1.2"></script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+        // Initialize Bootstrap tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
     <script>
     $(document).ready(function() {

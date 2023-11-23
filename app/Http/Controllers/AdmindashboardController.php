@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Schedule;
 use App\Models\Location;
+use App\Models\Grade;
 use Carbon\Carbon;
 use DateTime;
 use DateInterval;
@@ -51,6 +52,9 @@ class AdmindashboardController extends Controller
     }
     public function dataWithLocation(Request $request)
     {
+        $clas = Grade::all()->sortBy(function ($clas) {
+            return $clas->class_name;
+        });
         $currentdate =  Carbon::parse($request['userdate'])->format('Y-m-d');
         $allLocations = Location::orderBy('location', 'asc')->get();
     
@@ -109,10 +113,10 @@ class AdmindashboardController extends Controller
         
     
         return view('admin.locationdashboard')
-            ->with(compact('allLocations', 'occupancyData', 'timeIntervals','currentdate'));
+            ->with(compact('allLocations', 'occupancyData', 'timeIntervals','currentdate','clas'));
     }
     
-
+    
 
 
     // public function nextdata(){
