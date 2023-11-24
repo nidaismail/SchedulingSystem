@@ -88,6 +88,32 @@ $(document).ready(function() {
         background-color: green;
         color: black; /* Text color for green cells */
     }
+    .table-wrapper {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-width: 100%; /* Ensure the table wrapper doesn't overflow */
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed; /* Important for fixed column width */
+}
+
+.static-column {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 1;
+    /* Set width for the static columns */
+    width: 180px; /* Adjust according to your needs */
+}
+
+.static-column:nth-child(2) {
+    left: 180px; /* Adjust based on the width of the first static column */
+}
+
 </style>
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
@@ -213,39 +239,48 @@ $(document).ready(function() {
                                     
                                     <h3 class="mb-10 panel-title"></h3>
                                 </div>
-                                <table class="table table-bordered table-responsive">
-                                  <thead>
-                                      <tr>
-                                          <th>Location</th>
-                                          <th>Specifications</th>
-                                          @foreach ($timeIntervals as $interval)
-                                              <th>{{ $interval }}</th>
-                                          @endforeach
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      @foreach ($allLocations as $location)
-                                          <tr>
-                                              <td>{{ $location->location }}</td>
-                                              <td><div style="display: block">Seating Capacity: {{$location->capacity}}</div>
-                                                
-                                                <div style="display: block">Sound System: {{$location->soundSystem}}</div>
-                                                <div style="display: block">Projector : {{$location->projector}}</div>
-                                            </td>
-                                              @foreach ($timeIntervals as $interval)
-                                              @php
-                                              $cellData = $occupancyData[$location->id][$interval];
-                                              $tooltipContent = $cellData['details']; // Person's name and class
-                                          @endphp
-                                                  <td style="background-color: {{ $cellData['color'] }}" data-toggle="tooltip" title="{{ $tooltipContent }}">
-                                                    <!-- If the cell is occupied (red), display a tooltip -->
-                                                    <!-- Tooltip will show the person's name and class -->
-                                                </td>
-                                              @endforeach
-                                          </tr>
-                                      @endforeach
-                                  </tbody>
-                              </table>
+                                
+                                    <div class="table-wrapper">
+                                        <table class="table table-bordered table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <!-- Static columns -->
+                                                    <th class="static-column">Location</th>
+                                                    <th class="static-column">Specifications</th>
+                                                    <!-- Scrollable columns -->
+                                                    @foreach ($timeIntervals as $interval)
+                                                        <th style="padding-right:0.1rem">{{ $interval }}</th>
+                                                    @endforeach
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($allLocations as $location)
+                                                    <tr>
+                                                        <!-- Static column content -->
+                                                        <td class="static-column">{{ $location->location }}</td>
+                                                        <td class="static-column">
+                                                            <div>Seating Capacity: {{ $location->capacity }}</div>
+                                                            <div>Sound System: {{ $location->soundSystem }}</div>
+                                                            <div>Projector: {{ $location->projector }}</div>
+                                                        </td>
+                                                        <!-- Scrollable columns content -->
+                                                        @foreach ($timeIntervals as $interval)
+                                                            @php
+                                                                $cellData = $occupancyData[$location->id][$interval];
+                                                                $tooltipContent = $cellData['details']; // Person's name and class
+                                                            @endphp
+                                                            <td style="background-color: {{ $cellData['color'] }}" data-toggle="tooltip" title="{{ $tooltipContent }}">
+                                                                <!-- If the cell is occupied (red), display a tooltip -->
+                                                                <!-- Tooltip will show the person's name and class -->
+                                                            </td>
+                                                        @endforeach
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                              
                             </div>
                         </div>
                     </div>
