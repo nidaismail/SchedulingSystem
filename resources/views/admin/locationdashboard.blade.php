@@ -20,60 +20,40 @@
     {{-- {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 </head>
+
 <script>
-  
-/*
-Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
-*/
-$(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        var locationFilter = document.getElementById('location-filter');
+        var applyButton = document.getElementById('applyLocationFilterBtn');
 
-  $('input[type=date]').change(function () {
-    this.form.submit();
-  });
+        applyButton.addEventListener('click', function () {
+            var selectedLocation = locationFilter.value;
+            console.log('Selected Location:', selectedLocation);
 
-    $('.filterable .btn-filter').click(function() {
-        var $panel = $(this).parents('.filterable'),
-            $filters = $panel.find('.filters input'),
-            $tbody = $panel.find('.table tbody');
-        if ($filters.prop('disabled') == true) {
-            $filters.prop('disabled', false);
-            $filters.first().focus();
-        } else {
-            $filters.val('').prop('disabled', true);
-            $tbody.find('.no-result').remove();
-            $tbody.find('tr').show();
-        }
-    });
-    $('.filterable .filters input').keyup(function(e) {
-        /* Ignore tab key */
-        var code = e.keyCode || e.which;
-        if (code == '9') return;
-        /* Useful DOM data and selectors */
-        var $input = $(this),
-            inputContent = $input.val().toLowerCase(),
-            $panel = $input.parents('.filterable'),
-            column = $panel.find('.filters th').index($input.parents('th')),
-            $table = $panel.find('.table'),
-            $rows = $table.find('tbody tr');
-        /* Dirtiest filter function ever ;) */
-        var $filteredRows = $rows.filter(function() {
-            var value = $(this).find('td').eq(column).text().toLowerCase();
-            return value.indexOf(inputContent) === -1;
+            // Hide all rows initially
+            var allRows = document.querySelectorAll('.location-row');
+            allRows.forEach(function (row) {
+                row.style.display = 'none';
+            });
+
+            // Show rows based on the selected location
+            if (selectedLocation === '') {
+                // If 'All Locations' is selected, show all rows
+                allRows.forEach(function (row) {
+                    row.style.display = '';
+                });
+            } else {
+                // Show rows matching the selected location
+                var selectedRows = document.querySelectorAll('.location-row-' + selectedLocation);
+                selectedRows.forEach(function (row) {
+                    row.style.display = '';
+                });
+            }
         });
-        /* Clean previous no-result if exist */
-        $table.find('tbody .no-result').remove();
-        /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-        $rows.show();
-        $filteredRows.hide();
-        /* Prepend no-result row if all rows are filtered */
-        if ($filteredRows.length === $rows.length) {
-            $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table
-                .find('.filters th').length + '">No result found</td></tr>'));
-        }
     });
-});
 </script>
 
 <body class="">
@@ -107,11 +87,16 @@ $(document).ready(function() {
     background-color: white;
     z-index: 1;
     /* Set width for the static columns */
-    width: 180px; /* Adjust according to your needs */
+    width: 200px; /* Adjust according to your needs */
+    
+}
+.static-column + .static-column {
+    margin-left: -1px; /* Adjust for any gap caused by default spacing */
 }
 
 .static-column:nth-child(2) {
-    left: 180px; /* Adjust based on the width of the first static column */
+    left: calc(200px + 1px); /* Adjust based on the width of the first static column */
+   
 }
 
 </style>
@@ -208,33 +193,37 @@ $(document).ready(function() {
                             </div>
                         </div>
                     </div>
-                           
-                    <div class="row ">
-                        <div class="col-md-12">
-                            <div class="panel panel-primary filterable">
-                                <div class="panel-heading">
-                                    <div class="col pull-right text-right">
-                                        <button class="btn btn-primary btn-sm btn-filter"><span
-                                                class="glyphicon glyphicon-filter"></span> Filter</button>
-                                    </div>
-                                    <div class="col pull-right text-left">
-                                        <span
-                                                class="glyphicon glyphicon-filter"></span>  <div class="form-group">
-                                                    <div class="dropdown">
-                                                        <button class="form-control dropdown-toggle" type="button" id="classDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Select Class
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="classDropdown">
-                                                            <input type="text" id="classSearch" class="form-control" placeholder="Search...">
-                                                            <div class="dropdown-divider"></div>
-                                                            @foreach($clas as $cl)
-                                                                <a class="dropdown-item class-item" href="#" data-value="{{$cl->id}}">{{$cl->class_name}}</a>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                    </div>
+                    <div class="panel-body">
+                    <div class="panel-heading">
+                        <div class="pull-right">
+                            <form id="location-filter-form" class="form-inline">
+                                <div class="form-group" style="padding-left: 10px">
+                                    <label for="location-filter" style="color: #16A796; font-size: 14px; margin-bottom: -15px; font-weight: bold;">Filter by Location: </label>
+                                    <select id="location-filter" class="form-control" style="font-size: 14px; color: #16A796; margin-bottom: 5px; height: 40px; margin-left: 5px; font-weight: bold;">
+                                        <option value="">All Locations</option>
+                                        @foreach ($allLocations as $location)
+                                            <option value="{{ $location->id }}">{{ $location->location }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="button" id="applyLocationFilterBtn" class="btn btn-default" style="color: white; margin-left: 10px; margin-bottom: 5px; background: #16A796; font-size: 12px;">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                                    {{-- <div class="col pull-right text-left">
+                                        <form action="{{ url('class') }}" method="GET">
+                                            <label for="class">Select a Class:</label>
+                                            <select name="class" id="class">
+                                                <option value="">Show all classes</option>
+                                                @foreach($clas as $class)
+                                                    <option value="{{ $class->id }}">{{ $class->class_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit">Filter</button>
+                                        </form>
+                                    </div> --}}
                                     
                                     
                                     <h3 class="mb-10 panel-title"></h3>
@@ -245,30 +234,31 @@ $(document).ready(function() {
                                             <thead>
                                                 <tr>
                                                     <!-- Static columns -->
-                                                    <th class="static-column">Location</th>
-                                                    <th class="static-column">Specifications</th>
+                                                    <th class="static-column" style="font-size: 12px; font-weight: bold;">Location</th>
+                                                    <th class="static-column" style="font-size: 12px; font-weight: bold;">Specifications</th>
                                                     <!-- Scrollable columns -->
                                                     @foreach ($timeIntervals as $interval)
-                                                        <th style="padding-right:0.1rem">{{ $interval }}</th>
+                                                        <th style="padding-right: 0.1rem; font-size: 12px; font-weight: bold;">{{ $interval }}</th>
                                                     @endforeach
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <tbody>
                                                 @foreach ($allLocations as $location)
-                                                    <tr>
-                                                        <!-- Static column content -->
-                                                        <td class="static-column">{{ $location->location }}</td>
-                                                        <td class="static-column">
-                                                            <div>Seating Capacity: {{ $location->capacity }}</div>
-                                                            <div>Sound System: {{ $location->soundSystem }}</div>
-                                                            <div>Projector: {{ $location->projector }}</div>
-                                                        </td>
-                                                        <!-- Scrollable columns content -->
-                                                        @foreach ($timeIntervals as $interval)
-                                                            @php
-                                                                $cellData = $occupancyData[$location->id][$interval];
-                                                                $tooltipContent = $cellData['details']; // Person's name and class
-                                                            @endphp
+                                                <tr class="location-row location-row-{{ $location->id }}">
+                                                    <!-- Static column content -->
+                                                    <td class="static-column">{{ $location->location }}</td>
+                                                    <td class="static-column">
+                                                        <div>Seating Capacity: {{ $location->capacity }}</div>
+                                                        <div>Sound System: {{ $location->soundSystem }}</div>
+                                                        <div>Projector: {{ $location->projector }}</div>
+                                                    </td>
+                                                    <!-- Scrollable columns content -->
+                                                    @foreach ($timeIntervals as $interval)
+                                                        @php
+                                                            $cellData = $occupancyData[$location->id][$interval];
+                                                            $tooltipContent = $cellData['details']; // Person's name and class
+                                                        @endphp
                                                             <td style="background-color: {{ $cellData['color'] }}" data-toggle="tooltip" title="{{ $tooltipContent }}">
                                                                 <!-- If the cell is occupied (red), display a tooltip -->
                                                                 <!-- Tooltip will show the person's name and class -->

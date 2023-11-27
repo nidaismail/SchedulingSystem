@@ -44,6 +44,7 @@ Route::get('/', function () {
     Route::get('/admin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithdate'])->name('dataWithdate');
     Route::get('/classadmin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithclass'])->name('dataWithclass');
     Route::get('/locationadmin', [App\Http\Controllers\AdmindashboardController::class, 'dataWithlocation'])->name('dataWithlocation');
+    Route::get('/class', [App\Http\Controllers\AdmindashboardController::class, 'dataWithLocation'])->name('class');
     Route::get('/create', [App\Http\Controllers\UserController::class, 'create']);
     // Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit']);
     Route::get('/show/{userID}', [App\Http\Controllers\UserController::class, 'show']);
