@@ -249,7 +249,7 @@
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="col-md-12 text-center">
-                                <div class="divs">
+                                {{-- <div class="divs">
                                     <form method="GET" id="filter_form">
                                       @php
                                         // $formattedDate =;
@@ -258,13 +258,13 @@
                                     
                                         <input type="date" id="filter_date" name="userdate" value="<?php echo date('Y-m-d', strtotime($currentdate)); ?>"/>
                                     </form>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
                     <div class="panel-heading">
-                        <div class="pull-right">
+                        {{-- <div class="pull-right">
                             <form id="location-filter-form" class="form-inline">
                                 <div class="form-group" style="padding-left: 10px">
                                     <label for="location-filter" style="color: #16A796; font-size: 14px; margin-bottom: -15px; font-weight: bold;">Filter by Location: </label>
@@ -277,7 +277,7 @@
                                 </div>
                                 <button type="button" id="applyLocationFilterBtn" class="btn btn-default" style="color: white; margin-left: 10px; margin-bottom: 5px; background: #16A796; font-size: 12px;">Apply</button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col pull-right text-left">
@@ -302,9 +302,16 @@
                                 </div>
                                 
                                     <div class="table-wrapper">
-                                    <table class="table table-bordered table-responsive">
+                                    <table class="table table-bordered table-responsive" style="margin:2rem;">
                                     <thead>
                                         <tr>
+                                            <th>Hello</th>
+                                            <th>Nida Ismail</th>
+                                            
+                                            <th>Heheheh</th>
+                                            <th>Keheheh</th>
+                                        </tr>
+                                        {{-- <tr>
                                             <!-- Static columns -->
                                             <th class="static-column" style="font-size: 12px; font-weight: bold; padding-right: 7rem">Location</th>
                                             <th class="static-column" style="font-size: 12px; font-weight: bold;">Logistics</th>
@@ -320,10 +327,52 @@
                                                     <div>{{ $endTime }}</div>
                                                 </th>
                                             @endforeach
-                                        </tr>
+                                        </tr> --}}
                                     </thead>
                                                     <tbody>
-                        @foreach ($allLocations as $location)
+                                                        <tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Keheheh</th>
+                                                        </tr><tr>
+                                                            <th>Hello</th>
+                                                            <th>Nida Ismail</th>
+                                                            
+                                                            <th>Heheheh</th>
+                                                            <th>Keheheh</th>
+                                                        </tr>
+                        {{-- @foreach ($allLocations as $location)
                             <tr class="location-row location-row-{{ $location->id }}">
                                 <!-- Static column content -->
                                 <td class="static-column">{{ $location->location }}</td>
@@ -363,7 +412,7 @@
                                     </td>
                                 @endforeach
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
 

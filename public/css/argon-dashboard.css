@@ -18496,12 +18496,14 @@ textarea[resize="horizontal"] {
 
 .card .table {
   margin-bottom: 0;
+  /* margin-left: 0.8rem;
+  padding-right: 1.8rem; */
 }
 
 .card .table td,
 .card .table th {
   padding-left: 0.5rem;
-  padding-right: 1.5rem;
+  padding-right: 1rem;
 }
 
 p {

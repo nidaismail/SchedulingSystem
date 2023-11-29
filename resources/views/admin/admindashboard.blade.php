@@ -195,6 +195,11 @@ $(document).ready(function() {
                           <i class="ni ni-key-25 text-info"></i> Location Activity 
                       </a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url('/weekadmin')}}" target="_self">
+                        <i class="ni ni-key-25 text-info"></i> Weekly Schedule 
+                    </a>
+                </li>
                     <li class="nav-item">
                         <a class="nav-link " href="{{url('/home')}}">
                             <i class="ni ni-single-02 text-yellow"></i> Home

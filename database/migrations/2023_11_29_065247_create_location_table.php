@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('location');
             $table->string('capacity');
-            $table->string('projector');
+            $table->string('display');
             $table->string('soundSystem');
+            $table->string('ExamCapacity');
             $table->timestamps();
         });
     }

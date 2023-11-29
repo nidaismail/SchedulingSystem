@@ -11,10 +11,7 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <!-- Icons -->
 <link href="./js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 <link href="./js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
     .form-control{
         text-align: left;
@@ -48,68 +45,78 @@
     }
 </style>
 @endpush
+
 @push('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<!-- Add this script at the end of your HTML body -->
 <script>
     $(document).ready(function() {
-        // Open the dropdown when the button is clicked
-        $('#classDropdown').on('focus', function() {
-            $(this).dropdown('toggle');
-        });
+        // Check if jQuery is loaded
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            console.log('jQuery is loaded!');
+        }
 
-        // Listen for the click event on the dropdown items
-        $('.class-item').on('click', function() {
-            // Get the text of the clicked item
-            var selectedText = $(this).text();
+        // Check for errors in the document ready block
+        try {
+            // Update the selector to target the radio buttons inside the class-item2
+            $('.class-item2 input[type="radio"]').change(function() {
+                // Get the selected class name
+                var selectedClassName = $(this).next('label').text();
 
-            // Update the button text with the selected text
-            $('#classDropdown').text(selectedText);
-
-            // Get the data-value attribute of the clicked item
-            var selectedValue = $(this).data('value');
-
-            // Update the hidden input value with the selected value
-            $('#cls').val(selectedValue);
-
-            // Close the dropdown after selection
-            $('#classDropdown').dropdown('toggle');
-        });
-
-        // Prevent the form from submitting if the dropdown is clicked
-        $('.dropdown-menu').on('click', function(e) {
-            e.stopPropagation();
-        });
+                // Update the label of the dropdown button with the ID classDropdown2
+                $('#classDropdown2').html(selectedClassName + ' <span class="caret"></span>');
+            });
+        } catch (error) {
+            console.error('Error in document ready block:', error);
+        }
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<!-- Add this script at the end of your HTML body -->
 <script>
-$(document).ready(function () {
-    // Search for persons
-    $('#personSearch').on('input', function () {
-        var searchQuery = $(this).val().toLowerCase();
-        $('.person-item').hide().filter(function () {
-            return $(this).data('name').toLowerCase().includes(searchQuery);
-        }).show();
-    });
+    $(document).ready(function() {
+        // Check if jQuery is loaded
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            console.log('jQuery is loaded!');
+        }
 
-    // Search for classes
-    $('#classSearch').on('input', function () {
-        var searchValue = $(this).val().toLowerCase();
-        $('.class-item').each(function () {
-            var itemText = $(this).text().toLowerCase();
-            $(this).toggle(itemText.indexOf(searchValue) > -1);
+        // Check for errors in the document ready block
+        try {
+            // Update the selector to target the radio buttons inside the class-item
+            $('.class-item input[type="radio"]').change(function() {
+                // Get the selected class name
+                var selectedClassName = $(this).next('label').text();
+
+                // Update the label of the dropdown button with the selected class name
+                $('#classDropdown').html(selectedClassName + ' <span class="caret"></span>');
+            });
+        } catch (error) {
+            console.error('Error in document ready block:', error);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkboxes = document.querySelectorAll('.class-item input[type="checkbox"]');
+        var selectedClassInput = document.getElementById('selectedClass');
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var selectedClass = checkbox.parentElement.querySelector('label').innerText;
+
+                // Update the input field with the selected class name
+                selectedClassInput.value = selectedClass;
+            });
         });
     });
-
-    // Handle click event for class items
-    $('.class-item').on('click', function () {
-        var selectedValue = $(this).data('value');
-        $('#cls').val(selectedValue); // Set the value of the original select element
-        $('#classDropdown button').html($(this).text());
-        // You can use the selectedValue as needed (e.g., submit it with a form)
-    });
-});
 </script>
 <script>
 function validate() {
@@ -142,6 +149,39 @@ setTimeout(function() {
 }, 4000);
 // $('#alert').fadeOut('fast');
 // }, 4000);
+</script>
+<script>
+$(document).ready(function () {
+    // Custom jQuery contains case-insensitive
+    $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+        return function (elem) {
+            return $(elem).text().toLowerCase().indexOf(arg.toLowerCase()) >= 0;
+        };
+    });
+
+    // Search for persons in the dropdown
+    $('#personSearch1, #personSearch2').on('input', function () {
+        var searchQuery = $(this).val().toLowerCase();
+        // Find the dropdown container
+        var dropdownContainer = $(this).closest('.dropdown');
+        // Find and hide all .person-item elements within the dropdown container
+        dropdownContainer.find('.person-item').hide();
+        // Find and show .person-item elements containing the search query
+        dropdownContainer.find('.person-item:contains("' + searchQuery + '")').show();
+    });
+
+    // Search for classes in the dropdown
+    $('#classSearch, #classSearch2').on('input', function () {
+        var searchQuery = $(this).val().toLowerCase();
+        // Find the dropdown container
+        var dropdownContainer = $(this).closest('.dropdown');
+        // Find and hide all .class-item elements within the dropdown container
+        dropdownContainer.find('.class-item, .class-item2').hide();
+        // Find and show .class-item elements containing the search query
+        dropdownContainer.find('.class-item:contains("' + searchQuery + '"), .class-item2:contains("' + searchQuery + '")').show();
+    });
+});
+    
 </script>
 @endpush
 
@@ -198,65 +238,52 @@ setTimeout(function() {
                                         </div>
                                     </div>
                                     <div class="col-md-6 removed" id="displayPerson">
-                                    <div class="form-group">
-                                        <div class="dropdown">
-                                            <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Select Persons
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="personsDropdown">
-                                    @role('admin')
-                                        <input type="text" id="personSearch" class="form-control" placeholder="Search...">
-                                        @foreach($persons as $person)
-                                            <div class="form-check person-item" data-name="{{ $person->name }}">
-                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
-                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Select Persons
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="personsDropdown">
+                                            @role('admin')
+                                                <input type="text" id="personSearch1" class="form-control" placeholder="Search Persons...">
+                                                @foreach($persons as $person)
+                                                    <div class="form-check person-item">
+                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                @foreach($persons as $person)
+                                                    <div class="form-check person-item">
+                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                    </div>
+                                                @endforeach
+                                        @endrole
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                            </div>
+                                                    <div class="col-md-6 removedClass" id="displayClass">
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <button class="form-control dropdown-toggle" type="button" id="classDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Class
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="classDropdown">
+                                        <input type="text" id="classSearch" class="form-control" placeholder="Search Classes...">
+                                        @foreach($clas as $cl)
+                                            <div class="form-check class-item">
+                                                <input type="radio" name="class" id="class_{{ $cl->id }}" value="{{ $cl->id }}" class="form-check-input">
+                                                <label class="form-check-label" for="class_{{ $cl->id }}">{{ $cl->class_name }}</label>
                                             </div>
                                         @endforeach
-                                
-                                        @elserole('supervisor')
-                                                    @foreach($persons as $person)
-                                                        @if (Auth::user()->dep_id == $person->dep_id)
-                                                            <div class="form-check">
-                                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
-                                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
-                                                            </div>
-                                                        @endif
-                                                    @endforeach
-                                                    @else
-                                                    @foreach($persons as $person)
-                                                    @if (Auth::user()->userID == $person->userID)
-                                                    <div class="form-check">
-                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ Auth::user()->userID }}" class="form-check-input">
-                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ Auth::user()->name  }}</label>
-                                                    </div>
-                                                    @endif
-                                                    @endforeach
-                                                    @endrole
-                                                </div>
-                                            </div>
-                                  
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 removedClass" id="displayClass">
-                                    <div class="form-group">
-                                        <div class="dropdown">
-                                            <button class="form-control dropdown-toggle" type="button" id="classDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Select Class
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown">
-                                                <input type="text" id="classSearch" class="form-control" placeholder="Search...">
-                                                <div class="dropdown-divider"></div>
-                                                @foreach($clas as $cl)
-                                                    <a class="dropdown-item class-item" href="#" data-value="{{$cl->id}}">{{$cl->class_name}}</a>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="class" id="cls" value="">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        </div>
+                        </div> 
                         <div class="row">
                             <div class="form-group">
                                 <div class="dowPicker">
@@ -342,7 +369,7 @@ setTimeout(function() {
                         </div>
                         <div class="row justify-content-center given-mar">
                             <div class="col-lg-7">
-                                <div class="row">
+                                <dicv class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="activity">Activity</label>
@@ -368,83 +395,61 @@ setTimeout(function() {
                                     </div>
                                     <br>
                                     <br>
+
                                     <div class="col-md-6 hidden" id="showPerson">
-                                <div class="form-group">
                                     <label for="Persons[]">Person</label>
-                                    <div class="dropdown">
-                                        <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Select Persons
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="personsDropdown">
-                                            @role('admin')
-                                            <input type="text" id="classSearch" class="form-control" placeholder="Search Person...">
-                                                @foreach($persons as $person)
-                                                    <div class="form-check person-item" data-name="{{ $person->name }}">
-                                                        <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
-                                                        <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
-                                                    </div>
-                                                @endforeach
-                                            @elserole('supervisor')
-                                                @foreach($persons as $person)
-                                                    @if(Auth::user()->dep_id == $person->dep_id)
-                                                        <div class="form-check">
-                                                            <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
-                                                            <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                    <div class="form-group">
+                                            <div class="dropdown">
+                                                <button class="form-control dropdown-toggle" type="button" id="personsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Select Persons
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="personsDropdown">
+                                                    @role('admin')
+                                                        <input type="text" id="personSearch2" class="form-control" placeholder="Search Persons...">
+                                                        @foreach($persons as $person)
+                                                            <div class="form-check person-item">
+                                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach($persons as $person)
+                                                            <div class="form-check person-item">
+                                                                <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ $person->userID }}" class="form-check-input">
+                                                                <label class="form-check-label" for="person_{{ $person->userID }}">{{ $person->name }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    @endrole
+                                                </div>
+                                            </div>
+                                                                            </div>
+                                    </div>
+                                  
+                                                                        <div class="col-md-6 hiddenClass" id="showClass">
+                                                            <div class="form-group">
+                                                                <label for="class">Class</label>
+                                                                <div class="dropdown">
+                                                                    <button class="form-control dropdown-toggle" type="button" id="classDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Select Class
+                                                                    </button>
+                                                                    <div class="dropdown-menu" aria-labelledby="classDropdown2">
+                                                                        <input type="text" id="classSearch2" class="form-control" placeholder="Search Classes...">
+                                                                        @foreach($clas as $cl)
+                                                                            <div class="form-check class-item2">
+                                                                                <input type="radio" name="class" id="class_{{ $cl->id }}" value="{{ $cl->id }}" class="form-check-input">
+                                                                                <label class="form-check-label" for="class_{{ $cl->id }}">{{ $cl->class_name }}</label>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                @foreach($persons as $person)
-                                                    @if (Auth::user()->userID == $person->userID)
-                                                        <div class="form-check">
-                                                            <input type="checkbox" name="persons[]" id="person_{{ $person->userID }}" value="{{ Auth::user()->userID }}" class="form-check-input">
-                                                            <label class="form-check-label" for="person_{{ $person->userID }}">{{ Auth::user()->name  }}</label>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            @endrole
-                                        </div>
-                                    </div>
-   
-                                            {{-- <select name="person" id="pers2" class="form-control person-input">
-                                                @role('admin')
-                                                <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                @endforeach
-
-                                                @elserole('supervisor')
-                                                <option value="" disabled selected>Select Person</option>
-                                                @foreach($person as $per)
-                                                @if (Auth::user()->department == $per->department)
-                                                <option value='{{$per->userID}}'>{{$per->name}}</option>
-                                                @endif
-                                                @endforeach
-                                                @else
-                                                <option value='{{ Auth::user()->userID}}'>{{ Auth::user()->name }}
-                                                </option>
-                                                @endrole
-
-                                            </select> --}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 hiddenClass" id="showClass">
-                                        <div class="form-group">
-                                            <label for="class">Class</label>
-                                            <select name="class" id="cls2" class="form-control class-input">
-                                                <option value="" disabled selected>Select Class</option>
-                                                @foreach($clas as $cl)
-                                                <option value='{{$cl->id}}'>{{$cl->class_name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="remarks">Remarks</label>
                                             <input type="text" name="remarks" id="" class="form-control" required>
                                         </div>
-                                        {{-- {{url('/')}}/data --}}
+                                 
                                     </div>
                                 </div>
                             </div>
@@ -469,7 +474,8 @@ setTimeout(function() {
                                 </div>
                             </div>
                         </div>
-
+                                    </div>
+                                    </div>
                     </div>
                 </div>
             </div>
@@ -509,9 +515,6 @@ setTimeout(function() {
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
 <script>
 $(document).ready(function() {
     $('.person-input').change(function() {
