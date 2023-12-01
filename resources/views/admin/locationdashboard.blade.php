@@ -58,6 +58,7 @@
 
 <body class="">
   <style>
+    .body{}
     /* CSS to set the text color based on background color */
     td[data-color="red"] {
         background-color: red;
@@ -207,6 +208,9 @@
             </div>
             
             <div class="d-flex">
+                <a class="btn btn-custom" href="{{url('/home')}}">
+                    <i class="ni ni-single-02 text-yellow"></i> Home
+                </a>
                 <a class="btn btn-custom mr-2" href="{{url('/admin')}}" target="_self">
                     <i class="ni ni-key-25 text-info"></i> Person Activity
                 </a>
@@ -216,9 +220,7 @@
                 <a class="btn btn-custom mr-2" href="{{url('/locationadmin')}}" target="_self">
                     <i class="ni ni-key-25 text-info"></i> Location Activity
                 </a>
-                <a class="btn btn-custom" href="{{url('/home')}}">
-                    <i class="ni ni-single-02 text-yellow"></i> Home
-                </a>
+                
             </div>
 
 
@@ -316,7 +318,7 @@
                                                     [$startTime, $endTime] = explode(' - ', $interval); // Splitting start and end times
                                                 @endphp
                                                 <th style="padding-right: 0.1rem; padding-left: 0.1rem;font-size: 12px; font-weight: bold;">
-                                                    <div>{{ $startTime }} <span> - </span></div>
+                                                    <div>{{ $startTime }} </div>
                                                     <div>{{ $endTime }}</div>
                                                 </th>
                                             @endforeach

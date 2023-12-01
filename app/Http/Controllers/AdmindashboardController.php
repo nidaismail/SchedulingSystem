@@ -67,7 +67,7 @@ class AdmindashboardController extends Controller
         $allLocations = Location::orderBy('location', 'asc')->get();
     
         $startTime = new DateTime('08:00');
-        $endTime = new DateTime('16:45');
+        $endTime = new DateTime('14:45');
         $interval = new DateInterval('PT15M');
     
         $timeIntervals = [];

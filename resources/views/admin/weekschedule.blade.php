@@ -56,7 +56,7 @@
     });
 </script>
 
-<body class="">
+
   <style>
     /* CSS to set the text color based on background color */
     td[data-color="red"] {
@@ -114,6 +114,9 @@
     overflow-y: hidden;
 } */
 </style>
+<body>
+    
+
     {{-- <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
             <!-- Toggler -->
@@ -256,7 +259,7 @@
                                         // dd($formattedDate);
                                       @endphp
                                     
-                                        <input type="date" id="filter_date" name="userdate" value="<?php echo date('Y-m-d', strtotime($currentdate)); ?>"/>
+                                        <input type="date" id="filter_date" name="userdate" value=""/>
                                     </form>
                                 </div> --}}
                             </div>

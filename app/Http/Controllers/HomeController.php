@@ -50,70 +50,75 @@ class HomeController extends Controller
     }
     public function store(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-            'persons' => 'required|array',
-            'persons.*' => 'integer',
-            'day' => 'required|array',
-            'activity' => 'required|integer',
-            'location' => 'required|integer',
-            'remarks' => 'string|nullable',
-        ]);
-    
-        $begin = new DateTime($request->start_date);
-        $end = new DateTime($request->end_date);
-        $end->setTime(0, 0, 1);
-        $interval = DateInterval::createFromDateString('1 day');
-        $period = new DatePeriod($begin, $interval, $end);
-    
-        // Check if the location is already booked for the specified time frame
-        $locationId = $request->location;
-        $startTime = $request->start_time;
-        $endTime = $request->end_time;
-        $selectedDays = $request->day;
+        try {
+            // Validate the request data
+            $request->validate([
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'start_time' => 'required|date_format:H:i',
+                'end_time' => 'required|date_format:H:i|after:start_time',
+                'persons' => 'required|array',
+                'persons.*' => 'integer',
+                'day' => 'required|array',
+                'activity' => 'required|integer',
+                'location' => 'required|integer',
+                'remarks' => 'string|nullable',
+            ]);
         
-        $existingSchedules = Schedule::where('location_id', $locationId)
-            ->whereIn('day', $selectedDays)
-            ->get();
+            $begin = new DateTime($request->start_date);
+            $end = new DateTime($request->end_date);
+            $end->setTime(0, 0, 1);
+            $interval = DateInterval::createFromDateString('1 day');
+            $period = new DatePeriod($begin, $interval, $end);
         
-        foreach ($existingSchedules as $existingSchedule) {
-            if (
-                ($startTime >= $existingSchedule->time_from && $startTime < $existingSchedule->time_to) ||
-                ($endTime > $existingSchedule->time_from && $endTime <= $existingSchedule->time_to) ||
-                ($startTime <= $existingSchedule->time_from && $endTime >= $existingSchedule->time_to)
-            ) {
-                return redirect()->back()->with('error', 'Location is already booked for ' . $existingSchedule->user->name . ' at this date and time.');
-            }
-        }        
-
-        // Loop through each selected person
-        foreach ($request->input('persons') as $selectedPersonId) {
-            foreach ($period as $dt) {
-                if (in_array($dt->format('l'), $request->day)) {
-                    $startDate = Carbon::parse($dt);
+            // Check if the location is already booked for the specified time frame
+            $locationId = $request->location;
+            $startTime = $request->start_time;
+            $endTime = $request->end_time;
+            $selectedDays = $request->day;
+            
+            $existingSchedules = Schedule::where('location_id', $locationId)
+                ->whereIn('day', $selectedDays)
+                ->get();
+            
+            foreach ($existingSchedules as $existingSchedule) {
+                if (
+                    ($startTime >= $existingSchedule->time_from && $startTime < $existingSchedule->time_to) ||
+                    ($endTime > $existingSchedule->time_from && $endTime <= $existingSchedule->time_to) ||
+                    ($startTime <= $existingSchedule->time_from && $endTime >= $existingSchedule->time_to)
+                ) {
+                    return redirect()->back()->with('error', 'Location is already booked for ' . $existingSchedule->user->name . ' at this date and time.');
+                }
+            }        
     
-                    // Create a new schedule for the current person
-                    $data = new Schedule();
-                    $data->date = $startDate;
-                    $data->time_from = $startTime;
-                    $data->time_to = $endTime;
-                    $data->day = $dt->format('l');
-                    $data->user_id = $selectedPersonId;
-                    $data->department = Auth::user()->dep_id;
-                    $data->class_id = $request->class;
-                    $data->activity_id = $request->activity;
-                    $data->location_id = $locationId;
-                    $data->remarks = $request->remarks;
-                    $data->save();
+            // Loop through each selected person
+            foreach ($request->input('persons') as $selectedPersonId) {
+                foreach ($period as $dt) {
+                    if (in_array($dt->format('l'), $request->day)) {
+                        $startDate = Carbon::parse($dt);
+        
+                        // Create a new schedule for the current person
+                        $data = new Schedule();
+                        $data->date = $startDate;
+                        $data->time_from = $startTime;
+                        $data->time_to = $endTime;
+                        $data->day = $dt->format('l');
+                        $data->user_id = $selectedPersonId;
+                        $data->department = Auth::user()->dep_id;
+                        $data->class_id = $request->class;
+                        $data->activity_id = $request->activity;
+                        $data->location_id = $locationId;
+                        $data->remarks = $request->remarks;
+                        $data->save();
+                    }
                 }
             }
+        
+            return redirect()->back()->with('success', 'Schedule added Successfully');
+        } catch (\Exception $e) {
+            // Catch any exception (including SQL errors) and redirect back with an error message
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
-    
-        return redirect()->back()->with('success', 'Schedule added Successfully');
     }
         // public function checkLocationAvailability(Request $request)
         // {
